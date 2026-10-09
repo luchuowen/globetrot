@@ -1,0 +1,371 @@
+<title>Globetrot Cargolink Homepage</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900;1,62..125,100..900&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+/* Concept: a short film about one container. Cinema-led (letterboxed opening, title cards, act structure, end credits),
+   with a pinned horizontal journey of real footage scrubbed by scroll, stacking mode cards, a live corridor radar,
+   the narrated explainer, and one amber container that travels from stage to stage. Port at Night palette, dark only. */
+:root{
+  --harbour:#060c17; --deck:#0b1626; --panel:#0e1a2c; --hull:#16253c; --steel:#2a3d5c; --fog:#9aa9bd; --flood:#eef2f7; --sodium:#f3a43b; --glow:#ffd08a; --go:#5fd39a;
+  --f-display:"Archivo","Arial Narrow",sans-serif; --f-body:"IBM Plex Sans",system-ui,sans-serif; --f-mono:"IBM Plex Mono",ui-monospace,monospace;
+  --gut:clamp(16px,4vw,64px); --ease:cubic-bezier(.22,.8,.2,1); color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--harbour);color:var(--flood);font-family:var(--f-body);font-size:16px;line-height:1.6;overflow-x:hidden}
+.mono{font-family:var(--f-mono);font-size:11.5px;letter-spacing:.2em;text-transform:uppercase}
+.amber{color:var(--sodium)}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:13px 22px;border-radius:999px;background:var(--sodium);color:#1a1006;font-weight:600;font-size:14px;border:0;cursor:pointer;font-family:var(--f-body);transition:transform .4s var(--ease),box-shadow .4s}
+.btn:hover{transform:translateY(-2px);box-shadow:0 10px 30px -10px rgba(243,164,59,.6)}
+.btn.g{background:transparent;color:var(--flood);box-shadow:inset 0 0 0 1px var(--steel)}
+.btn:focus-visible{outline:2px solid var(--sodium);outline-offset:3px}
+.h2{font-family:var(--f-display);font-weight:200;font-stretch:118%;text-transform:uppercase;letter-spacing:.03em;line-height:1;font-size:clamp(32px,4.6vw,72px);margin:12px 0 18px;text-wrap:balance}
+.h2 b{font-weight:800;color:var(--sodium)}
+.kick{display:flex;gap:14px;align-items:baseline;color:var(--fog)}
+.kick b{color:var(--sodium);font-weight:500}
+video{display:block}
+
+/* nav */
+.nav{position:fixed;inset:0 0 auto;z-index:60;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:calc(env(safe-area-inset-top,0px) + 16px) var(--gut) 16px;transition:background .4s,backdrop-filter .4s}
+.nav.solid{background:rgba(6,12,23,.78);backdrop-filter:blur(14px)}
+.brand{font-family:var(--f-display);font-weight:300;font-stretch:125%;letter-spacing:.32em;font-size:13px;text-transform:uppercase;white-space:nowrap}
+.brand b{font-weight:700}
+.nav .links{display:flex;gap:28px;font-size:13px;color:var(--fog)}
+@media (max-width:900px){.nav .links{display:none}}
+
+/* ===== 1. Opening scene ===== */
+.open{padding-top:calc(env(safe-area-inset-top,0px) + 72px)}
+.screen{position:relative;width:100%;aspect-ratio:2.39/1;max-height:84svh;overflow:hidden;background:#000}
+@media (max-width:760px){.screen{aspect-ratio:4/5}}
+.screen video,.screen img.poster{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform-origin:50% 60%}
+.screen::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 80% 70% at 50% 45%,transparent 35%,rgba(0,0,0,.7)),linear-gradient(180deg,rgba(6,12,23,.25),transparent 30%,transparent 55%,rgba(6,12,23,.85));pointer-events:none}
+.grain{position:absolute;inset:-50%;z-index:2;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E");opacity:.08;animation:grain 1s steps(4) infinite;pointer-events:none;mix-blend-mode:overlay}
+@keyframes grain{25%{transform:translate(-3%,2%)}50%{transform:translate(2%,-3%)}75%{transform:translate(-1%,-2%)}}
+.title-card{position:absolute;z-index:3;inset:auto var(--gut) 9% var(--gut);display:flex;flex-direction:column;gap:14px}
+.title-card .pre{color:var(--glow)}
+.h1{font-family:var(--f-display);font-weight:200;font-stretch:118%;text-transform:uppercase;letter-spacing:.04em;line-height:.98;font-size:clamp(34px,5.6vw,94px);margin:0;text-wrap:balance;text-shadow:0 4px 40px rgba(0,0,0,.5)}
+.h1 b{font-weight:800;color:var(--sodium)}
+.reel{display:flex;justify-content:space-between;gap:16px;padding:14px var(--gut);color:var(--fog);border-bottom:1px solid var(--hull)}
+.intro{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:24px;align-items:end;padding:clamp(40px,6vw,84px) var(--gut)}
+@media (max-width:760px){.intro{grid-template-columns:minmax(0,1fr)}}
+.intro p{margin:0;font-size:clamp(18px,1.9vw,26px);line-height:1.45;max-width:46ch}
+.intro p span{color:var(--fog)}
+.ctas{display:flex;gap:10px;flex-wrap:wrap}
+
+/* ===== 2. The journey (pinned horizontal, scrubbed footage) ===== */
+.journey{position:relative;height:100svh;overflow:hidden;background:#000}
+.jhead{position:absolute;z-index:5;top:calc(env(safe-area-inset-top,0px) + 80px);left:var(--gut);right:var(--gut);display:flex;justify-content:space-between;gap:16px;color:var(--fog)}
+.track{display:flex;height:100%;width:max-content;will-change:transform}
+.panel{position:relative;width:100vw;height:100%;flex:none;overflow:hidden}
+.panel video,.panel img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(1.12);will-change:transform}
+.panel::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(6,12,23,.92) 0%,rgba(6,12,23,.55) 38%,rgba(6,12,23,.05) 70%),linear-gradient(0deg,rgba(6,12,23,.9),transparent 40%);pointer-events:none}
+.pcopy{position:absolute;z-index:2;left:var(--gut);bottom:clamp(110px,16vh,170px);max-width:min(560px,86vw);display:grid;gap:12px}
+.act{color:var(--sodium)}
+.day{font-family:var(--f-display);font-weight:900;font-stretch:62%;font-size:clamp(110px,20vw,300px);line-height:.8;color:transparent;-webkit-text-stroke:1.5px rgba(238,242,247,.55);
+  background:linear-gradient(var(--sodium),var(--sodium)) 0 100%/100% var(--fill,0%) no-repeat;-webkit-background-clip:text;background-clip:text;font-variant-numeric:tabular-nums}
+.day small{font-size:.16em;-webkit-text-stroke:0;color:var(--fog);font-family:var(--f-mono);font-weight:400;letter-spacing:.2em;margin-left:.4em;vertical-align:top}
+.pcopy h3{font-family:var(--f-display);font-weight:200;font-stretch:118%;text-transform:uppercase;letter-spacing:.04em;font-size:clamp(26px,3.2vw,48px);line-height:1;margin:0}
+.pcopy h3 b{font-weight:800}
+.pcopy p{margin:0;color:#c9d3df;font-size:17px;max-width:42ch}
+.rail{position:absolute;z-index:5;left:var(--gut);right:var(--gut);bottom:52px;height:2px;background:rgba(238,242,247,.18)}
+.rail i{position:absolute;inset:0 auto 0 0;width:0;background:var(--sodium)}
+.cbox{position:absolute;top:-12px;left:0;width:46px;height:22px;margin-left:-23px;border-radius:2px;background:#f3a43b repeating-linear-gradient(90deg,rgba(0,0,0,.2) 0 2px,transparent 2px 6px);box-shadow:0 0 26px rgba(243,164,59,.7)}
+.stops{position:absolute;z-index:5;left:var(--gut);right:var(--gut);bottom:18px;display:flex;justify-content:space-between;color:var(--fog)}
+.stops span.on{color:var(--sodium)}
+
+/* ===== spine: the container travels from stage to stage ===== */
+.spine{position:relative}
+.spine > svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0}
+.spine .pb{fill:none;stroke:var(--hull);stroke-width:2;stroke-dasharray:2 10}
+.spine .pf{fill:none;stroke:var(--sodium);stroke-width:2.5}
+.spine .rider{position:absolute;left:0;top:0;z-index:4;width:58px;height:26px;margin:-13px 0 0 -29px;border-radius:2px;pointer-events:none;
+  background:#f3a43b repeating-linear-gradient(90deg,rgba(0,0,0,.18) 0 2px,transparent 2px 7px);box-shadow:0 0 30px rgba(243,164,59,.55),0 0 0 1px #ffd08a inset}
+.spine .rider::after{content:"GCLU 261009";position:absolute;left:4px;top:4px;font:600 7px var(--f-mono);color:#3a2205;letter-spacing:.05em}
+.spine > section{position:relative;z-index:1}
+
+/* ===== 3. Four ways in (stacking cards with footage) ===== */
+.modes{padding:clamp(80px,10vw,140px) var(--gut)}
+.stack{margin-top:48px}
+.svc{position:sticky;top:calc(env(safe-area-inset-top,0px) + 88px);min-height:min(68vh,640px);display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);margin-bottom:28px;background:var(--panel);border:1px solid var(--hull);border-radius:18px;overflow:hidden;transform-origin:50% 0;box-shadow:0 -30px 60px -30px rgba(0,0,0,.8)}
+.svc:nth-child(2){top:calc(env(safe-area-inset-top,0px) + 108px)}
+.svc:nth-child(3){top:calc(env(safe-area-inset-top,0px) + 128px)}
+.svc:nth-child(4){top:calc(env(safe-area-inset-top,0px) + 148px)}
+@media (max-width:860px){.svc{grid-template-columns:minmax(0,1fr)}}
+.svc .txt{padding:clamp(24px,4vw,52px);display:flex;flex-direction:column;gap:6px}
+.svc h3{font-family:var(--f-display);font-weight:200;font-stretch:118%;text-transform:uppercase;letter-spacing:.03em;font-size:clamp(36px,4.6vw,72px);line-height:.95;margin:14px 0 10px}
+.svc h3 b{font-weight:800;color:var(--sodium)}
+.svc .lead{color:var(--fog);margin:0 0 20px;max-width:36ch}
+.svc ul{list-style:none;padding:0;margin:auto 0 0;border-top:1px solid var(--hull)}
+.svc li{display:flex;justify-content:space-between;gap:16px;padding:13px 0;border-bottom:1px solid var(--hull);font-size:15px}
+.svc li span:last-child{color:var(--fog);font-family:var(--f-mono);font-size:12px;text-align:right}
+.svc .media{position:relative;min-height:280px;overflow:hidden}
+.svc .media video,.svc .media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(1.06)}
+.svc .media::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,var(--panel),transparent 30%);pointer-events:none}
+@media (max-width:860px){.svc .media::after{background:linear-gradient(0deg,var(--panel),transparent 40%)}}
+.svc .tag{position:absolute;z-index:2;right:16px;bottom:14px;color:var(--flood);background:rgba(6,12,23,.6);backdrop-filter:blur(6px);padding:6px 10px;border-radius:999px}
+
+/* ===== 4. Corridors radar ===== */
+.corr{padding:clamp(80px,10vw,140px) var(--gut)}
+.corr .head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.8fr);gap:24px;align-items:end;margin-bottom:28px}
+@media (max-width:860px){.corr .head{grid-template-columns:minmax(0,1fr)}}
+.corr .head p{color:var(--fog);margin:0;max-width:48ch}
+.console{border:1px solid var(--steel);border-radius:16px;background:var(--panel);overflow:hidden;box-shadow:0 40px 80px -40px rgba(0,0,0,.8)}
+.clocks{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));border-bottom:1px solid var(--hull)}
+.clocks div{padding:12px 14px;border-right:1px solid var(--hull);min-width:0}
+.clocks div:last-child{border-right:0;background:rgba(243,164,59,.08)}
+.clocks small{display:block;font-family:var(--f-mono);font-size:9.5px;letter-spacing:.14em;color:var(--fog);text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.clocks b{font-family:var(--f-mono);font-weight:500;font-size:17px;font-variant-numeric:tabular-nums}
+.clocks div:last-child b{color:var(--sodium)}
+@media (max-width:560px){.clocks{grid-template-columns:repeat(3,minmax(0,1fr))}.clocks div:nth-child(2),.clocks div:nth-child(4){display:none}}
+.radar{position:relative;height:clamp(360px,52vw,620px)}
+.radar canvas{position:absolute;inset:0;width:100%;height:100%}
+.radar .tag{position:absolute;left:14px;top:12px;color:var(--fog)}
+.radar .tag2{position:absolute;right:14px;top:12px;color:var(--fog)}
+.radar .xy{position:absolute;right:14px;bottom:12px;color:var(--fog)}
+.lanes{border-top:1px solid var(--hull);display:grid;grid-template-columns:repeat(4,minmax(0,1fr))}
+@media (max-width:560px){.lanes{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.lanes div{padding:12px 14px;border-right:1px solid var(--hull);min-width:0}
+.lanes div:last-child{border-right:0}
+.lanes small{display:block;font-family:var(--f-mono);font-size:10px;letter-spacing:.1em;color:var(--fog);text-transform:uppercase}
+.lanes b{display:block;font-size:14px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lanes span{font-family:var(--f-mono);font-size:12px;color:var(--sodium)}
+
+/* ===== 5. Explainer ===== */
+.explain{padding:clamp(80px,10vw,140px) var(--gut);display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:clamp(24px,4vw,64px);align-items:center}
+@media (max-width:900px){.explain{grid-template-columns:minmax(0,1fr)}}
+.explain p.lead{color:var(--fog);margin:0 0 24px;max-width:44ch;font-size:17px}
+.player{position:relative;aspect-ratio:16/9;max-width:100%;border-radius:14px;overflow:hidden;background:#000;border:1px solid var(--hull)}
+.player video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.55;filter:saturate(.8);transition:opacity .6s}
+.player.on video{opacity:.85}
+.player::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(6,12,23,.95),rgba(6,12,23,.15) 55%,rgba(6,12,23,.5));pointer-events:none}
+.player > *:not(video){z-index:2}
+.player .pt{position:absolute;left:24px;top:22px;right:24px;display:flex;justify-content:space-between;gap:10px;color:var(--fog)}
+.player .play{position:absolute;left:50%;top:46%;width:86px;height:86px;margin:-43px 0 0 -43px;border-radius:50%;background:var(--sodium);border:0;cursor:pointer;display:grid;place-items:center;box-shadow:0 0 0 14px rgba(243,164,59,.16);transition:transform .4s var(--ease)}
+.player .play:hover{transform:scale(1.06)}
+.player .play:focus-visible{outline:2px solid var(--flood);outline-offset:6px}
+.wave{position:absolute;left:24px;right:24px;bottom:56px;height:40px;display:flex;align-items:center;gap:3px}
+.wave i{flex:1;background:var(--steel);border-radius:2px;height:20%;transition:height .2s}
+.player.on .wave i{background:var(--sodium)}
+.chap{position:absolute;left:24px;right:24px;bottom:20px;display:flex;gap:4px}
+.chap span{flex:1;height:3px;background:var(--steel);position:relative;overflow:hidden}
+.chap span i{position:absolute;inset:0 auto 0 0;width:0;background:var(--sodium)}
+.chap span::after{content:attr(data-l);position:absolute;top:-18px;left:0;font:500 9.5px var(--f-mono);color:var(--fog);letter-spacing:.08em;white-space:nowrap;text-transform:uppercase}
+.chaps-l{position:absolute;left:24px;right:24px;bottom:28px;display:flex;gap:4px;font:500 9.5px var(--f-mono);color:var(--fog);letter-spacing:.08em;text-transform:uppercase}
+.chaps-l span{flex:1}
+@media (max-width:560px){.chaps-l{display:none}}
+.cap{position:absolute;left:0;right:0;bottom:112px;text-align:center;font-size:16px;color:var(--flood);text-shadow:0 2px 10px #000;padding-inline:24px}
+.narr{display:flex;align-items:center;gap:12px;margin-top:18px;color:var(--fog);font-size:14px}
+.narr i{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--sodium),#b86a12);display:grid;place-items:center;font-style:normal;color:#1a1006;font-weight:700}
+
+/* ===== 6. Credits ===== */
+.credits{padding:clamp(90px,11vw,150px) var(--gut);text-align:center;background:linear-gradient(transparent,#03070e 60%)}
+.role{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px;max-width:760px;margin:0 auto;padding:10px 0;text-align:left}
+.role span:first-child{text-align:right;color:var(--fog);font-family:var(--f-mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;padding-top:4px}
+.role span:last-child{font-family:var(--f-display);font-stretch:110%;font-weight:300;font-size:20px;letter-spacing:.04em}
+.end{margin-top:72px;display:grid;gap:22px;justify-items:center}
+footer{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;padding:22px var(--gut) calc(22px + env(safe-area-inset-bottom,0px));color:var(--fog);background:#03070e;border-top:1px solid var(--hull)}
+.wa{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:70;display:flex;align-items:center;gap:8px;padding:12px 16px;border-radius:999px;background:#0e1a2c;border:1px solid var(--steel);color:var(--flood);font-size:13px;font-weight:600;box-shadow:0 10px 30px rgba(0,0,0,.5);cursor:pointer}
+.wa i{width:9px;height:9px;border-radius:50%;background:var(--go);box-shadow:0 0 10px var(--go)}
+
+.note-stock{position:fixed;left:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:70;font-family:var(--f-mono);font-size:10.5px;letter-spacing:.08em;color:var(--fog);background:rgba(6,12,23,.8);border:1px solid var(--hull);padding:7px 10px;border-radius:6px;max-width:60vw}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.day{--fill:100%}}
+@media (max-width:640px){.note-stock{display:none}}
+</style>
+
+<header class="nav" id="nav">
+  <span class="brand"><b>Globetrot</b> Cargolink</span>
+  <nav class="links" aria-label="Main"><span>Services</span><span>Trade lanes</span><span>Import guide</span><span>Tools</span><span>Track</span></nav>
+  <button class="btn">Get a quote</button>
+</header>
+
+<!-- 1 · OPENING SCENE -->
+<section class="open" aria-label="Opening scene">
+  <div class="screen" id="screen">
+    <img class="poster" src="media/hero.jpg" alt="">
+    <video id="heroVid" src="media/hero.mp4" poster="media/hero.jpg" muted playsinline loop autoplay preload="auto" aria-label="Night aerial view of a container ship being worked at a port"></video>
+    <div class="grain" aria-hidden="true"></div>
+    <div class="title-card"><span class="mono pre">Globetrot Cargolink International presents</span><h1 class="h1">Cargo from anywhere. <b>Cleared</b> and delivered in Kenya.</h1></div>
+  </div>
+  <div class="reel mono"><span>Scene 01 · Mombasa · 03:14 EAT</span><span id="tc">00:00:00:00</span></div>
+  <div class="intro"><p>One container. Thirty days. One team accountable for every step. <span>Follow it from a factory floor to a shop in Nairobi, and see what we do along the way.</span></p><div class="ctas"><button class="btn">Get a quote →</button><button class="btn g">WhatsApp us</button></div></div>
+</section>
+
+<!-- 2 · THE JOURNEY -->
+<section class="journey" id="journey" aria-label="The journey of a typical sea shipment">
+  <div class="jhead mono"><span><b class="amber" style="font-weight:500">01</b> · The journey · typical sea shipment</span><span>Scroll →</span></div>
+  <div class="track" id="track"></div>
+  <div class="rail" aria-hidden="true"><i id="railfill"></i><span class="cbox" id="cbox"></span></div>
+  <div class="stops mono" id="stops"><span>Origin</span><span>Crossing</span><span>Gateway</span><span>Home</span></div>
+</section>
+
+<div class="spine" id="spine">
+  <svg aria-hidden="true" preserveAspectRatio="none"><path class="pb" id="pb"/><path class="pf" id="pf"/></svg>
+  <div class="rider" id="rider" aria-hidden="true"></div>
+
+  <!-- 3 · FOUR WAYS IN -->
+  <section class="modes" aria-label="What we move">
+    <div class="kick mono"><b>02</b><span>What we move</span></div>
+    <h2 class="h2">Four ways in. <b>One team</b> accountable for all of it.</h2>
+    <div class="stack" id="stack"></div>
+  </section>
+
+  <!-- 4 · CORRIDORS -->
+  <section class="corr" aria-label="Trade corridors">
+    <div class="head"><div><div class="kick mono"><b>03</b><span>Corridors</span></div><h2 class="h2">Every route <b>ends in Kenya.</b></h2></div><p>China, the Gulf, India and Europe, converging on Mombasa and JKIA, then onward by rail and road to Nairobi and the region. Clients see their own shipments on this map in the portal.</p></div>
+    <div class="console"><div class="clocks" id="clocks"></div>
+      <div class="radar"><canvas id="radar" aria-label="Stylised radar of the Indian Ocean showing vessels and flights converging on Mombasa"></canvas><span class="tag mono">Indian Ocean · inbound to Mombasa</span><span class="tag2 mono">Illustrative</span><span class="xy mono" id="xy">4.04°S 39.67°E</span></div>
+      <div class="lanes" id="lanes"></div></div>
+  </section>
+
+  <!-- 5 · EXPLAINER -->
+  <section class="explain" aria-label="Explainer film">
+    <div><div class="kick mono"><b>04</b><span>Watch · 90 seconds</span></div><h2 class="h2">How importing with us <b>works</b></h2>
+      <p class="lead">Narrated by our team, with captions and a full transcript. Nine short films on the site explain customs, landed cost, LCL and FCL, KEBS certificates and importing a car.</p>
+      <button class="btn g">See all explainers →</button>
+      <div class="narr"><i>C</i><span>Narrated by Christine · Globetrot Cargolink</span></div></div>
+    <div class="player" id="player">
+      <video src="media/j3.mp4" poster="media/j3.jpg" muted playsinline loop preload="metadata" aria-hidden="true"></video>
+      <div class="pt mono"><span>Explainer 01</span><span id="pt">0:00 / 1:30</span></div>
+      <button class="play" id="play" aria-label="Play preview"><svg width="26" height="26" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4l13 8-13 8z" fill="#1a1006"/></svg></button>
+      <div class="cap" id="cap">"Tell us what you're shipping. We'll handle the rest."</div>
+      <div class="wave" id="wave"></div>
+      <div class="chaps-l"><span>Quote</span><span>Collect</span><span>Ship</span><span>Clear</span><span>Deliver</span></div>
+      <div class="chap" id="chap"><span><i></i></span><span><i></i></span><span><i></i></span><span><i></i></span><span><i></i></span></div>
+    </div>
+  </section>
+
+  <!-- 6 · CREDITS -->
+  <section class="credits" aria-label="Services">
+    <span class="mono amber">Starring</span>
+    <div style="margin-top:28px">
+      <div class="role"><span>Air freight</span><span>Into JKIA · express & consolidated</span></div>
+      <div class="role"><span>Sea freight</span><span>FCL & LCL into Mombasa</span></div>
+      <div class="role"><span>Consolidation</span><span>Many suppliers, one container</span></div>
+      <div class="role"><span>Customs clearing</span><span>KRA iCMS · KenTrade · PVoC</span></div>
+      <div class="role"><span>Land & transit</span><span>Northern Corridor to UG · RW · SS · DRC</span></div>
+      <div class="role"><span>Warehousing</span><span>Storage & distribution, Nairobi</span></div>
+      <div class="role"><span>Import advisory</span><span>Sourcing support & compliance</span></div>
+    </div>
+    <div class="end"><h2 class="h2" style="margin:0">Your shipment is <b>the next story</b></h2><div class="ctas" style="justify-content:center"><button class="btn">Get a quote →</button><button class="btn g">WhatsApp us</button></div></div>
+  </section>
+</div>
+<footer class="mono"><span>© 2026 Globetrot Cargolink International</span><span>Nairobi · 1.29°S 36.82°E</span></footer>
+<button class="wa" aria-label="Chat on WhatsApp"><i></i>WhatsApp the desk</button>
+<div class="note-stock">Preview footage: Pexels stock. Final site uses our own and generated footage.</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+(function(){
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const $=id=>document.getElementById(id);
+
+/* nav */
+addEventListener('scroll',()=>$('nav').classList.toggle('solid',scrollY>40),{passive:true});
+
+/* hero timecode */
+const hv=$('heroVid');
+(function tc(){const t=(hv.currentTime||0)+0;const f=Math.floor(t*24);$('tc').textContent=['03','14',String(Math.floor(f/24)%60).padStart(2,'0'),String(f%24).padStart(2,'0')].join(':');requestAnimationFrame(tc)})();
+if(reduce){hv.removeAttribute('autoplay');hv.pause()}
+
+/* journey */
+const CH=[
+ ['j1','I','Origin','0','The <b>factory</b>','Your supplier packs the order. We confirm pickup, check the paperwork and book collection.'],
+ ['j2','I','Origin','2','Origin <b>warehouse</b>','Every carton is received, checked and photographed, then consolidated with your other suppliers\' goods.'],
+ ['j3','II','Crossing','5','On the <b>water</b>','Booked, documented and insured on the main leg across the Indian Ocean. You get a WhatsApp update when it sails.'],
+ ['j4','III','Gateway','27','<b>Mombasa</b>','Discharged at the port. Your entry is already prepared on KRA iCMS, so clearing starts the moment it lands.'],
+ ['j5','III','Gateway','28','The <b>SGR</b>','Railed overnight on the standard-gauge line from Mombasa to the Nairobi Inland Container Depot.'],
+ ['j6','III','Gateway','29','<b>Released</b>','Duties paid, IDF 2.5% and RDL 2% settled, release order issued. No runaround, no surprise charges.'],
+ ['j7','IV','Home','30','Your <b>door</b>','Delivered in Nairobi, or onward to Kampala, Kigali or Juba, with a WhatsApp update at every step.']
+];
+$('track').innerHTML=CH.map((c,i)=>`<article class="panel" data-i="${i}"><img src="media/${c[0]}.jpg" alt=""><video src="media/${c[0]}.mp4" poster="media/${c[0]}.jpg" muted playsinline preload="auto" aria-hidden="true"></video>
+  <div class="pcopy"><span class="mono act">Act ${c[1]} · ${c[2]} · Chapter ${i+1} of 7</span><div class="day" aria-label="Day ${c[3]}">${c[3]}<small>DAY</small></div><h3>${c[4]}</h3><p>${c[5]}</p></div></article>`).join('');
+const panels=[...document.querySelectorAll('.panel')],pv=panels.map(p=>p.querySelector('video'));
+const stops=[...$('stops').children],actIdx=[0,0,1,2,2,2,3];
+
+/* services */
+const SV=[
+ ['air','Air <b>freight</b>','Urgent and high-value cargo into JKIA, express or consolidated.',[['Express','2–7 days from China'],['Consolidated','weekly'],['Door to door','Nairobi & upcountry'],['Chargeable weight','÷ 6000']],'JKIA'],
+ ['sea','Sea <b>freight</b>','FCL and LCL into Mombasa, railed to Nairobi ICD on the SGR.',[['FCL','20′ · 40′ · 40′HC'],['LCL','per CBM'],['RoRo','vehicles & machinery'],['Gateways','Mombasa · Lamu']],'Mombasa'],
+ ['road','Land & <b>transit</b>','Haulage across Kenya and the Northern Corridor to Uganda, Rwanda, South Sudan and DRC.',[['FTL / LTL','Kenya-wide'],['Container haulage','Mombasa · ICD'],['Transit','Malaba · Busia'],['Last mile','Nairobi']],'Northern Corridor'],
+ ['cus','Customs <b>clearing</b>','Entries lodged on KRA iCMS, permits through KenTrade, cargo released fast.',[['HS classification','EAC CET bands'],['iCMS entry','lodged & tracked'],['Permits','KEBS · KEPHIS · PPB'],['PVoC / CoC','guidance']],'iCMS · KenTrade']
+];
+$('stack').innerHTML=SV.map((s,i)=>`<article class="svc"><div class="txt"><span class="mono amber">0${i+1} / 04</span><h3>${s[1]}</h3><p class="lead">${s[2]}</p><ul>${s[3].map(r=>`<li><span>${r[0]}</span><span>${r[1]}</span></li>`).join('')}</ul></div>
+  <div class="media"><img src="media/${s[0]}.jpg" alt=""><video src="media/${s[0]}.mp4" poster="media/${s[0]}.jpg" muted playsinline loop preload="metadata" aria-hidden="true"></video><span class="tag mono">${s[4]}</span></div></article>`).join('');
+const svcV=[...document.querySelectorAll('.svc video')];
+const io=new IntersectionObserver(es=>es.forEach(e=>{const v=e.target;if(e.isIntersecting&&!reduce){v.play().catch(()=>{})}else v.pause()}),{threshold:.25});
+svcV.forEach(v=>io.observe(v));
+
+/* explainer */
+const wave=$('wave');wave.innerHTML=Array.from({length:64},()=>'<i></i>').join('');const bars=[...wave.children];
+const CAPS=['"Tell us what you\'re shipping. We\'ll handle the rest."','"We collect from your supplier and check every carton."','"We book the main leg and send you the paperwork."','"Your entry is lodged on iCMS before the ship arrives."','"Then it\'s delivered to your door, with updates on WhatsApp."'];
+const chapI=[...$('chap').querySelectorAll('i')];const pvid=$('player').querySelector('video');
+let on=false,timer,k=0;
+$('play').addEventListener('click',()=>{on=!on;$('player').classList.toggle('on',on);$('play').setAttribute('aria-label',on?'Pause preview':'Play preview');clearInterval(timer);
+  if(on){pvid.play().catch(()=>{});timer=setInterval(()=>{k++;bars.forEach(b=>b.style.height=(15+Math.random()*85)+'%');const s=Math.floor(k/4)%90;const c=Math.min(4,Math.floor(s/18));$('cap').textContent=CAPS[c];chapI.forEach((el,j)=>el.style.width=j<c?'100%':j===c?((s%18)/18*100)+'%':'0');$('pt').textContent=`${Math.floor(s/60)}:${String(s%60).padStart(2,'0')} / 1:30`},120)}
+  else{pvid.pause();bars.forEach(b=>b.style.height='20%')}});
+
+/* clocks + lanes */
+const Z=[['Guangzhou','Asia/Shanghai'],['Dubai','Asia/Dubai'],['Mumbai','Asia/Kolkata'],['London','Europe/London'],['Nairobi','Africa/Nairobi']];
+$('clocks').innerHTML=Z.map(z=>`<div><small>${z[0]}</small><b data-tz="${z[1]}">--:--</b></div>`).join('');
+const tick=()=>document.querySelectorAll('[data-tz]').forEach(b=>b.textContent=new Intl.DateTimeFormat('en-GB',{hour:'2-digit',minute:'2-digit',second:'2-digit',timeZone:b.dataset.tz}).format(new Date()));tick();setInterval(tick,1000);
+$('lanes').innerHTML=[['China → Mombasa','Sea · 22–30 d'],['Gulf → Mombasa','Sea · direct'],['India → Mombasa','Sea · direct'],['China → JKIA','Air · 2–7 d']].map(l=>`<div><small>Lane</small><b>${l[0]}</b><span>${l[1]}</span></div>`).join('');
+
+/* radar */
+const cv=$('radar'),ctx=cv.getContext('2d');let W=0,H=0;const box={lo0:25,lo1:122,la0:-18,la1:46};
+const px=(lo,la)=>[(lo-box.lo0)/(box.lo1-box.lo0)*W,(box.la1-la)/(box.la1-box.la0)*H];
+const LAND=[[[25,46],[36,46],[36,36],[32,31],[34,28],[39,22],[43,13],[51,11],[51,12],[44,10],[40,2],[39,-4],[40,-10],[40,-18],[25,-18]],[[36,36],[44,37],[48,30],[50,26],[56,26],[57,24],[60,22],[55,17],[52,16],[45,13],[43,13],[39,22],[34,28],[36,31]],[[48,30],[52,37],[62,37],[62,25],[57,25],[56,26.5],[50,29]],[[62,25],[67,24],[70,21],[73,17],[75,12],[77,8],[80,10],[80,15],[87,21],[91,22],[92,20],[94,16],[98,16],[98,9],[100,6],[103,1],[104,1.5],[103,8],[105,10],[109,12],[108,19],[110,21],[117,23],[121,28],[122,31],[122,46],[62,46]],[[95,5],[98,4],[102,-1],[106,-6],[101,-4],[96,3]],[[110,-7],[114,-8],[110,-8.6],[106,-7]],[[109,1],[118,7],[119,1],[116,-4],[110,-3]],[[79.8,8],[81.8,7.5],[81,6],[80,6.2]],[[44,-12],[50,-15],[49,-18],[44,-18],[43,-15]]];
+const LANES=[{n:'GZ',pts:[[113.5,22.5],[110,16],[105,7],[103.6,1.3],[98,5.5],[88,6],[80,5.5],[70,2],[55,-2],[39.67,-4.05]],c:'#f3a43b'},{n:'JEA',pts:[[55,25],[57,24.5],[60,22],[58,17],[50,8],[44,0],[39.67,-4.05]],c:'#f3a43b'},{n:'NSA',pts:[[72.8,18.9],[68,13],[58,5],[47,-1],[39.67,-4.05]],c:'#f3a43b'},{n:'SUZ',pts:[[32.5,30],[33,27.5],[38,20],[42,14],[43.4,12.6],[47,12],[51,11.5],[52,8],[46,0],[39.67,-4.05]],c:'#9fb3cc'},{n:'AIR',pts:[[113.3,23.1],[90,15],[60,6],[36.9,-1.3]],c:'#5fd39a',air:true}];
+const L_=p=>{let L=0;for(let i=1;i<p.length;i++)L+=Math.hypot(p[i][0]-p[i-1][0],p[i][1]-p[i-1][1]);return L};
+const at=(p,t)=>{const L=L_(p)*t;let a=0;for(let i=1;i<p.length;i++){const s=Math.hypot(p[i][0]-p[i-1][0],p[i][1]-p[i-1][1]);if(a+s>=L){const k=(L-a)/s;return[p[i-1][0]+(p[i][0]-p[i-1][0])*k,p[i-1][1]+(p[i][1]-p[i-1][1])*k]}a+=s}return p[p.length-1]};
+const SHIPS=LANES.flatMap((l,li)=>[0,.33,.66].map(o=>({l,o:(o+li*.13)%1})));
+function rsize(){const b=cv.getBoundingClientRect(),d=Math.min(devicePixelRatio||1,2);W=b.width;H=b.height;cv.width=W*d;cv.height=H*d;ctx.setTransform(d,0,0,d,0,0)}
+addEventListener('resize',()=>{W=0});
+cv.addEventListener('pointermove',e=>{const r=cv.getBoundingClientRect();const lo=box.lo0+(e.clientX-r.left)/r.width*(box.lo1-box.lo0),la=box.la1-(e.clientY-r.top)/r.height*(box.la1-box.la0);$('xy').textContent=`${Math.abs(la).toFixed(2)}°${la<0?'S':'N'} ${lo.toFixed(2)}°E`});
+let rvis=false;new IntersectionObserver(es=>{rvis=es[0].isIntersecting;if(rvis)requestAnimationFrame(draw)}).observe(cv);
+const t0=performance.now();
+function draw(now){if(!W)rsize();ctx.clearRect(0,0,W,H);
+  ctx.strokeStyle='rgba(42,61,92,.45)';ctx.lineWidth=1;for(let lo=30;lo<=120;lo+=10){const[x]=px(lo,0);ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,H);ctx.stroke()}for(let la=-10;la<=40;la+=10){const[,y]=px(0,la);ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(W,y);ctx.stroke()}
+  const[,ey]=px(0,0);ctx.strokeStyle='rgba(243,164,59,.25)';ctx.setLineDash([3,5]);ctx.beginPath();ctx.moveTo(0,ey);ctx.lineTo(W,ey);ctx.stroke();ctx.setLineDash([]);
+  ctx.fillStyle='rgba(147,163,184,.35)';LAND.forEach(poly=>{ctx.beginPath();poly.forEach((p,i)=>{const[x,y]=px(p[0],p[1]);i?ctx.lineTo(x,y):ctx.moveTo(x,y)});ctx.closePath();ctx.save();ctx.clip();const s=Math.max(5,W/130);for(let x=0;x<W;x+=s)for(let y=0;y<H;y+=s)ctx.fillRect(x,y,1.4,1.4);ctx.restore()});
+  LANES.forEach(l=>{ctx.beginPath();l.pts.forEach((p,i)=>{const[x,y]=px(p[0],p[1]);i?ctx.lineTo(x,y):ctx.moveTo(x,y)});ctx.strokeStyle=l.air?'rgba(95,211,154,.35)':'rgba(243,164,59,.28)';ctx.setLineDash(l.air?[2,6]:[]);ctx.lineWidth=1.2;ctx.stroke();ctx.setLineDash([])});
+  const[mx,my]=px(39.67,-4.05),ang=((now-t0)/4000)%1*Math.PI*2,Rr=Math.hypot(W,H);
+  if(ctx.createConicGradient&&!reduce){const g=ctx.createConicGradient(ang-0.6,mx,my);g.addColorStop(0,'rgba(243,164,59,0)');g.addColorStop(.09,'rgba(243,164,59,.16)');g.addColorStop(.1,'rgba(243,164,59,0)');ctx.fillStyle=g;ctx.beginPath();ctx.arc(mx,my,Rr,0,7);ctx.fill()}
+  ctx.strokeStyle='rgba(243,164,59,.18)';[60,120,200].forEach(r=>{ctx.beginPath();ctx.arc(mx,my,r,0,7);ctx.stroke()});
+  SHIPS.forEach((s,i)=>{const sp=s.l.air?9000:26000;const t=(s.o+(reduce?0:(now-t0)/sp))%1;const[lo,la]=at(s.l.pts,t);const[x,y]=px(lo,la);ctx.fillStyle=s.l.c;ctx.beginPath();if(s.l.air){ctx.moveTo(x,y-4);ctx.lineTo(x+4,y+3);ctx.lineTo(x-4,y+3);ctx.closePath()}else ctx.arc(x,y,2.8,0,7);ctx.fill();
+    if(i%3===0){ctx.font='500 9.5px "IBM Plex Mono",monospace';ctx.fillStyle='rgba(238,242,247,.75)';const eta=Math.max(1,Math.round((1-t)*(s.l.air?5:26)));ctx.fillText(`${s.l.n}·${String(i).padStart(2,'0')}  ETA ${eta}d`,x+7,y-6)}});
+  [['MOMBASA',39.67,-4.05],['NAIROBI',36.82,-1.29],['GUANGZHOU',113.3,23.1],['JEBEL ALI',55,25],['NHAVA SHEVA',72.8,18.9],['SUEZ',32.5,30]].forEach((p,k)=>{const[x,y]=px(p[1],p[2]);ctx.fillStyle=k<2?'#f3a43b':'#eef2f7';ctx.fillRect(x-2.5,y-2.5,5,5);ctx.font='600 9.5px "IBM Plex Mono",monospace';ctx.fillStyle=k<2?'#f3a43b':'rgba(238,242,247,.7)';ctx.fillText(p[0],x+(k===1?-58:7),y+(k===1?-6:4))});
+  const ph=((now-t0)/1500)%1;ctx.strokeStyle=`rgba(243,164,59,${1-ph})`;ctx.beginPath();ctx.arc(mx,my,4+ph*20,0,7);ctx.stroke();
+  if(rvis&&!reduce)requestAnimationFrame(draw)}
+requestAnimationFrame(draw);
+
+/* spine path (stage to stage) */
+const spine=$('spine'),svg=spine.querySelector('svg'),pb=$('pb'),pf=$('pf'),rider=$('rider');let SL=0,sp=0;
+function buildSpine(){const w=spine.clientWidth,h=spine.clientHeight;svg.setAttribute('viewBox',`0 0 ${w} ${h}`);
+  const secs=[...spine.querySelectorAll(':scope > section')];const pts=secs.map((s,i)=>[i%2?w*.06:w*.94,s.offsetTop+30]);pts.push([w*.5,h-40]);
+  let d=`M ${w*.5} 0`;let prev=[w*.5,0];pts.forEach(p=>{const mid=(prev[1]+p[1])/2;d+=` C ${prev[0]} ${mid}, ${p[0]} ${mid}, ${p[0]} ${p[1]}`;prev=p});
+  pb.setAttribute('d',d);pf.setAttribute('d',d);SL=pf.getTotalLength();pf.style.strokeDasharray=SL;setSpine(sp)}
+function setSpine(p){sp=p;if(!SL)return;pf.style.strokeDashoffset=SL*(1-p);const a=pf.getPointAtLength(SL*p),b=pf.getPointAtLength(Math.min(SL,SL*p+2));rider.style.transform=`translate(${a.x}px,${a.y}px) rotate(${Math.atan2(b.y-a.y,b.x-a.x)*180/Math.PI}deg)`}
+
+/* motion */
+function scrub(v,p){if(!v||!v.duration||isNaN(v.duration))return;const t=Math.max(0,Math.min(v.duration-.05,p*v.duration));if(Math.abs(v.currentTime-t)>1/30)v.currentTime=t}
+if(window.gsap&&!reduce){
+  gsap.registerPlugin(ScrollTrigger);
+  gsap.from('.title-card > *',{y:30,opacity:0,duration:1.4,stagger:.25,ease:'power3.out',delay:.2});
+  gsap.to('#heroVid',{scale:1.12,ease:'none',scrollTrigger:{trigger:'#screen',start:'top top',end:'bottom top',scrub:true}});
+  const track=$('track'),dist=()=>track.scrollWidth-innerWidth;
+  gsap.to(track,{x:()=>-dist(),ease:'none',scrollTrigger:{trigger:'#journey',pin:true,scrub:.6,end:()=>'+='+dist()*1.15,invalidateOnRefresh:true,
+    onUpdate:s=>{const p=s.progress,n=CH.length;const f=p*(n-1);$('railfill').style.width=(p*100)+'%';$('cbox').style.left=(p*100)+'%';
+      const cur=Math.round(f);stops.forEach((el,j)=>el.classList.toggle('on',j===actIdx[cur]));
+      panels.forEach((el,i)=>{const local=Math.max(0,Math.min(1,(f-i)+.5));const near=Math.abs(f-i)<1.2;
+        if(near)scrub(pv[i],local);el.querySelector('.day').style.setProperty('--fill',(Math.max(0,Math.min(1,1-Math.abs(f-i)*1.4))*100)+'%');
+        const vid=pv[i];if(vid)vid.style.transform=`scale(${1.12-.08*local}) translateX(${(i-f)*-6}%)`;})}}});
+  document.querySelectorAll('.svc').forEach((c,i,all)=>{if(i<all.length-1)gsap.to(c,{scale:.93,opacity:.45,ease:'none',scrollTrigger:{trigger:all[i+1],start:'top bottom',end:'top 25%',scrub:true}})});
+  ScrollTrigger.create({trigger:spine,start:'top 55%',end:'bottom 70%',scrub:.6,onUpdate:s=>setSpine(s.progress),onRefresh:buildSpine});
+  gsap.from('.role',{y:24,opacity:0,stagger:.07,duration:.8,scrollTrigger:{trigger:'.credits',start:'top 70%'}});
+  if(document.fonts)document.fonts.ready.then(()=>ScrollTrigger.refresh());
+  pv.forEach(v=>v.addEventListener('loadedmetadata',()=>ScrollTrigger.update()));
+}else{document.querySelectorAll('.day').forEach(d=>d.style.setProperty('--fill','100%'));setSpine(1)}
+buildSpine();addEventListener('resize',buildSpine);
+})();
+</script>
