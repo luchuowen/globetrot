@@ -550,8 +550,8 @@ Scripts are written in build #6b from §7 facts, approved by the owner before re
 | 13 | Hosting choice; analytics choice; Resend/sending domain | build #0, #2 |
 | 14 | Logo direction pick (3 options) and tagline pick (§1.4) | everything |
 | 15 | Social accounts created by owner; NAVAC added as admin | footer, social kit |
-| 16 | **Christine's consent; real recording vs licensed voice clone** | explainers |
-| 17 | Video route (real footage / AI-generated / stock) + budget cap | §6.3 |
+| 16 | **Christine's signed consent for voice clone (decided: clone)** | explainers |
+| 17 | Video budget cap (decided: AI-generated, real footage swapped in later) | §6.3 |
 | 18 | Tracking API provider (paid) — phase 2 | /track |
 | 19 | Portal back office: new Firebase ops console or NAVAC CRM integration; payment rail | portal |
 
