@@ -1,6 +1,6 @@
 # Globetrot Cargolink International — Website Blueprint
 
-Version 1.0 · 2026-10-09 · Owner sign-off required before build · Source of truth for every page change.
+Version 1.1 · 2026-10-09 (v1.1: experience layer, full toolset, client portal, video & voice, social, 9.8 scorecard) · Owner sign-off required before build · Source of truth for every page change.
 Build agents: read §1–§3 once, then only the section of the page you are building.
 
 ---
@@ -17,7 +17,7 @@ Build agents: read §1–§3 once, then only the section of the page you are bui
 | 6 | Image slots + generation guide | generating/placing images |
 | 7 | Verified Kenya trade facts | any page quoting rates, rules, places |
 | 8 | Open facts (`{{OWNER: …}}`) | before launch; owner fills these |
-| 9 | Definition of done + launch checklist | `/verify`, launch |
+| 9 | Definition of done, launch checklist, 9.8 scorecard | `/verify`, launch |
 
 Rule: anything marked `{{OWNER: …}}` is unknown. It renders as a neutral fallback in dev and blocks launch
 (§9). Never replace it with an invented value.
@@ -79,16 +79,21 @@ honest timelines and a person who answers.
 | Concern | Choice | Why |
 |---|---|---|
 | Framework | **Astro 5** (static output, TypeScript strict) | content site; ships ~0 JS; best Core Web Vitals; cheap to verify |
-| Interactivity | Astro islands with **Preact** for tools/forms only | small bundles where JS is needed |
+| Interactivity | Astro islands with **Preact** for tools, forms, portal | small bundles where JS is needed |
+| Motion | **GSAP + ScrollTrigger** (scroll-scrubbed timelines, pinned chapters), **Lenis** smooth scroll, View Transitions between pages, SplitText-style line reveals (own utility) | award-level motion with one engine |
+| 3D | **Three.js** route globe in home hero (lazy, GPU-tier aware; falls back to looping video, then to still) | signature moment |
+| Video | Self-hosted MP4 (H.264) + WebM (AV1/VP9) loops ≤ 2.5 MB each, poster frames; long-form explainers on **Cloudflare Stream or Mux** (HLS, adaptive) — `{{OWNER: pick}}`; YouTube mirrors for SEO/social | cinematic without killing load time |
+| Explainers | **Remotion** (React motion graphics in repo `/video`) — scripted, versioned, re-renderable when facts change; voice-over by **Christine** (§6.4) + burned-in captions | process explainers that stay accurate |
+| AI assistant | `/api/assistant` → Claude API, grounded only on §7 facts + FAQ + service/lane content; hands off to WhatsApp/human; logs questions to improve FAQ | 24/7 answers without fake "24/7 staff" claims |
+| Data | **Firebase** (Auth, Firestore, Storage, Functions) for portal, tracking, schedules, quote records | Owen's stack; pay-as-you-go, budget alerts |
+| Maps | SVG corridor map (animated) + **MapLibre GL** with free vector tiles for the Track page | live vessel/flight position without Google Maps cost |
 | Styling | CSS custom properties in `src/styles/tokens.css` + scoped component CSS | design-direction swap = one file |
 | Content | Astro **content collections** (`src/content/{services,lanes,industries,insights,faq}`) as MDX/JSON | one template renders many pages → fastest build, fewest tokens |
 | Images | `astro:assets` (AVIF/WebP, responsive `srcset`), source files in `src/assets/img/<slot-id>.jpg` | performance + gate against hotlinks |
-| Motion | CSS + View Transitions; **GSAP** only for the hero route-map animation | premium feel, small cost |
-| Maps | inline SVG corridor map (no map API) + one lazy Google Maps embed on Contact | fast, no key needed |
 | Forms | `/api/quote` + `/api/contact` server endpoints (Astro hybrid) → email via **Resend**; honeypot + rate limit; WhatsApp fallback | critical path |
 | Hosting | **Vercel** (or Firebase Hosting + Cloud Function) — `{{OWNER: hosting choice}}` | preview URLs per branch |
 | Analytics | Plausible or GA4 — `{{OWNER}}`; events: quote_submit, whatsapp_click, calc_use | measure conversions |
-| Checks | `astro check` (typecheck), Playwright smoke (each route 200, no console errors, 390/1440 screenshots), Lighthouse CI budget (perf ≥ 90, a11y ≥ 95) | wired into `factory-check` |
+| Checks | `astro check`, Vitest for tool maths (duty, CBM, chargeable weight — golden tests), Playwright smoke (each route 200, no console errors, 390/1440 screenshots, reduced-motion run), Lighthouse CI budget (§9.3) | wired into `factory-check` |
 
 ### 2.1 Directory layout
 ```
@@ -113,11 +118,39 @@ public/                    favicon set, og default, robots.txt
 - Primary CTA everywhere: **Get a quote**. Secondary: **WhatsApp us**. Never more than two CTAs per section.
 - Breakpoints: 390 / 768 / 1024 / 1440. Mobile nav = full-screen sheet with vertical list.
 
+### 2.3 Experience layer — what makes it award-level
+The site should feel like following one shipment around the world. Motion always explains something:
+where cargo is, what happens next, how long it takes. It is never there just for decoration.
+
+**Motion system (tokens in `src/styles/motion.css` + `src/lib/motion.ts`)**
+- Easing: one house curve (`--ease-cargo: cubic-bezier(.22,.8,.2,1)`) + one spring for UI; durations 200 / 450 / 900 ms.
+- Scroll language: (1) **pinned chapters** scrubbed by scroll; (2) **line-by-line headline reveals**; (3) **route-line drawing** (SVG stroke) for every journey; (4) **counters** that tick in units (days, CBM, kg), never vanity stats; (5) **parallax depth** on hero media only.
+- Page transitions: View Transitions API — the mode icon / lane card morphs into the next page's hero.
+- Micro-interactions: magnetic primary buttons, mode cards that play a 3-s video loop on hover/visibility, quote stepper with animated cargo box filling as steps complete.
+- **Accessibility first:** `prefers-reduced-motion` → all scrubs become fades, videos show posters, no smooth-scroll hijack; every animated state also exists static; keyboard focus never trapped in pinned sections.
+- **Performance guardrails:** GSAP/Three loaded only on pages that use them; videos lazy, muted, `playsinline`, paused off-screen; GPU-tier check before WebGL; save-data / 2G → stills only. Total JS budget per page ≤ 170 KB gz (home ≤ 260 KB with globe).
+
+**Signature moments (one per key page, no more)**
+| Page | Moment |
+|---|---|
+| Home hero | **Live route globe**: WebGL Earth at night; glowing arcs from Guangzhou, Dubai, Mumbai, London converge on Mombasa/JKIA; scroll rotates the camera down into Mombasa and dissolves into the port video (`vid-home-hero`). |
+| Home | **"The Journey" pinned scrollytelling** (7 chapters, ~600vh): Factory in Guangzhou → origin warehouse → vessel at sea → Mombasa berth → SGR to Nairobi ICD → customs released (iCMS) → delivered to a Nairobi shop. A day counter (Day 0 → Day ~30) and a progress route run alongside; each chapter swaps a scrubbed video clip and one line of copy. Ends: "Your cargo, this journey, one team. → Get a quote". |
+| Services | Each service hero = full-bleed video loop + scroll-drawn diagram of that service's process. |
+| Lanes | Animated lane map: origin pin pulses → route draws → transit-day ruler fills; switch Sea/Air toggles route and day range. |
+| Import guide | Sticky "duty stack" visual that builds layer by layer (CIF → duty → excise → IDF → RDL → VAT) as you scroll the taxes section. |
+| Track | Live map with vessel/flight position and milestone timeline. |
+| About | Scroll-scrubbed timeline of the founder's journey (owner facts only). |
+
+**Video & sound**
+- Ambient loops: silent, 6–10 s, seamless, graded to the chosen palette (§6.3).
+- Explainers: 60–120 s with Christine's voice-over, captions always on, transcript below every video (SEO + accessibility) (§6.4).
+- No autoplay sound anywhere. A global "sound" toggle only appears on pages with explainers.
+
 ---
 
 ## 3. Sitemap and build order
 
-### 3.1 Sitemap (29 routes)
+### 3.1 Sitemap (~45 routes)
 ```
 /                                   Home
 /services                           Services hub
@@ -136,10 +169,15 @@ public/                    favicon set, og default, robots.txt
   /lanes/kenya-to-east-africa        (transit: UG, RW, SS, DRC, TZ)
 /industries                         Industries (single page, anchored sections)
 /import-guide                       Importing into Kenya — pillar guide
-/tools                              Importer's toolkit hub
-  /tools/cbm-calculator             CBM + chargeable weight
-  /tools/landed-cost                Landed-cost estimator
-  /tools/document-checklist         Documents by cargo type
+/tools                              Importer's toolkit hub (14 tools, §5.8)
+  /tools/cbm-calculator  /tools/container-fit  /tools/landed-cost  /tools/hs-code
+  /tools/vehicle-import  /tools/document-checklist  /tools/restricted-goods
+  /tools/transit-time  /tools/schedule  /tools/incoterms
+/track                              Track a shipment (phase 2 live data)
+/ask                                AI import assistant (also a site-wide drawer)
+/book                               Book a consultation
+/portal  /portal/*                  Client portal (login, phase 2)
+/links                              Link-in-bio for social profiles
 /insights                           Insights (blog index)
   /insights/[slug]                  3 seed articles
 /about                              Company, people, standards
@@ -151,23 +189,36 @@ public/                    favicon set, og default, robots.txt
 ```
 
 ### 3.2 Build order (one change per row; each ends shipped and green)
-| # | Change | Size | Depends on | Est. |
-|---|---|---|---|---|
-| 0 | Walking skeleton: Astro, tokens (chosen direction), Base layout, nav, footer, WhatsApp button, `site.ts`, SEO component, checks wired into manifest | standard | design pick | 1 session |
-| 1 | Home | standard | 0 | 1 |
-| 2 | Quote page + `/api/quote` + Resend + thank-you state | **critical** | 0 | 1 |
-| 3 | Service template + 7 service MDX files + Services hub | standard | 0 | 1 |
-| 4 | Lane template + 5 lane MDX files + Lanes hub + CorridorMap | standard | 3 | 1 |
-| 5 | Import guide (pillar) | standard | 0 | 1 |
-| 6 | Tools: CBM calc, landed-cost calc, document checklist + hub | standard | 5 | 1 |
-| 7 | About + Industries | standard | 0 | 1 |
-| 8 | FAQ + Contact + `/api/contact` | **critical** (form) | 2 | 1 |
-| 9 | Insights index + 3 seed articles | standard | 0 | 0.5 |
-| 10 | Legal, 404, sitemap.xml, robots, OG images, favicons, JSON-LD audit | standard | all | 0.5 |
-| 11 | Launch audit (`web-quality-review`), fill `{{OWNER}}` facts, deploy, domain | **critical** | all | 0.5 |
+**Phase 1 — launch site (marketing + all public tools + motion + video)**
+| # | Change | Size |
+|---|---|---|
+| 0 | Walking skeleton: Astro, tokens + motion tokens (chosen direction), Base layout, nav, footer, WhatsApp, `site.ts`, SEO component, Lenis/GSAP setup, reduced-motion plumbing, checks + Lighthouse CI wired | standard |
+| 1 | Home incl. route globe + "The Journey" scrollytelling | standard |
+| 2 | Quote flow + `/api/quote` + Firestore record + Resend + WhatsApp fallback | **critical** |
+| 3 | Service template + 7 services + hub | standard |
+| 4 | Lane template + 5 lanes + hub + animated lane map | standard |
+| 5 | Import guide (pillar) with duty-stack visual | standard |
+| 6a | Tools: CBM, container fit, landed cost, transit time, document checklist, incoterms (pure maths/data, golden tests) | standard |
+| 6b | Tools: HS finder, vehicle checker, restricted goods (data indexing) + explainer scripts for owner approval | standard |
+| 7 | About + Industries | standard |
+| 8 | FAQ + Contact + Book + `/api/contact` | **critical** |
+| 9 | AI import assistant (`/api/assistant`, grounding, rate limits, handoff) | **critical** |
+| 10 | Insights + 3 articles + `/links` (link-in-bio) | standard |
+| 11 | Video pass: drop in §6.3 loops + §6.4 explainers (Remotion renders + Christine VO), transcripts | standard |
+| 12 | Legal, 404, sitemap, OG, favicons, JSON-LD audit, social launch kit | standard |
+| 13 | Launch audit vs §9.3 scorecard, deploy, domain, Search Console, Google Business Profile | **critical** |
 
-Images (§6) are generated in batches before the page that needs them: batch A (home + global) before #1,
-batch B (services) before #3, batch C (lanes) before #4, batch D (about/industries/insights) before #7.
+**Phase 2 — operations (after launch)**
+| # | Change | Size |
+|---|---|---|
+| 14 | Track page with live tracking API + Globetrot milestones | **critical** |
+| 15 | Sailing & cut-off calendar (ops-editable) | standard |
+| 16 | Client portal: auth, dashboard, documents, quotes | **critical** |
+| 17 | Portal billing + payments + notifications | **critical** |
+| 18 | Ops console (or NAVAC CRM integration) | **critical** |
+
+Media is generated in batches before the page that needs it: A (home + global, incl. globe textures and journey clips) before #1; B (services) before #3; C (lanes) before #4; D (about/industries/insights) before #7; explainers before #11.
+
 
 ---
 
@@ -175,8 +226,8 @@ batch B (services) before #3, batch C (lanes) before #4, batch D (about/industri
 
 ### 4.1 Header
 - Logo (left). Nav: **Services ▾** (7 items, mega-menu with one-line descriptions + mode icons),
-  **Trade lanes ▾** (5), **Import guide**, **Tools ▾** (3), **About**, **Contact**. Right: phone (desktop),
-  **Get a quote** (primary button).
+  **Trade lanes ▾** (5), **Import guide**, **Tools ▾** (3), **About**, **Contact**. Right: **Track** (icon link), phone (desktop),
+  **Get a quote** (primary button), **Client login** (phase 2).
 - Utility strip (desktop only, thin): "Mon–Fri {{OWNER: hours}} · WhatsApp {{OWNER}} · info@{{OWNER: domain}}".
 - Sticky, condenses on scroll. Mobile: logo + quote button + menu → full-height sheet, vertical list.
 
@@ -196,6 +247,11 @@ batch B (services) before #3, batch C (lanes) before #4, batch D (about/industri
 - Target keyword per page listed in §5. Internal linking: every service links to ≥ 2 lanes and the guide;
   every lane links to the services it uses and to /quote with lane prefilled (`/quote?lane=china-to-kenya`).
 
+### 4.5 Social presence
+Channels, in priority order: **WhatsApp Business** (catalogue of services, quick replies, labels, greeting/away messages) · **Google Business Profile** (reviews, map pack — biggest local SEO lever) · **LinkedIn** company page (corporate importers) · **Instagram** · **TikTok** (explainer cutdowns, "a day at Mombasa port") · **Facebook** · **YouTube** (explainers, embedded on site).
+- **Accounts are created by the owner** (platform rules require the business owner's identity and phone). Then he adds NAVAC as admin/manager. We supply a **Social launch kit**: handle availability check (`@globetrotcargolink` or similar), bios per platform, profile + cover art from the chosen logo, highlight covers, link-in-bio page (`/links` on the site), 30-day launch calendar, 12 ready posts + 6 reels cut from the explainers.
+- Site integration: footer icons (only live accounts), Open Graph/Twitter cards per page, share buttons on Insights, Google reviews widget on Home/About (static, cached daily — no heavy third-party script), Instagram strip on About (optional, cached).
+
 ---
 
 ## 5. Page-by-page content
@@ -206,7 +262,7 @@ Copy marked "write:" is a brief for the build agent, constrained by §1.6 and §
 ### 5.1 Home `/`
 Purpose: in 10 seconds, tell an importer what we move, where, and how to get a price. Keyword: *freight forwarding and customs clearing Kenya*.
 
-1. **Hero** (full-bleed, slot `home-hero`; animated route lines China/UAE/UK/India → Mombasa/JKIA/Nairobi)
+1. **Hero** — live route globe (§2.3) that dissolves into `vid-home-hero` on scroll; still `home-hero` as poster/fallback
    - Eyebrow: AIR · SEA · LAND · CUSTOMS
    - H1: **Cargo from anywhere. Cleared and delivered in Kenya.**
    - Sub: Air, sea and road freight with customs clearing handled in-house — one team from the supplier's door in China, Dubai or the UK to yours in Nairobi, Mombasa or Kampala.
@@ -218,19 +274,22 @@ Purpose: in 10 seconds, tell an importer what we move, where, and how to get a p
    - Sea freight — "FCL and LCL into Mombasa and Lamu, railed to Nairobi ICD on the SGR."
    - Land & transit — "Local haulage and Northern Corridor transit to Uganda, Rwanda, South Sudan and DRC."
    - Customs clearing — "Entries lodged on KRA iCMS, permits through KenTrade, cargo released without the runaround."
-4. **Corridors section** — interactive CorridorMap (SVG): pins Guangzhou/Shenzhen/Yiwu, Dubai (Jebel Ali), Nhava Sheva/Mumbai, UK/Europe → Mombasa / JKIA / Nairobi ICD / Naivasha ICD → Kampala, Kigali, Juba, Goma. Click a lane → card with mode, indicative transit range (§7.3), "View lane" link.
+4. **The Journey** — pinned 7-chapter scrollytelling (§2.3, clips `vid-journey-1..7`). Chapter lines:
+   1 "Day 0 · Guangzhou. Your supplier packs the order." 2 "Day 2 · Our origin warehouse checks, photographs and consolidates it." 3 "Day 5 · On the water. Booked, documented, insured." 4 "Day ~27 · Mombasa. Discharged and lined up for clearing." 5 "SGR to Nairobi ICD. Overnight." 6 "Entry lodged on iCMS. Duties paid. Released." 7 "Delivered to your door — with a WhatsApp update at every step." (Day figures illustrative, labelled "typical sea journey", from §7.3.)
+5. **Watch how it works** — explainer `exp-01` (90 s, Christine) in a cinematic player with chapter markers.
+6. **Corridors section** — interactive CorridorMap (SVG): pins Guangzhou/Shenzhen/Yiwu, Dubai (Jebel Ali), Nhava Sheva/Mumbai, UK/Europe → Mombasa / JKIA / Nairobi ICD / Naivasha ICD → Kampala, Kigali, Juba, Goma. Click a lane → card with mode, indicative transit range (§7.3), "View lane" link.
    - H2: **Your corridor, mapped.**
-5. **How it works — 4 steps** (Steps component)
+7. **How it works — 4 steps** (Steps component; condensed recap after the Journey)
    1. Tell us what you're shipping — share supplier details, cargo, destination.
    2. We quote all-in — freight, clearing, duties estimate and delivery, itemised.
    3. We move and clear — booking, documents, iCMS entry, release.
    4. Delivered to your door — with updates on WhatsApp at every milestone.
-6. **Why Globetrot Cargolink — 4 pillars** (from §1.3) each with 1 sentence + icon. Write: concise, factual.
-7. **Proof band** — only verified items: years of team experience `{{OWNER}}`, shipments handled by team `{{OWNER}}`, client logos `{{OWNER}}`, one testimonial `{{OWNER}}`. If none confirmed at launch, this band shows licences + office + named people instead (never empty counters).
-8. **Importer's toolkit teaser** — 3 cards: CBM calculator, Landed-cost estimator, Document checklist.
-9. **Industries strip** — 5 chips linking to /industries anchors.
-10. **Insights** — latest 3 articles.
-11. **CTA band** — H2: **Have a shipment coming? Get a clear price today.**
+8. **Why Globetrot Cargolink — 4 pillars** (from §1.3) each with 1 sentence + icon. Write: concise, factual.
+9. **Proof band** — only verified items: years of team experience `{{OWNER}}`, shipments handled by team `{{OWNER}}`, client logos `{{OWNER}}`, one testimonial `{{OWNER}}`. If none confirmed at launch, this band shows licences + office + named people instead (never empty counters).
+10. **Importer's toolkit teaser** — bento grid of 6 tools (Track, Landed cost, CBM, HS finder, Vehicle checker, AI assistant) with live mini-interactions.
+11. **Industries strip** — 5 chips linking to /industries anchors.
+12. **Insights** — latest 3 articles + social strip (live accounts only).
+13. **CTA band** — H2: **Have a shipment coming? Get a clear price today.**
 
 ### 5.2 Services hub `/services`
 Keyword: *clearing and forwarding services Nairobi*. H1: **Freight and customs services, end to end.**
@@ -290,16 +349,38 @@ Sections (all facts from §7, each cited in a "Sources" footnote list):
 10. Common mistakes that cause delays (write: 6 items)
 CTA: "Want us to check your shipment before it leaves?" → quote.
 
-### 5.8 Tools
-- **Hub `/tools`** H1: **Importer's toolkit.** 3 cards + disclaimer.
-- **CBM calculator** — inputs: rows of L×W×H (cm) × qty, gross weight kg. Outputs: total CBM, volumetric
-  weight air (÷6000), chargeable weight, "sea or air?" hint. Button: "Quote this shipment" (prefill).
-- **Landed-cost estimator** — inputs: product value (USD), freight, insurance, duty band (0/10/25/35%),
-  excise % (optional), exchange rate (editable, default `{{OWNER}}`). Outputs itemised: CIF, duty, excise,
-  IDF 2.5%, RDL 2%, VAT 16% on (CIF+duty+excise), total. Disclaimer: "Estimate only; final figures are set by KRA at entry."
-- **Document checklist** — select cargo type (general goods, food, pharma/cosmetics, vehicles, machinery,
-  personal effects) → checklist with permit authority; print/download.
-Events tracked: calc_use, calc_to_quote.
+### 5.8 Tools — the Importer's toolkit (all free, no login; results can be emailed/WhatsApped and turned into a quote)
+Hub `/tools` H1: **Importer's toolkit.** Card grid grouped as Plan · Cost · Comply · Ship. Disclaimer:
+estimates only; KRA sets the final figures at entry. Every tool ends with "Quote this shipment" (prefilled) and "Ask on WhatsApp".
+
+| # | Tool | Route | What it does | Data source |
+|---|---|---|---|---|
+| 1 | **Instant quote** | `/quote` | multi-step request → reference no. → reply SLA (§5.13) | owner pricing desk |
+| 2 | **Track a shipment** | `/track` | enter B/L, container no., AWB or Globetrot ref → live map + milestone timeline + ETA | container/AWB tracking API `{{OWNER: provider, e.g. ShipsGo / Terminal49 / Vizion — paid}}` + Globetrot ops milestones from Firestore |
+| 3 | **CBM & chargeable-weight calculator** | `/tools/cbm-calculator` | rows of L×W×H×qty + weight → CBM, volumetric weight (÷6000), chargeable weight, sea-vs-air hint, 3D carton stack preview | maths (golden tests) |
+| 4 | **Container fit planner** | `/tools/container-fit` | cartons → how many fit a 20' / 40' / 40'HC, % utilisation, LCL vs FCL breakpoint | standard container dims |
+| 5 | **Landed-cost & duty estimator** | `/tools/landed-cost` | value, freight, insurance, HS/duty band, excise, FX → itemised CIF, duty, excise, IDF 2.5%, RDL 2%, VAT 16%, total in KES & USD; PDF download | §7 + editable FX (daily CBK rate fetch `{{OWNER: confirm}}`) |
+| 6 | **HS code & duty finder** | `/tools/hs-code` | search by product words → likely HS headings + CET duty band; "confirm with us" | EAC CET 2022 tariff (public document) indexed at build |
+| 7 | **Vehicle import checker** | `/tools/vehicle-import` | year of first registration, drive side, engine cc, CRSP value → eligible? + duty/excise/VAT/IDF/RDL estimate | §7.2 rule + KRA CRSP list `{{OWNER: confirm source}}` |
+| 8 | **Document checklist generator** | `/tools/document-checklist` | cargo type + origin + mode → exact document & permit list with issuing agency; print/PDF | §7.2 |
+| 9 | **Prohibited & restricted goods checker** | `/tools/restricted-goods` | search item → allowed / needs permit (which agency) / prohibited | EACCMA schedules + KenTrade agencies, curated |
+| 10 | **Transit-time estimator** | `/tools/transit-time` | lane × mode → door-to-door range broken into legs (origin, main leg, port, clearing, delivery) | §7.3 + owner data |
+| 11 | **Sailing & cut-off calendar** | `/tools/schedule` | next consolidation closing dates per origin warehouse; add to calendar | owner schedule in Firestore |
+| 12 | **Incoterms® 2020 explorer** | `/tools/incoterms` | pick a term → animated who-pays-what along the route | ICC definitions (paraphrased) |
+| 13 | **AI import assistant** | site-wide drawer + `/ask` | answers import questions in plain language, cites the guide, hands off to WhatsApp/human, never quotes binding prices | §7, FAQ, guide (Claude API) |
+| 14 | **Book a consultation** | `/book` | 20-min call / office visit slots | Cal.com or Google Calendar booking `{{OWNER}}` |
+
+Events: tool_use, tool_to_quote, tool_to_whatsapp, assistant_handoff.
+Every maths tool has golden tests (`npm test`) that run in `factory-check full`.
+
+### 5.8a Client portal `/portal` (login) — critical
+For account clients. Firebase Auth (email link + phone OTP).
+- Dashboard: active shipments with milestone timeline and map, ETAs, alerts.
+- Documents: B/L, AWB, invoices, entries, release orders (download); upload supplier invoice/packing list.
+- Quotes: history, accept a quote, convert to booking.
+- Billing: invoices & statements, payment via M-Pesa/card `{{OWNER: payment rail, e.g. TaifaPay}}`.
+- Notifications: WhatsApp/SMS/email on each milestone (opt-in).
+- Ops side (`/portal/ops`, staff role): create shipments, post milestones, attach documents, manage schedules. Option: power this from **NAVAC CRM/BMS** instead of a new back office `{{OWNER: decide}}`.
 
 ### 5.9 Insights `/insights`
 Index with category filter (Customs · Freight markets · Guides). Seed articles (write ~900 words each, sourced):
@@ -395,6 +476,37 @@ Fallback if API fails: show WhatsApp button with full summary prefilled.
 | `insight-3` | Insight 3 | 16:9 | Row of right-hand-drive cars on a RoRo ship deck | Vehicles on the deck of a RoRo ship |
 | `og-default` | Social share | 1200×630 | Composite of `home-hero` with logo and tagline (built in code, not generated) | — |
 
+### 6.3 Video register (ambient loops)
+Production route per clip: **(a)** real footage from the owner's operations (best, most authentic); **(b)** AI-generated cinematic video (Google Veo / Runway / Kling) using the prompts below, with a hard budget cap `{{OWNER: video budget}}`; **(c)** licensed stock (Artgrid/Storyblocks) as fallback. Same rules as §6.1: no logos, no liveries, no readable text. Export 1920×1080 + 1080×1350 mobile crop, ≤ 2.5 MB WebM / ≤ 4 MB MP4, with a poster JPG. File: `src/assets/video/<id>.{webm,mp4,jpg}`.
+
+| ID | Where | Length | Shot |
+|---|---|---|---|
+| `vid-home-hero` | Home hero (after globe) | 10 s loop | Slow aerial drone push over a container terminal at sunrise, cranes moving, ship being worked |
+| `vid-journey-1..7` | Home "The Journey" | 4–6 s each, scrubbed | 1 factory floor packing cartons · 2 warehouse consolidation · 3 vessel at sea, aerial · 4 vessel berthing, crane lift · 5 SGR container train through savannah · 6 customs officer & agent releasing cargo, tablet · 7 truck arriving at a Nairobi shop, cartons received |
+| `vid-mode-air/sea/land/customs` | Mode cards | 3 s loops | aircraft loading · container lift · truck on highway · document check & seal cut |
+| `vid-svc-*` (7) | Service heroes | 8 s loops | one per service, matching image slot prompts in §6.2 |
+| `vid-lane-*` (5) | Lane heroes | 8 s loops | origin port atmosphere per lane |
+| `vid-about` | About hero | 10 s | Nairobi skyline time-lapse dusk → night |
+
+### 6.4 Explainer videos (Remotion + Christine's voice)
+Format: 16:9 for site/YouTube + 9:16 cutdowns (15–30 s) for social. Motion-graphic style in the chosen design direction (route lines, icons, document cards, the duty stack), mixed with §6.3 footage. Captions burned in for social, a separate caption track + transcript on site.
+
+**Voice — Christine:** record her real voice (preferred: warm, credible, Kenyan English). Studio-quality USB mic, quiet room, scripts below, ~2 hours for all. Option: a licensed voice clone (e.g. ElevenLabs Professional Voice Clone) **only with Christine's written consent**, used just for this client's explainers, so re-renders after rule changes don't need re-recording. `{{OWNER: Christine consent + choice}}`.
+
+| ID | Title | Length | Placed on | Script outline |
+|---|---|---|---|---|
+| `exp-01` | How importing with Globetrot Cargolink works | 90 s | Home, About | supplier → we collect → we ship → we clear → you receive; WhatsApp updates; one quote |
+| `exp-02` | Customs clearing in Kenya, explained | 120 s | Customs service, Import guide | documents → HS classification → iCMS entry → duties paid → release; common delays |
+| `exp-03` | What makes up your landed cost | 90 s | Landed-cost tool, Import guide | CIF → duty (CET bands) → excise → IDF 2.5% → RDL 2% → VAT 16%; worked example |
+| `exp-04` | Shipping from China: LCL vs FCL | 90 s | China lane, Consolidation | CBM, when to switch, consolidation timeline |
+| `exp-05` | Air freight: chargeable weight in 60 seconds | 60 s | Air freight, CBM tool | volumetric ÷6000 vs actual weight |
+| `exp-06` | Do you need a KEBS Certificate of Conformity? | 75 s | Import guide, Checklist tool | PVoC, CoC, what happens without one |
+| `exp-07` | Importing a car into Kenya in 2026 | 90 s | Vehicle tool, Insights | 8-year rule (2019+), RHD, duty components |
+| `exp-08` | Transit cargo to Uganda, Rwanda & beyond | 75 s | Transit lane, Land service | Northern Corridor, bond, borders, ICDs |
+| `exp-09` | How to read your quote | 60 s | Quote success page, Portal | itemised lines explained |
+
+Scripts are written in build #6b from §7 facts, approved by the owner before recording.
+
 ---
 
 ## 7. Verified Kenya trade facts (use only these; re-verify before launch)
@@ -437,7 +549,11 @@ Fallback if API fails: show WhatsApp button with full summary prefilled.
 | 12 | Payment model (e.g. pay after delivery for account clients) | FAQ |
 | 13 | Hosting choice; analytics choice; Resend/sending domain | build #0, #2 |
 | 14 | Logo direction pick (3 options) and tagline pick (§1.4) | everything |
-| 15 | Social handles | footer |
+| 15 | Social accounts created by owner; NAVAC added as admin | footer, social kit |
+| 16 | **Christine's consent; real recording vs licensed voice clone** | explainers |
+| 17 | Video route (real footage / AI-generated / stock) + budget cap | §6.3 |
+| 18 | Tracking API provider (paid) — phase 2 | /track |
+| 19 | Portal back office: new Firebase ops console or NAVAC CRM integration; payment rail | portal |
 
 ---
 
@@ -446,15 +562,31 @@ Fallback if API fails: show WhatsApp button with full summary prefilled.
 ### 9.1 Per page (enforced by `/verify` + reviewer)
 - `factory-check full` green (gates, astro check, Playwright smoke, build).
 - Renders correctly at 390 / 768 / 1440; no horizontal scroll; tap targets ≥ 44px.
-- Lighthouse mobile: Performance ≥ 90, Accessibility ≥ 95, Best Practices ≥ 95, SEO 100.
+- Meets every §9.3 scorecard line (Lighthouse mobile ≥ 95 perf, 100 a11y/BP/SEO), including a reduced-motion pass.
 - One H1; meta title/description within limits; JSON-LD valid; all images have alt; LCP image preloaded.
 - Every claim traceable to §7 or §8; no `{{OWNER}}` visible in production build (gate added at #11).
 
-### 9.2 Launch checklist (#11)
+### 9.2 Launch checklist (#13)
 - All bold §8 facts filled; `{{OWNER` gate on; forms tested end-to-end (email received, auto-reply, WhatsApp fallback).
 - Domain + HTTPS + www redirect; sitemap submitted to Google Search Console; Google Business Profile linked.
 - Security headers (CSP, HSTS, X-Frame-Options); 404 works; analytics events firing.
 - `web-quality-review` PASS.
+
+### 9.3 The 9.8 scorecard (measured, not claimed)
+Awards are judged by others, so we can't promise one. What we can control is every score that is measured.
+Target ≥ 9.8/10 on each line. A page isn't done until it scores that.
+
+| Dimension | How measured | Target |
+|---|---|---|
+| Design | Owner + 2 external designers score against Awwwards criteria (design 40 / usability 30 / creativity 20 / content 10) | ≥ 9.8 |
+| Performance | Lighthouse mobile & desktop (CI), real-user Core Web Vitals | mobile ≥ 95, desktop 100; LCP < 2.0 s, INP < 150 ms, CLS < 0.05 |
+| Accessibility | Lighthouse + axe + manual keyboard/screen-reader pass + reduced-motion pass | 100, zero axe violations, WCAG 2.2 AA |
+| SEO | Lighthouse SEO, valid JSON-LD, every page has keyword + internal links, Search Console clean | 100 |
+| Best practices / security | Lighthouse BP, securityheaders.com, no third-party trackers without consent | 100, A+ |
+| Content | Every fact traceable (§7/§8), readability grade ≤ 9, zero typos (spellcheck gate) | 0 untraceable claims |
+| Conversion | Quote form completion test with 5 real users; time-to-quote-start ≤ 10 s from landing | 5/5 complete unaided |
+| Tools accuracy | Golden tests for duty, CBM, chargeable weight, vehicle eligibility | 100% pass |
+| Mobile | Every page tested on a mid-range Android (e.g. Samsung A-series) over 4G | smooth 60 fps scroll, no jank |
 
 ---
 
