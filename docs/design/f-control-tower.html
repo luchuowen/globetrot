@@ -1,0 +1,315 @@
+<title>Control Tower · Globetrot</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+/* Concept: the homepage IS the operations room. A live radar of the Indian Ocean, world clocks, a natural-language quote command, a tracking timeline driven by scroll, and working tools in a bento. Single dark look by design. */
+:root{
+  --harbour:#070e1a; --deck:#0b1626; --panel:#0e1a2c; --hull:#18283f; --steel:#2a3d5c; --fog:#93a3b8; --flood:#eef2f7; --sodium:#f3a43b; --go:#5fd39a; --warn:#ff7a1a;
+  --f-display:"Archivo","Arial Narrow",sans-serif; --f-body:"IBM Plex Sans",system-ui,sans-serif; --f-mono:"IBM Plex Mono",ui-monospace,monospace;
+  --gut:clamp(16px,3.4vw,48px); color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--harbour);color:var(--flood);font-family:var(--f-body);font-size:15px;line-height:1.55;overflow-x:hidden;
+  background-image:linear-gradient(rgba(42,61,92,.18) 1px,transparent 1px),linear-gradient(90deg,rgba(42,61,92,.18) 1px,transparent 1px);background-size:64px 64px}
+.mono{font-family:var(--f-mono);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase}
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:40;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:14px var(--gut);background:rgba(7,14,26,.86);backdrop-filter:blur(12px);border-bottom:1px solid var(--hull)}
+.brand{display:flex;align-items:center;gap:10px;font-family:var(--f-display);font-weight:800;font-stretch:78%;font-size:17px;letter-spacing:.06em}
+.nav .links{display:flex;gap:26px;font-size:13px;color:var(--fog)}
+.status{display:flex;align-items:center;gap:8px;color:var(--fog)}
+.status i{width:7px;height:7px;border-radius:50%;background:var(--go);box-shadow:0 0 10px var(--go);animation:blink 2s infinite}
+@keyframes blink{50%{opacity:.35}}
+@media (max-width:980px){.nav .links,.status{display:none}}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:11px 16px;border-radius:3px;background:var(--sodium);color:#1a1006;font-weight:600;font-size:14px;border:0;cursor:pointer;font-family:var(--f-body);white-space:nowrap}
+.btn.g{background:transparent;color:var(--flood);box-shadow:inset 0 0 0 1px var(--steel)}
+.btn:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--sodium);outline-offset:2px}
+/* hero */
+.hero{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:clamp(20px,3vw,40px);padding:clamp(32px,5vw,64px) var(--gut)}
+@media (max-width:1060px){.hero{grid-template-columns:minmax(0,1fr)}}
+.h1{font-family:var(--f-display);font-weight:800;font-stretch:68%;text-transform:uppercase;line-height:.88;font-size:clamp(48px,7vw,112px);margin:18px 0 18px;text-wrap:balance}
+.h1 em{font-style:normal;color:var(--sodium)}
+.lede{color:var(--fog);max-width:44ch;margin:0 0 26px;font-size:16px}
+/* command */
+.cmd{border:1px solid var(--steel);background:var(--panel);border-radius:6px;overflow:hidden}
+.cmd .bar{display:flex;align-items:center;gap:10px;padding:14px 16px}
+.cmd .bar span{color:var(--sodium);font-family:var(--f-mono);font-weight:600}
+.cmd input{flex:1;min-width:0;background:transparent;border:0;color:var(--flood);font:500 16px var(--f-mono)}
+.cmd input::placeholder{color:#55657c}
+.chips{display:flex;flex-wrap:wrap;gap:6px;padding:0 16px 14px}
+.chips button{all:unset;cursor:pointer;font-family:var(--f-mono);font-size:11.5px;color:var(--fog);border:1px solid var(--hull);padding:5px 9px;border-radius:3px}
+.chips button:hover{color:var(--flood);border-color:var(--steel)}
+.chips button:focus-visible{outline:2px solid var(--sodium)}
+.res{border-top:1px solid var(--hull);display:grid;grid-template-columns:repeat(4,minmax(0,1fr));background:var(--deck)}
+@media (max-width:560px){.res{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.res div{padding:12px 16px;border-right:1px solid var(--hull);min-width:0}
+.res div:last-child{border-right:0}
+.res small{display:block;font-family:var(--f-mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--fog)}
+.res b{font-family:var(--f-display);font-stretch:75%;font-size:21px;font-weight:700;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+.res-cta{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 16px;border-top:1px solid var(--hull);color:var(--fog);font-size:13px;flex-wrap:wrap}
+/* console */
+.console{border:1px solid var(--steel);border-radius:8px;background:var(--panel);display:grid;grid-template-rows:auto minmax(0,1fr) auto;min-height:560px;overflow:hidden;box-shadow:0 40px 80px -40px rgba(0,0,0,.8),0 0 0 6px rgba(42,61,92,.18)}
+.clocks{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));border-bottom:1px solid var(--hull)}
+.clocks div{padding:10px 12px;border-right:1px solid var(--hull);min-width:0}
+.clocks div:last-child{border-right:0;background:rgba(243,164,59,.08)}
+.clocks small{display:block;font-family:var(--f-mono);font-size:9.5px;letter-spacing:.14em;color:var(--fog);text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.clocks b{font-family:var(--f-mono);font-weight:500;font-size:17px;font-variant-numeric:tabular-nums}
+.clocks div:last-child b{color:var(--sodium)}
+@media (max-width:560px){.clocks{grid-template-columns:repeat(3,minmax(0,1fr))}.clocks div:nth-child(2),.clocks div:nth-child(4){display:none}}
+.radar{position:relative;min-height:360px}
+.radar canvas{position:absolute;inset:0;width:100%;height:100%}
+.radar .tag{position:absolute;left:12px;top:10px;color:var(--fog)}
+.radar .tag2{position:absolute;right:12px;top:10px;color:var(--fog)}
+.radar .xy{position:absolute;right:12px;bottom:10px;color:var(--fog)}
+.lanes{border-top:1px solid var(--hull);display:grid;grid-template-columns:repeat(4,minmax(0,1fr))}
+@media (max-width:560px){.lanes{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.lanes div{padding:12px;border-right:1px solid var(--hull);min-width:0}
+.lanes div:last-child{border-right:0}
+.lanes small{display:block;font-family:var(--f-mono);font-size:10px;letter-spacing:.1em;color:var(--fog);text-transform:uppercase}
+.lanes b{display:block;font-size:13.5px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lanes span{font-family:var(--f-mono);font-size:12px;color:var(--sodium)}
+/* sections */
+.sec{padding:clamp(64px,9vw,120px) var(--gut);border-top:1px solid var(--hull)}
+.head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px;align-items:end;margin-bottom:40px}
+@media (max-width:860px){.head{grid-template-columns:minmax(0,1fr)}}
+.h2{font-family:var(--f-display);font-weight:800;font-stretch:70%;text-transform:uppercase;line-height:.9;font-size:clamp(38px,5.4vw,80px);margin:10px 0 0;text-wrap:balance}
+.h2 em{font-style:normal;color:var(--sodium)}
+.head p{color:var(--fog);margin:0;max-width:52ch}
+/* tracking */
+.trk{position:relative;height:300vh}
+.trk .stick{position:sticky;top:calc(env(safe-area-inset-top,0px) + 70px);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:24px;align-items:start}
+@media (max-width:860px){.trk{height:auto}.trk .stick{position:static;grid-template-columns:minmax(0,1fr)}}
+.ship{border:1px solid var(--steel);border-radius:8px;background:var(--panel);padding:20px}
+.ship .top{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:baseline}
+.ship .ref{font-family:var(--f-mono);font-size:18px;font-weight:600}
+.state{font-family:var(--f-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;padding:4px 8px;border-radius:3px;background:rgba(243,164,59,.14);color:var(--sodium)}
+.state.ok{background:rgba(95,211,154,.14);color:var(--go)}
+.eta{font-family:var(--f-display);font-stretch:66%;font-weight:900;font-size:clamp(64px,9vw,128px);line-height:.85;margin:22px 0 4px;font-variant-numeric:tabular-nums}
+.prog{height:6px;background:var(--hull);border-radius:3px;overflow:hidden;margin:18px 0 6px}
+.prog i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--sodium),#ffd08a)}
+.kv{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--hull);border:1px solid var(--hull);margin-top:18px}
+.kv div{background:var(--panel);padding:10px 12px;min-width:0}
+.kv small{display:block;font-family:var(--f-mono);font-size:10px;color:var(--fog);letter-spacing:.1em;text-transform:uppercase}
+.kv b{font-size:14px;font-weight:600;overflow-wrap:anywhere}
+.tl{list-style:none;margin:0;padding:0;border:1px solid var(--steel);border-radius:8px;background:var(--panel)}
+.tl li{display:grid;grid-template-columns:28px minmax(0,1fr) auto;gap:14px;align-items:center;padding:14px 18px;border-bottom:1px solid var(--hull);color:#55657c;transition:color .4s}
+.tl li:last-child{border-bottom:0}
+.tl li .dot{width:12px;height:12px;border-radius:50%;border:2px solid var(--steel);justify-self:center;transition:all .4s}
+.tl li b{font-weight:600;display:block}
+.tl li span.m{font-family:var(--f-mono);font-size:11.5px}
+.tl li.done{color:var(--flood)}
+.tl li.done .dot{background:var(--go);border-color:var(--go)}
+.tl li.now{color:var(--flood);background:rgba(243,164,59,.06)}
+.tl li.now .dot{background:var(--sodium);border-color:var(--sodium);box-shadow:0 0 0 6px rgba(243,164,59,.18)}
+/* bento */
+.bento{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:12px}
+.t{border:1px solid var(--steel);border-radius:8px;background:var(--panel);padding:20px;display:flex;flex-direction:column;gap:14px;min-width:0}
+.t.w3{grid-column:span 3}.t.w2{grid-column:span 2}
+@media (max-width:980px){.t.w3,.t.w2{grid-column:span 6}}
+.t header{display:flex;justify-content:space-between;gap:8px;align-items:baseline}
+.t header b{font-family:var(--f-display);font-stretch:78%;font-weight:800;text-transform:uppercase;font-size:20px;letter-spacing:.01em}
+.t header span{color:var(--fog)}
+.f{display:grid;grid-template-columns:repeat(auto-fit,minmax(90px,1fr));gap:8px}
+.f label{display:flex;flex-direction:column;gap:4px;font-family:var(--f-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--fog);min-width:0}
+.f input,.f select{width:100%;min-width:0;padding:9px 10px;border-radius:3px;border:1px solid var(--steel);background:var(--deck);color:var(--flood);font:500 15px var(--f-body);font-variant-numeric:tabular-nums}
+.read{display:grid;gap:6px}
+.read div{display:flex;justify-content:space-between;gap:12px;border-bottom:1px dashed var(--hull);padding-bottom:6px;font-size:14px}
+.read div span:last-child{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+.read div.tot{border:0;font-weight:600;color:var(--sodium);font-size:16px}
+.big{font-family:var(--f-display);font-stretch:68%;font-weight:900;font-size:56px;line-height:.9;font-variant-numeric:tabular-nums}
+.verdict{font-family:var(--f-mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;padding:8px 10px;border-radius:3px;display:inline-block}
+.verdict.yes{background:rgba(95,211,154,.14);color:var(--go)}
+.verdict.no{background:rgba(255,122,26,.14);color:var(--warn)}
+.note{color:var(--fog);font-size:12.5px;margin:0}
+.cta{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:20px}
+footer{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;padding:22px var(--gut) calc(22px + env(safe-area-inset-bottom,0px));border-top:1px solid var(--hull);color:var(--fog)}
+.badge{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:60;background:var(--deck);border:1px solid var(--steel);padding:8px 12px;font-family:var(--f-mono);font-size:11px;color:var(--fog);letter-spacing:.1em}
+.badge b{color:var(--sodium);font-weight:500}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+
+<header class="nav">
+  <span class="brand"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="none" stroke="#f3a43b" stroke-width="2"/><path d="M2 12h20M12 2c3.4 3.2 3.4 16.8 0 20" fill="none" stroke="#f3a43b" stroke-width="1.5"/></svg>GLOBETROT CARGOLINK</span>
+  <nav class="links" aria-label="Main"><span>Services</span><span>Trade lanes</span><span>Import guide</span><span>Tools</span><span>Track</span></nav>
+  <span class="status mono"><i></i>Ops desk online</span>
+  <button class="btn">Get a quote</button>
+</header>
+
+<section class="hero" aria-label="Introduction">
+  <div>
+    <span class="mono" style="color:var(--sodium)">Air · Sea · Land · Customs — Nairobi</span>
+    <h1 class="h1">Cargo from anywhere. <em>Cleared</em> and delivered in Kenya.</h1>
+    <p class="lede">Tell us what you're shipping in plain words. We'll show you the route, the typical timeline and what you'll pay for, before anyone picks up a phone.</p>
+    <form class="cmd" id="cmd" onsubmit="return false" aria-label="Describe your shipment">
+      <div class="bar"><span>&gt;</span><label for="q" class="mono" style="position:absolute;left:-9999px">Shipment</label><input id="q" autocomplete="off" value="6 cbm of furniture from Guangzhou to Nairobi by sea"><button class="btn" id="go">Plan it</button></div>
+      <div class="chips" id="chips"><button type="button">300 kg electronics Shenzhen to Nairobi by air</button><button type="button">40ft container Dubai to Mombasa</button><button type="button">2 cbm machine parts Mumbai to Kampala</button></div>
+      <div class="res" aria-live="polite"><div><small>Mode</small><b id="rMode">—</b></div><div><small>Lane</small><b id="rLane">—</b></div><div><small>Typical transit</small><b id="rTime">—</b></div><div><small>Billed on</small><b id="rBill">—</b></div></div>
+      <div class="res-cta"><span id="rNote">Indicative only. Your itemised quote confirms it.</span><button class="btn g" type="button">Turn this into a quote →</button></div>
+    </form>
+  </div>
+
+  <div class="console" aria-label="Operations console">
+    <div class="clocks" id="clocks"></div>
+    <div class="radar"><canvas id="radar" aria-label="Stylised radar of the Indian Ocean showing vessels converging on Mombasa"></canvas>
+      <span class="tag mono">Indian Ocean · inbound to Mombasa</span><span class="tag2 mono">Illustrative</span><span class="xy mono" id="xy">4.04°S 39.67°E</span></div>
+    <div class="lanes" id="lanes"></div>
+  </div>
+</section>
+
+<section class="sec" aria-label="Tracking">
+  <div class="head"><div><span class="mono" style="color:var(--sodium)">01 · Tracking</span><h2 class="h2">Every milestone, <em>without</em> chasing anyone.</h2></div><p>Clients see their shipment the way our desk sees it: one timeline from supplier to door, with WhatsApp alerts at each step. Scroll to move this shipment along.</p></div>
+  <div class="trk" id="trk"><div class="stick">
+    <div class="ship">
+      <div class="top"><span class="ref">GCL-261009-0417</span><span class="state" id="st">At sea</span></div>
+      <div class="mono" style="color:var(--fog);margin-top:6px">Guangzhou → Nairobi ICD · Sea LCL · 6.4 CBM · sample shipment</div>
+      <div class="eta" id="eta">Day 5</div><div class="mono" style="color:var(--fog)" id="etaL">of a typical 30-day door-to-door journey</div>
+      <div class="prog"><i id="pg"></i></div>
+      <div class="kv"><div><small>Vessel</small><b>Main-line LCL</b></div><div><small>Gateway</small><b>Mombasa</b></div><div><small>Entry</small><b id="ent">Pre-lodged</b></div></div>
+    </div>
+    <ol class="tl" id="tl"></ol>
+  </div></div>
+</section>
+
+<section class="sec" aria-label="Tools">
+  <div class="head"><div><span class="mono" style="color:var(--sodium)">02 · Importer's toolkit</span><h2 class="h2">The tools our desk uses. <em>Free</em> for you.</h2></div><p>Fourteen tools on the full site. Here are three of them working. Every result can be turned into a quote with one tap.</p></div>
+  <div class="bento">
+    <form class="t w3" onsubmit="return false" aria-label="Landed cost estimator"><header><b>Landed cost</b><span class="mono">Tool 05</span></header>
+      <div class="f"><label for="lv">Goods value USD<input id="lv" inputmode="decimal" value="10000"></label><label for="lf">Freight + insurance<input id="lf" inputmode="decimal" value="1200"></label>
+        <label for="lb">Duty band<select id="lb"><option value="0">0% raw materials</option><option value="10">10% intermediate</option><option value="25" selected>25% finished goods</option><option value="35">35% sensitive</option></select></label></div>
+      <div class="read" id="lc"></div>
+      <p class="note">IDF 2.5% and RDL 2% of customs value; VAT 16% on value plus duty. Excise not included. KRA sets the final figures at entry.</p>
+    </form>
+    <form class="t w3" onsubmit="return false" aria-label="Vehicle import checker"><header><b>Can I import this car?</b><span class="mono">Tool 07</span></header>
+      <div class="f"><label for="vy">Year of first registration<input id="vy" inputmode="numeric" value="2018"></label><label for="vd">Drive<select id="vd"><option value="R">Right-hand</option><option value="L">Left-hand</option></select></label></div>
+      <div><span class="verdict" id="vv">—</span></div>
+      <p class="note" id="vn"></p>
+      <p class="note">From 1 January 2026, Kenya clears right-hand-drive vehicles first registered in 2019 or later (KS 1515, 8-year rule).</p>
+    </form>
+    <form class="t w2" onsubmit="return false" aria-label="CBM calculator"><header><b>CBM</b><span class="mono">Tool 03</span></header>
+      <div class="f"><label for="cl">L cm<input id="cl" value="60" inputmode="decimal"></label><label for="cw">W cm<input id="cw" value="40" inputmode="decimal"></label><label for="ch">H cm<input id="ch" value="45" inputmode="decimal"></label><label for="cq">Qty<input id="cq" value="24" inputmode="numeric"></label></div>
+      <div class="big" id="cbm">0</div><p class="note" id="cbmn"></p>
+    </form>
+    <div class="t w2"><header><b>Transit time</b><span class="mono">Tool 10</span></header>
+      <div class="read"><div><span>China → Mombasa · sea</span><span>22–30 d</span></div><div><span>China → JKIA · air</span><span>2–7 d</span></div><div><span>Mombasa → Nairobi · SGR</span><span>overnight</span></div><div><span>Clearing · iCMS</span><span>varies</span></div></div>
+      <p class="note">Port-to-port ranges. Door-to-door adds clearing and delivery.</p></div>
+    <div class="t w2"><header><b>Ask anything</b><span class="mono">AI assistant</span></header>
+      <p style="margin:0;font-size:14px"><span class="mono" style="color:var(--fog)">You</span><br>Do I need a CoC for phone chargers from China?</p>
+      <p style="margin:0;font-size:14px;color:var(--fog)"><span class="mono" style="color:var(--sodium)">Globetrot</span><br>Most electrical goods fall under KEBS PVoC, so plan for a Certificate of Conformity before shipping. Want us to check your item?</p>
+      <button class="btn g">Continue on WhatsApp →</button></div>
+  </div>
+</section>
+
+<section class="sec" aria-label="Get a quote"><div class="cta"><h2 class="h2" style="max-width:14ch">Have a shipment coming? <em>Plan it now.</em></h2><div style="display:flex;gap:10px;flex-wrap:wrap"><button class="btn">Get an itemised quote →</button><button class="btn g">WhatsApp the desk</button></div></div></section>
+<footer class="mono"><span>© 2026 Globetrot Cargolink International</span><span>Ops: Nairobi · 1.29°S 36.82°E</span></footer>
+<div class="badge">Direction <b>F</b> · Control Tower</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+(function(){
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const $=id=>document.getElementById(id);
+// clocks
+const Z=[['Guangzhou','Asia/Shanghai'],['Dubai','Asia/Dubai'],['Mumbai','Asia/Kolkata'],['London','Europe/London'],['Nairobi','Africa/Nairobi']];
+$('clocks').innerHTML=Z.map(z=>`<div><small>${z[0]}</small><b data-tz="${z[1]}">--:--</b></div>`).join('');
+const tick=()=>document.querySelectorAll('[data-tz]').forEach(b=>b.textContent=new Intl.DateTimeFormat('en-GB',{hour:'2-digit',minute:'2-digit',second:'2-digit',timeZone:b.dataset.tz}).format(new Date()));
+tick(); setInterval(tick,1000);
+// lanes
+const LN=[['China → Mombasa','Sea · 22–30 d'],['Dubai → Mombasa','Sea · direct'],['India → Mombasa','Sea · direct'],['China → JKIA','Air · 2–7 d']];
+$('lanes').innerHTML=LN.map(l=>`<div><small>Lane</small><b>${l[0]}</b><span>${l[1]}</span></div>`).join('');
+
+// radar: equirectangular, lon 25..125, lat -20..50 (stylised coast)
+const cv=$('radar'),ctx=cv.getContext('2d');let W=0,H=0;
+const box={lo0:25,lo1:122,la0:-18,la1:46};
+const px=(lo,la)=>[(lo-box.lo0)/(box.lo1-box.lo0)*W,(box.la1-la)/(box.la1-box.la0)*H];
+const LAND=[
+ [[25,46],[36,46],[36,36],[32,31],[34,28],[39,22],[43,13],[51,11],[51,12],[44,10],[40,2],[39,-4],[40,-10],[40,-18],[25,-18]],
+ [[36,36],[44,37],[48,30],[50,26],[56,26],[57,24],[60,22],[55,17],[52,16],[45,13],[43,13],[39,22],[34,28],[36,31]],
+ [[48,30],[52,37],[62,37],[62,25],[57,25],[56,26.5],[50,29]],
+ [[62,25],[67,24],[70,21],[73,17],[75,12],[77,8],[80,10],[80,15],[87,21],[91,22],[92,20],[94,16],[98,16],[98,9],[100,6],[103,1],[104,1.5],[103,8],[105,10],[109,12],[108,19],[110,21],[117,23],[121,28],[122,31],[122,46],[62,46]],
+ [[95,5],[98,4],[102,-1],[106,-6],[101,-4],[96,3]],
+ [[110,-7],[114,-8],[110,-8.6],[106,-7]],
+ [[109,1],[118,7],[119,1],[116,-4],[110,-3]],
+ [[79.8,8],[81.8,7.5],[81,6],[80,6.2]],
+ [[44,-12],[50,-15],[49,-18],[44,-18],[43,-15]]
+];
+const LANES=[
+ {n:'GZ',pts:[[113.5,22.5],[110,16],[105,7],[103.6,1.3],[98,5.5],[88,6],[80,5.5],[70,2],[55,-2],[39.67,-4.05]],c:'#f3a43b'},
+ {n:'JEA',pts:[[55,25],[57,24.5],[60,22],[58,17],[50,8],[44,0],[39.67,-4.05]],c:'#f3a43b'},
+ {n:'NSA',pts:[[72.8,18.9],[68,13],[58,5],[47,-1],[39.67,-4.05]],c:'#f3a43b'},
+ {n:'SUZ',pts:[[32.5,30],[33,27.5],[38,20],[42,14],[43.4,12.6],[47,12],[51,11.5],[52,8],[46,0],[39.67,-4.05]],c:'#9fb3cc'},
+ {n:'AIR',pts:[[113.3,23.1],[90,15],[60,6],[36.9,-1.3]],c:'#5fd39a',air:true}
+];
+function lenOf(p){let L=0;for(let i=1;i<p.length;i++)L+=Math.hypot(p[i][0]-p[i-1][0],p[i][1]-p[i-1][1]);return L}
+function at(p,t){const L=lenOf(p)*t;let a=0;for(let i=1;i<p.length;i++){const s=Math.hypot(p[i][0]-p[i-1][0],p[i][1]-p[i-1][1]);if(a+s>=L){const k=(L-a)/s;return[p[i-1][0]+(p[i][0]-p[i-1][0])*k,p[i-1][1]+(p[i][1]-p[i-1][1])*k]}a+=s}return p[p.length-1]}
+const SHIPS=LANES.flatMap((l,li)=>[0,.33,.66].map(o=>({l,o:(o+li*.13)%1})));
+function size(){const b=cv.getBoundingClientRect(),d=Math.min(devicePixelRatio||1,2);W=b.width;H=b.height;cv.width=W*d;cv.height=H*d;ctx.setTransform(d,0,0,d,0,0)}
+addEventListener('resize',()=>{W=0});
+cv.addEventListener('pointermove',e=>{const r=cv.getBoundingClientRect();const lo=box.lo0+(e.clientX-r.left)/r.width*(box.lo1-box.lo0),la=box.la1-(e.clientY-r.top)/r.height*(box.la1-box.la0);$('xy').textContent=`${Math.abs(la).toFixed(2)}°${la<0?'S':'N'} ${lo.toFixed(2)}°E`});
+let vis=true;new IntersectionObserver(es=>{vis=es[0].isIntersecting;if(vis&&!reduce)requestAnimationFrame(draw)}).observe(cv);
+const t0=performance.now();
+function draw(now){if(!W)size();ctx.clearRect(0,0,W,H);
+  // grid
+  ctx.strokeStyle='rgba(42,61,92,.45)';ctx.lineWidth=1;for(let lo=30;lo<=120;lo+=10){const[x]=px(lo,0);ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,H);ctx.stroke()}for(let la=-10;la<=40;la+=10){const[,y]=px(0,la);ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(W,y);ctx.stroke()}
+  const[,ey]=px(0,0);ctx.strokeStyle='rgba(243,164,59,.25)';ctx.setLineDash([3,5]);ctx.beginPath();ctx.moveTo(0,ey);ctx.lineTo(W,ey);ctx.stroke();ctx.setLineDash([]);
+  // land as dot matrix
+  ctx.fillStyle='rgba(147,163,184,.35)';
+  LAND.forEach(poly=>{ctx.beginPath();poly.forEach((p,i)=>{const[x,y]=px(p[0],p[1]);i?ctx.lineTo(x,y):ctx.moveTo(x,y)});ctx.closePath();ctx.save();ctx.clip();const s=Math.max(5,W/120);for(let x=0;x<W;x+=s)for(let y=0;y<H;y+=s)ctx.fillRect(x,y,1.4,1.4);ctx.restore()});
+  // lanes
+  LANES.forEach(l=>{ctx.beginPath();l.pts.forEach((p,i)=>{const[x,y]=px(p[0],p[1]);i?ctx.lineTo(x,y):ctx.moveTo(x,y)});ctx.strokeStyle=l.air?'rgba(95,211,154,.35)':'rgba(243,164,59,.28)';ctx.setLineDash(l.air?[2,6]:[]);ctx.lineWidth=1.2;ctx.stroke();ctx.setLineDash([])});
+  // sweep around Mombasa
+  const[mx,my]=px(39.67,-4.05),ang=((now-t0)/4000)%1*Math.PI*2,Rr=Math.hypot(W,H);
+  const g=ctx.createConicGradient?ctx.createConicGradient(ang-0.6,mx,my):null;
+  if(g){g.addColorStop(0,'rgba(243,164,59,0)');g.addColorStop(.09,'rgba(243,164,59,.16)');g.addColorStop(.1,'rgba(243,164,59,0)');ctx.fillStyle=g;ctx.beginPath();ctx.arc(mx,my,Rr,0,7);ctx.fill()}
+  ctx.strokeStyle='rgba(243,164,59,.18)';[60,120,200].forEach(r=>{ctx.beginPath();ctx.arc(mx,my,r,0,7);ctx.stroke()});
+  // ships
+  SHIPS.forEach((s,i)=>{const sp=s.l.air?9000:26000;const t=(s.o+(now-t0)/sp)%1;const[lo,la]=at(s.l.pts,t);const[x,y]=px(lo,la);
+    ctx.fillStyle=s.l.c;ctx.beginPath();if(s.l.air){ctx.moveTo(x,y-4);ctx.lineTo(x+4,y+3);ctx.lineTo(x-4,y+3);ctx.closePath()}else ctx.arc(x,y,2.8,0,7);ctx.fill();
+    if(i%3===0){ctx.font='500 9.5px "IBM Plex Mono",monospace';ctx.fillStyle='rgba(238,242,247,.75)';const eta=Math.max(1,Math.round((1-t)*(s.l.air?5:26)));ctx.fillText(`${s.l.n}·${String(i).padStart(2,'0')}  ETA ${eta}d`,x+7,y-6)}});
+  // ports
+  [['MOMBASA',39.67,-4.05],['NAIROBI',36.82,-1.29],['GUANGZHOU',113.3,23.1],['JEBEL ALI',55,25],['NHAVA SHEVA',72.8,18.9],['SUEZ',32.5,30]].forEach((p,k)=>{const[x,y]=px(p[1],p[2]);ctx.fillStyle=k<2?'#f3a43b':'#eef2f7';ctx.fillRect(x-2.5,y-2.5,5,5);ctx.font='600 9.5px "IBM Plex Mono",monospace';ctx.fillStyle=k<2?'#f3a43b':'rgba(238,242,247,.7)';ctx.fillText(p[0],x+(k===1?-58:7),y+(k===1?-6:4))});
+  const ph=((now-t0)/1500)%1;ctx.strokeStyle=`rgba(243,164,59,${1-ph})`;ctx.beginPath();ctx.arc(mx,my,4+ph*20,0,7);ctx.stroke();
+  if(vis&&!reduce)requestAnimationFrame(draw)}
+requestAnimationFrame(draw);
+
+// command parser
+const CITY={guangzhou:['China','Guangzhou'],shenzhen:['China','Shenzhen'],yiwu:['China','Yiwu'],shanghai:['China','Shanghai'],ningbo:['China','Ningbo'],china:['China','China'],dubai:['UAE','Dubai'],'jebel ali':['UAE','Jebel Ali'],mumbai:['India','Mumbai'],india:['India','India'],london:['UK','London'],uk:['UK','UK'],felixstowe:['UK','Felixstowe']};
+const DEST=['nairobi','mombasa','kampala','kigali','juba','eldoret','kisumu','nakuru'];
+function plan(s){s=s.toLowerCase();const r={};
+  const cbm=s.match(/(\d+(?:\.\d+)?)\s*(cbm|m3|m³|cubic)/),kg=s.match(/(\d+(?:\.\d+)?)\s*(kg|kgs|kilo)/),fcl=s.match(/(20|40)\s*(ft|')|container|fcl/);
+  let air=/\bair|fly|flight|urgent|express/.test(s),road=/\broad|truck/.test(s);
+  const o=Object.keys(CITY).find(k=>s.includes(k)),d=DEST.find(k=>s.includes(k))||'nairobi';
+  const org=o?CITY[o]:['China','Origin'];const D=d[0].toUpperCase()+d.slice(1);
+  r.mode=air?'Air':fcl?(s.includes('20')?'Sea · 20′ FCL':'Sea · 40′ FCL'):road?'Road':'Sea · LCL';
+  r.lane=`${org[1]} → ${D}`;
+  const transitSea={China:'22–30 d + clearing',UAE:'Ask desk',India:'Ask desk',UK:'Ask desk'}[org[0]];
+  r.time=air?(org[0]==='China'?'2–7 d + clearing':'Ask desk'):transitSea;
+  if(['kampala','kigali','juba'].includes(d))r.time+=' + transit';
+  if(air){const w=kg?+kg[1]:0,v=cbm?+cbm[1]*1e6/6000:0;r.bill=w||v?`${Math.round(Math.max(w,v))} kg chargeable`:'chargeable kg'}
+  else if(fcl)r.bill='per container';else r.bill=cbm?`${(+cbm[1]).toFixed(1)} CBM`:kg?`${(+kg[1]/1000).toFixed(1)} t (W/M)`:'per CBM';
+  return r}
+function run(){const r=plan($('q').value);$('rMode').textContent=r.mode;$('rLane').textContent=r.lane;$('rTime').textContent=r.time;$('rBill').textContent=r.bill}
+$('q').addEventListener('input',run);$('go').addEventListener('click',run);
+$('chips').querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{$('q').value=b.textContent;run()}));run();
+
+// timeline
+const MS=[['Booking confirmed','Day 0'],['Collected from supplier','Day 1'],['Received at origin warehouse','Day 2'],['Loaded · vessel departed','Day 5'],['Arrived Mombasa','Day 27'],['Railed to Nairobi ICD','Day 28'],['Entry passed · released','Day 29'],['Delivered','Day 30']];
+$('tl').innerHTML=MS.map(m=>`<li><span class="dot"></span><span><b>${m[0]}</b></span><span class="m">${m[1]}</span></li>`).join('');
+const LIS=[...$('tl').children];
+function setP(p){const i=Math.min(MS.length-1,Math.floor(p*MS.length));LIS.forEach((li,k)=>{li.className=k<i?'done':k===i?'now':''});
+  $('pg').style.width=((i+1)/MS.length*100)+'%';$('eta').textContent=MS[i][1];$('st').textContent=i===MS.length-1?'Delivered':i>=6?'Released':i>=4?'In Kenya':i>=3?'At sea':'At origin';$('st').className='state'+(i>=6?' ok':'');$('ent').textContent=i>=6?'Passed':i>=4?'Lodged':'Pre-lodged'}
+setP(.45);
+if(window.gsap&&!reduce&&innerWidth>860){gsap.registerPlugin(ScrollTrigger);ScrollTrigger.create({trigger:'#trk',start:'top 70px',end:'bottom bottom',onUpdate:s=>setP(s.progress)});
+  gsap.from('.h1',{y:30,opacity:0,duration:1,ease:'power3.out'});gsap.from('.console',{y:40,opacity:0,duration:1.1,delay:.15,ease:'power3.out'});}
+
+// tools
+const n=id=>parseFloat($(id).value)||0,f=v=>v.toLocaleString('en-US',{maximumFractionDigits:0});
+function lc(){const cif=n('lv')+n('lf'),b=+$('lb').value,duty=cif*b/100,idf=cif*.025,rdl=cif*.02,vat=(cif+duty)*.16,t=cif+duty+idf+rdl+vat;
+  $('lc').innerHTML=[['CIF value',cif],[`Import duty ${b}%`,duty],['IDF 2.5%',idf],['RDL 2%',rdl],['VAT 16%',vat]].map(r=>`<div><span>${r[0]}</span><span>${f(r[1])}</span></div>`).join('')+`<div class="tot"><span>Landed, USD</span><span>${f(t)}</span></div>`}
+['lv','lf','lb'].forEach(i=>$(i).addEventListener('input',lc));lc();
+function vc(){const y=n('vy'),ok=y>=2019&&$('vd').value==='R';$('vv').className='verdict '+(ok?'yes':'no');$('vv').textContent=ok?'Eligible to import':'Not eligible';
+  $('vn').textContent=$('vd').value!=='R'?'Kenya does not register left-hand-drive vehicles for general use.':y<2019?`A ${y||'—'} vehicle is older than the 8-year limit for 2026.`:'Next: we estimate duty, excise, VAT, IDF and RDL from the KRA CRSP value.'}
+['vy','vd'].forEach(i=>$(i).addEventListener('input',vc));vc();
+function cb(){const v=n('cl')*n('cw')*n('ch')*n('cq')/1e6;$('cbm').textContent=v.toFixed(2)+' m³';$('cbmn').textContent=v<1?'Small load: consider air or consolidated air.':v<15?'Sea LCL territory. Priced per CBM.':'Compare a 20′ FCL.'}
+['cl','cw','ch','cq'].forEach(i=>$(i).addEventListener('input',cb));cb();
+})();
+</script>

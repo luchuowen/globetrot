@@ -1,0 +1,210 @@
+<title>Cargo Cinema · Globetrot</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900;1,62..125,100..900&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+/* Concept: the homepage is a short film about one container. Letterboxed night-port opening scene, film title cards, a single amber container that travels down the page through four acts, a narrated explainer, and end credits. Single dark look by design. */
+:root{
+  --harbour:#060c17; --deck:#0c1727; --hull:#16253c; --steel:#2a3d5c; --fog:#9aa9bd; --flood:#eef2f7; --sodium:#f3a43b; --glow:#ffd08a;
+  --f-display:"Archivo","Arial Narrow",sans-serif; --f-body:"IBM Plex Sans",system-ui,sans-serif; --f-mono:"IBM Plex Mono",ui-monospace,monospace;
+  --gut:clamp(16px,4vw,64px); color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--harbour);color:var(--flood);font-family:var(--f-body);font-size:16px;line-height:1.6;overflow-x:hidden}
+.mono{font-family:var(--f-mono);font-size:11.5px;letter-spacing:.2em;text-transform:uppercase}
+.nav{position:fixed;inset:0 0 auto;z-index:50;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:calc(env(safe-area-inset-top,0px) + 18px) var(--gut) 18px}
+.brand{font-family:var(--f-display);font-weight:300;font-stretch:125%;letter-spacing:.32em;font-size:13px;text-transform:uppercase}
+.brand b{font-weight:700}
+.nav .links{display:flex;gap:28px;font-size:13px;color:var(--fog)}
+@media (max-width:860px){.nav .links{display:none}}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:12px 20px;border-radius:999px;background:var(--sodium);color:#1a1006;font-weight:600;font-size:14px;border:0;cursor:pointer;font-family:var(--f-body)}
+.btn.g{background:transparent;color:var(--flood);box-shadow:inset 0 0 0 1px var(--steel)}
+.btn:focus-visible{outline:2px solid var(--sodium);outline-offset:3px}
+/* opening scene */
+.open{padding:calc(env(safe-area-inset-top,0px) + 76px) 0 0}
+.screen{position:relative;width:100%;aspect-ratio:2.39/1;max-height:82svh;overflow:hidden;background:#000}
+@media (max-width:760px){.screen{aspect-ratio:4/5}}
+.screen canvas{position:absolute;inset:0;width:100%;height:100%}
+.screen .grain{position:absolute;inset:-50%;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E");opacity:.07;animation:grain 1s steps(4) infinite;pointer-events:none;mix-blend-mode:overlay}
+@keyframes grain{25%{transform:translate(-3%,2%)}50%{transform:translate(2%,-3%)}75%{transform:translate(-1%,-2%)}}
+.title-card{position:absolute;inset:auto var(--gut) 9% var(--gut);display:flex;flex-direction:column;gap:14px;pointer-events:none}
+.title-card .pre{color:var(--glow);opacity:.85}
+.h1{font-family:var(--f-display);font-weight:200;font-stretch:118%;text-transform:uppercase;letter-spacing:.04em;line-height:.98;font-size:clamp(34px,5.6vw,92px);margin:0;text-wrap:balance}
+.h1 b{font-weight:800;color:var(--sodium)}
+.reel{display:flex;justify-content:space-between;gap:16px;padding:14px var(--gut);color:var(--fog);border-bottom:1px solid var(--hull)}
+.intro{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:24px;align-items:end;padding:clamp(40px,6vw,80px) var(--gut)}
+@media (max-width:760px){.intro{grid-template-columns:minmax(0,1fr)}}
+.intro p{margin:0;font-size:clamp(18px,1.8vw,24px);line-height:1.45;max-width:44ch;color:var(--flood)}
+.intro p span{color:var(--fog)}
+/* acts */
+.acts{position:relative;padding-block:40px 120px;overflow-x:clip}
+.acts svg.path{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.acts .bg{fill:none;stroke:var(--hull);stroke-width:2;stroke-dasharray:2 10}
+.acts .fg{fill:none;stroke:var(--sodium);stroke-width:2.5}
+.box{position:absolute;left:0;top:0;width:58px;height:26px;margin:-13px 0 0 -29px;background:linear-gradient(90deg,#f3a43b 0 100%);border-radius:2px;box-shadow:0 0 30px rgba(243,164,59,.55),0 0 0 1px #ffd08a inset;z-index:3;pointer-events:none;
+  background-image:repeating-linear-gradient(90deg,rgba(0,0,0,.18) 0 2px,transparent 2px 7px);background-color:#f3a43b}
+.box::after{content:"GCLU 261009";position:absolute;left:4px;top:4px;font:600 7px var(--f-mono);color:#3a2205;letter-spacing:.05em}
+.act{position:relative;z-index:2;min-height:92svh;display:grid;align-content:center;padding:60px var(--gut);gap:18px}
+.act:nth-child(even){justify-items:end;text-align:right}
+.act .word{font-family:var(--f-display);font-weight:900;font-stretch:62%;text-transform:uppercase;line-height:.8;font-size:clamp(56px,16vw,280px);max-width:100%;overflow-wrap:anywhere;color:transparent;-webkit-text-stroke:1.5px var(--steel);
+  background:linear-gradient(var(--sodium),var(--sodium)) 0 100%/100% var(--fill,0%) no-repeat;-webkit-background-clip:text;background-clip:text}
+.act .meta{color:var(--sodium)}
+.act p{margin:0;max-width:40ch;color:var(--fog);font-size:18px}
+.act .fact{display:inline-flex;gap:18px;flex-wrap:wrap;border-top:1px solid var(--hull);padding-top:14px;max-width:520px;justify-content:inherit}
+.act .fact span{font-family:var(--f-mono);font-size:12px;letter-spacing:.08em}
+.act .fact b{color:var(--flood);font-weight:500}
+/* explainer */
+.explain{padding:clamp(60px,8vw,120px) var(--gut);border-top:1px solid var(--hull);display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:clamp(24px,4vw,64px);align-items:center}
+@media (max-width:900px){.explain{grid-template-columns:minmax(0,1fr)}}
+.h2{font-family:var(--f-display);font-weight:200;font-stretch:118%;text-transform:uppercase;letter-spacing:.03em;line-height:1;font-size:clamp(30px,4vw,60px);margin:12px 0 18px;text-wrap:balance}
+.h2 b{font-weight:800;color:var(--sodium)}
+.player{position:relative;aspect-ratio:16/9;max-width:100%;border-radius:10px;overflow:hidden;background:radial-gradient(ellipse at 30% 40%,#1b2c47,#060c17 70%);border:1px solid var(--hull)}
+.player .pt{position:absolute;left:24px;top:22px;right:24px;display:flex;justify-content:space-between;gap:10px;color:var(--fog)}
+.player .play{position:absolute;left:50%;top:50%;width:84px;height:84px;margin:-42px 0 0 -42px;border-radius:50%;background:var(--sodium);border:0;cursor:pointer;display:grid;place-items:center;box-shadow:0 0 0 14px rgba(243,164,59,.14)}
+.player .play:focus-visible{outline:2px solid var(--flood);outline-offset:6px}
+.wave{position:absolute;left:24px;right:24px;bottom:54px;height:40px;display:flex;align-items:center;gap:3px}
+.wave i{flex:1;background:var(--steel);border-radius:2px;height:20%;transition:height .2s}
+.player.on .wave i{background:var(--sodium)}
+.chap{position:absolute;left:24px;right:24px;bottom:18px;display:flex;gap:4px}
+.chap span{flex:1;height:3px;background:var(--steel);position:relative}
+.chap span::after{content:attr(data-l);position:absolute;top:-18px;left:0;font:500 9.5px var(--f-mono);color:var(--fog);letter-spacing:.08em;white-space:nowrap;text-transform:uppercase}
+@media (max-width:560px){.chap span::after{display:none}}
+.cap{position:absolute;left:0;right:0;bottom:110px;text-align:center;font-size:15px;color:var(--flood);text-shadow:0 2px 8px #000;padding-inline:24px}
+/* credits */
+.credits{padding:clamp(80px,10vw,140px) var(--gut);text-align:center;border-top:1px solid var(--hull);background:linear-gradient(var(--harbour),#03070e)}
+.credits .role{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px;max-width:720px;margin:0 auto;padding:10px 0;text-align:left}
+.credits .role span:first-child{text-align:right;color:var(--fog);font-family:var(--f-mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;padding-top:3px}
+.credits .role span:last-child{font-family:var(--f-display);font-stretch:110%;font-weight:300;font-size:20px;letter-spacing:.04em}
+.credits .end{margin-top:70px;display:grid;gap:22px;justify-items:center}
+footer{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;padding:22px var(--gut) calc(22px + env(safe-area-inset-bottom,0px));color:var(--fog);background:#03070e}
+.badge{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:60;background:var(--deck);border:1px solid var(--steel);padding:8px 12px;font-family:var(--f-mono);font-size:11px;color:var(--fog);letter-spacing:.1em}
+.badge b{color:var(--sodium);font-weight:500}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.act .word{--fill:100%}}
+</style>
+
+<header class="nav">
+  <span class="brand"><b>Globetrot</b> Cargolink</span>
+  <nav class="links" aria-label="Main"><span>Services</span><span>Trade lanes</span><span>Import guide</span><span>Tools</span><span>Track</span></nav>
+  <button class="btn">Get a quote</button>
+</header>
+
+<section class="open" aria-label="Opening scene">
+  <div class="screen"><canvas id="port" aria-label="Night scene of a container port: cranes lifting a single amber container under sodium lights"></canvas><div class="grain" aria-hidden="true"></div>
+    <div class="title-card"><span class="mono pre">Globetrot Cargolink International presents</span><h1 class="h1">Cargo from anywhere. <b>Cleared</b> and delivered in Kenya.</h1></div>
+  </div>
+  <div class="reel mono"><span>Scene 01 · Mombasa · 03:14 EAT</span><span id="tc">00:00:00:00</span></div>
+  <div class="intro"><p>One container. Thirty days. Six borders of paperwork. <span>Follow it from a factory in Guangzhou to a shop in Nairobi, and see what we do at every step.</span></p><div style="display:flex;gap:10px;flex-wrap:wrap"><button class="btn">Get a quote →</button><button class="btn g">WhatsApp us</button></div></div>
+</section>
+
+<section class="acts" id="acts" aria-label="The journey in four acts">
+  <svg class="path" id="pathsvg" aria-hidden="true" preserveAspectRatio="none"><path class="bg" id="pbg"/><path class="fg" id="pfg"/></svg>
+  <div class="box" id="box" aria-hidden="true"></div>
+  <article class="act"><span class="mono meta">Act I · Day 0–5</span><div class="word">Origin</div><p>Your supplier in Guangzhou packs the order. We collect it, check it, photograph it and consolidate it with your other suppliers' cartons.</p><div class="fact"><span>Mode <b>Sea · LCL</b></span><span>Volume <b>6.4 CBM</b></span></div></article>
+  <article class="act"><span class="mono meta">Act II · Day 5–27</span><div class="word">Crossing</div><p>Booked, documented and insured on the main leg across the Indian Ocean. You get a WhatsApp update when it sails and when it nears port.</p><div class="fact"><span>China → Mombasa <b>22–30 days</b></span></div></article>
+  <article class="act"><span class="mono meta">Act III · Day 27–29</span><div class="word">Gateway</div><p>Discharged at Mombasa and railed overnight on the SGR to Nairobi ICD. Your entry is already prepared on KRA iCMS, so clearing starts the moment it lands.</p><div class="fact"><span>IDF <b>2.5%</b></span><span>RDL <b>2%</b></span><span>VAT <b>16%</b></span></div></article>
+  <article class="act"><span class="mono meta">Act IV · Day 30</span><div class="word">Home</div><p>Released, loaded and delivered to your door in Nairobi, or onward to Kampala, Kigali or Juba on the Northern Corridor.</p><div class="fact"><span>Delivered <b>door to door</b></span></div></article>
+</section>
+
+<section class="explain" aria-label="Explainer">
+  <div><span class="mono" style="color:var(--sodium)">Watch · 90 seconds</span><h2 class="h2">How importing with us <b>works</b></h2><p style="color:var(--fog);margin:0 0 24px;max-width:44ch">Narrated by our team, with captions and a full transcript. Nine short films on the site explain customs, landed cost, LCL and FCL, KEBS certificates and importing a car.</p><button class="btn g">See all explainers →</button></div>
+  <div class="player" id="player"><div class="pt mono"><span>Explainer 01</span><span id="pt">0:00 / 1:30</span></div>
+    <button class="play" id="play" aria-label="Play preview"><svg width="26" height="26" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4l13 8-13 8z" fill="#1a1006"/></svg></button>
+    <div class="cap" id="cap">"Tell us what you're shipping. We'll handle the rest."</div>
+    <div class="wave" id="wave"></div>
+    <div class="chap"><span data-l="Quote"></span><span data-l="Collect"></span><span data-l="Ship"></span><span data-l="Clear"></span><span data-l="Deliver"></span></div>
+  </div>
+</section>
+
+<section class="credits" aria-label="Services">
+  <span class="mono" style="color:var(--sodium)">Starring</span>
+  <div style="margin-top:28px">
+    <div class="role"><span>Air freight</span><span>Into JKIA · express & consolidated</span></div>
+    <div class="role"><span>Sea freight</span><span>FCL & LCL into Mombasa</span></div>
+    <div class="role"><span>Consolidation</span><span>Many suppliers, one container</span></div>
+    <div class="role"><span>Customs clearing</span><span>KRA iCMS · KenTrade · PVoC</span></div>
+    <div class="role"><span>Land & transit</span><span>Northern Corridor to UG · RW · SS · DRC</span></div>
+    <div class="role"><span>Warehousing</span><span>Storage & distribution, Nairobi</span></div>
+    <div class="role"><span>Import advisory</span><span>Sourcing support & compliance</span></div>
+  </div>
+  <div class="end"><h2 class="h2" style="margin:0">Your shipment is <b>the next story</b></h2><div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center"><button class="btn">Get a quote →</button><button class="btn g">WhatsApp us</button></div></div>
+</section>
+<footer class="mono"><span>© 2026 Globetrot Cargolink International</span><span>Filmed on location: Mombasa · Nairobi</span></footer>
+<div class="badge">Direction <b>G</b> · Cargo Cinema</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+(function(){
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const $=id=>document.getElementById(id);
+/* ---------- opening scene ---------- */
+const cv=$('port'),ctx=cv.getContext('2d');let W=0,H=0;
+const parts=Array.from({length:70},()=>({x:Math.random(),y:Math.random()*.7,r:Math.random()*1.6+.4,v:Math.random()*.00012+.00004}));
+const stack=Array.from({length:26},(_,i)=>({x:i/26,h:1+((i*7)%4),c:i%5}));
+function size(){const b=cv.getBoundingClientRect(),d=Math.min(devicePixelRatio||1,2);W=b.width;H=b.height;cv.width=W*d;cv.height=H*d;ctx.setTransform(d,0,0,d,0,0)}
+addEventListener('resize',()=>{W=0});
+function crane(x,base,s,t,lift){ // STS crane silhouette
+  ctx.strokeStyle='#0b1422';ctx.fillStyle='#0b1422';ctx.lineWidth=Math.max(2,s*.035);
+  const lh=s*1.05,top=base-lh;
+  ctx.beginPath();ctx.moveTo(x,base);ctx.lineTo(x+s*.08,top);ctx.moveTo(x+s*.42,base);ctx.lineTo(x+s*.34,top);ctx.moveTo(x+s*.04,base-lh*.5);ctx.lineTo(x+s*.38,base-lh*.5);ctx.stroke();
+  ctx.fillRect(x-s*.55,top-s*.06,s*1.9,s*.06); // boom
+  ctx.beginPath();ctx.moveTo(x+s*.08,top-s*.06);ctx.lineTo(x+s*.21,top-s*.38);ctx.lineTo(x+s*.34,top-s*.06);ctx.moveTo(x+s*.21,top-s*.38);ctx.lineTo(x-s*.55,top-s*.06);ctx.moveTo(x+s*.21,top-s*.38);ctx.lineTo(x+s*1.35,top-s*.06);ctx.stroke();
+  // lights
+  const blink=(Math.sin(t/400+x)>0.2);ctx.fillStyle=blink?'#ff5a3a':'#401a12';ctx.beginPath();ctx.arc(x+s*.21,top-s*.4,2.2,0,7);ctx.fill();
+  ctx.fillStyle='rgba(255,200,120,.95)';[-.4,0,.5,1.1].forEach(k=>{ctx.beginPath();ctx.arc(x+s*k,top,1.6,0,7);ctx.fill()});
+  return {tx:x+s*(lift?1.0:-.3),top}
+}
+const t0=performance.now();let vis=true;new IntersectionObserver(es=>{vis=es[0].isIntersecting;if(vis&&!reduce)requestAnimationFrame(draw)}).observe(cv);
+function draw(now){if(!W)size();const t=now-t0;
+  const sky=ctx.createLinearGradient(0,0,0,H);sky.addColorStop(0,'#03070f');sky.addColorStop(.55,'#0d1a30');sky.addColorStop(.72,'#3a2a22');sky.addColorStop(.74,'#0a1424');sky.addColorStop(1,'#03070e');ctx.fillStyle=sky;ctx.fillRect(0,0,W,H);
+  const hz=H*.73;
+  // sodium glow
+  const gl=ctx.createRadialGradient(W*.55,hz,0,W*.55,hz,W*.6);gl.addColorStop(0,'rgba(243,164,59,.35)');gl.addColorStop(1,'rgba(243,164,59,0)');ctx.fillStyle=gl;ctx.fillRect(0,0,W,H);
+  // stacks
+  const cs=['#122036','#1a2a44','#2a1f1a','#13253a','#1d2235'];
+  stack.forEach(s=>{const bw=W/26;for(let k=0;k<s.h;k++){ctx.fillStyle=cs[(s.c+k)%5];ctx.fillRect(s.x*W+1,hz-(k+1)*bw*.42,bw-2,bw*.42-2)}});
+  // cranes
+  const sc=Math.min(H*.42,W*.2);const lift=(Math.sin(t/3800)+1)/2;
+  crane(W*.12,hz,sc*.8,t,false);const c2=crane(W*.42,hz,sc,t,true);crane(W*.78,hz,sc*.85,t,false);
+  // hero container on the spreader
+  const cx=W*.42+sc*.62,cy=c2.top+sc*.12+lift*sc*.6;
+  ctx.strokeStyle='rgba(20,30,48,1)';ctx.lineWidth=1.2;ctx.beginPath();ctx.moveTo(cx+sc*.08,c2.top);ctx.lineTo(cx+sc*.08,cy);ctx.moveTo(cx+sc*.3,c2.top);ctx.lineTo(cx+sc*.3,cy);ctx.stroke();
+  ctx.shadowColor='#f3a43b';ctx.shadowBlur=26;ctx.fillStyle='#f3a43b';ctx.fillRect(cx,cy,sc*.38,sc*.16);ctx.shadowBlur=0;
+  ctx.fillStyle='rgba(0,0,0,.2)';for(let i=0;i<10;i++)ctx.fillRect(cx+4+i*sc*.036,cy+3,1.5,sc*.16-6);
+  // water + reflections
+  for(let y=hz+4;y<H;y+=3){const a=(1-(y-hz)/(H-hz))*.35;const off=Math.sin(y*.15+t/500)*6;ctx.fillStyle=`rgba(243,164,59,${a*.5})`;ctx.fillRect(W*.4+off,y,W*.25*(1-(y-hz)/(H-hz)),1);ctx.fillStyle=`rgba(255,200,120,${a*.6})`;ctx.fillRect(cx+off*.6,y,sc*.38,1)}
+  // haze particles
+  parts.forEach(p=>{p.x=(p.x+p.v*16)%1;ctx.fillStyle='rgba(255,220,170,.18)';ctx.beginPath();ctx.arc(p.x*W,p.y*H,p.r,0,7);ctx.fill()});
+  // vignette
+  const v=ctx.createRadialGradient(W/2,H/2,H*.2,W/2,H/2,W*.75);v.addColorStop(0,'rgba(0,0,0,0)');v.addColorStop(1,'rgba(0,0,0,.6)');ctx.fillStyle=v;ctx.fillRect(0,0,W,H);
+  const fr=Math.floor(t/41.7);$('tc').textContent=[3,14,Math.floor(fr/24)%60,fr%24].map(n=>String(n).padStart(2,'0')).join(':');
+  if(vis&&!reduce)requestAnimationFrame(draw)}
+requestAnimationFrame(draw);
+
+/* ---------- winding path through the acts ---------- */
+const acts=$('acts'),svg=$('pathsvg'),pbg=$('pbg'),pfg=$('pfg'),box=$('box');let L=0;
+function buildPath(){const w=acts.clientWidth,h=acts.clientHeight;svg.setAttribute('viewBox',`0 0 ${w} ${h}`);
+  const arts=[...acts.querySelectorAll('.act')];let d=`M ${w*.5} 0`;
+  arts.forEach((a,i)=>{const y=a.offsetTop+a.offsetHeight*.5,x=i%2? w*.18: w*.82;const py=i?arts[i-1].offsetTop+arts[i-1].offsetHeight*.5:0;const mid=(py+y)/2;d+=` C ${i%2?w*.82:w*.5} ${mid}, ${x} ${mid}, ${x} ${y}`});
+  d+=` C ${w*.5} ${h-60}, ${w*.5} ${h-40}, ${w*.5} ${h}`;
+  pbg.setAttribute('d',d);pfg.setAttribute('d',d);L=pfg.getTotalLength();pfg.style.strokeDasharray=L;setProg(lastP)}
+let lastP=0;
+function setProg(p){lastP=p;if(!L)return;pfg.style.strokeDashoffset=L*(1-p);const pt=pfg.getPointAtLength(L*p),pt2=pfg.getPointAtLength(Math.min(L,L*p+2));const ang=Math.atan2(pt2.y-pt.y,pt2.x-pt.x)*180/Math.PI;box.style.transform=`translate(${pt.x}px,${pt.y}px) rotate(${ang}deg)`}
+buildPath();addEventListener('resize',()=>{buildPath()});
+if(document.fonts)document.fonts.ready.then(buildPath);
+
+if(window.gsap&&!reduce){gsap.registerPlugin(ScrollTrigger);
+  ScrollTrigger.create({trigger:acts,start:'top 60%',end:'bottom 60%',scrub:.6,onUpdate:s=>setProg(s.progress),onRefresh:buildPath});
+  document.querySelectorAll('.act .word').forEach(w=>gsap.fromTo(w,{'--fill':'0%'},{'--fill':'100%',ease:'none',scrollTrigger:{trigger:w,start:'top 80%',end:'top 35%',scrub:true}}));
+  gsap.from('.title-card > *',{y:30,opacity:0,duration:1.4,stagger:.25,ease:'power3.out',delay:.3});
+  gsap.from('.credits .role',{y:24,opacity:0,stagger:.08,duration:.8,scrollTrigger:{trigger:'.credits',start:'top 70%'}});
+}else{setProg(1);document.querySelectorAll('.act .word').forEach(w=>w.style.setProperty('--fill','100%'))}
+
+/* ---------- player preview ---------- */
+const wave=$('wave');wave.innerHTML=Array.from({length:64},()=>'<i></i>').join('');const bars=[...wave.children];
+const CAPS=['"Tell us what you\'re shipping. We\'ll handle the rest."','"We collect from your supplier and check every carton."','"We book the main leg and send you the paperwork."','"Your entry is lodged on iCMS before the ship arrives."','"Then it\'s delivered to your door, with updates on WhatsApp."'];
+let on=false,timer,k=0;
+$('play').addEventListener('click',()=>{on=!on;$('player').classList.toggle('on',on);$('play').setAttribute('aria-label',on?'Pause preview':'Play preview');clearInterval(timer);
+  if(on){timer=setInterval(()=>{k++;bars.forEach(b=>b.style.height=(15+Math.random()*85)+'%');$('cap').textContent=CAPS[Math.floor(k/12)%CAPS.length];const s=Math.floor(k/4)%90;$('pt').textContent=`${Math.floor(s/60)}:${String(s%60).padStart(2,'0')} / 1:30`},120)}else bars.forEach(b=>b.style.height='20%')});
+})();
+</script>
