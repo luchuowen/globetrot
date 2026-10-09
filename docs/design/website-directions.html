@@ -1,0 +1,443 @@
+<title>Globetrot Cargolink Directions</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Saira+Stencil+One&family=Public+Sans:wght@400;500;600;700&family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Manrope:wght@400;500;600;700&family=Unbounded:wght@400;600;800&family=Figtree:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: vertical direction list (left) + full preview stage (right); each direction is a self-contained mini homepage with its own fixed palette. */
+:root{
+  --ch-bg:#f3f5f7; --ch-panel:#ffffff; --ch-fg:#13202e; --ch-muted:#5b6876; --ch-line:#dde3e9; --ch-accent:#1f5fbf; --ch-sel:#e8eff9;
+  --f-ui:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif; --f-mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--ch-bg:#0d1219;--ch-panel:#141b24;--ch-fg:#e6ecf2;--ch-muted:#93a1b0;--ch-line:#253140;--ch-accent:#6ea3f2;--ch-sel:#1b2736;color-scheme:dark}}
+:root[data-theme="dark"]{--ch-bg:#0d1219;--ch-panel:#141b24;--ch-fg:#e6ecf2;--ch-muted:#93a1b0;--ch-line:#253140;--ch-accent:#6ea3f2;--ch-sel:#1b2736;color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--ch-bg);color:var(--ch-fg);font-family:var(--f-ui);font-size:15px;line-height:1.5;padding-inline:16px;padding-block:20px}
+.shell{display:grid;grid-template-columns:260px minmax(0,1fr);gap:20px;max-width:1440px;margin-inline:auto}
+@media (max-width:900px){.shell{grid-template-columns:minmax(0,1fr)}}
+.side{position:sticky;top:calc(env(safe-area-inset-top,0px) + 16px);align-self:start;display:flex;flex-direction:column;gap:14px}
+@media (max-width:900px){.side{position:static}}
+.side h1{font-size:18px;margin:0;line-height:1.25;text-wrap:balance}
+.side p{margin:0;color:var(--ch-muted);font-size:13px}
+.dlist{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:2px;border-top:1px solid var(--ch-line)}
+.dlist button{all:unset;cursor:pointer;display:grid;grid-template-columns:22px 1fr;gap:10px;padding:12px 10px;border-bottom:1px solid var(--ch-line);width:100%;box-sizing:border-box;border-radius:6px}
+.dlist button:hover{background:var(--ch-sel)}
+.dlist button[aria-selected="true"]{background:var(--ch-sel);box-shadow:inset 3px 0 0 var(--ch-accent)}
+.dlist button:focus-visible{outline:2px solid var(--ch-accent);outline-offset:2px}
+.dlist .k{font-family:var(--f-mono);font-size:12px;color:var(--ch-muted);padding-top:2px}
+.dlist b{display:block;font-size:14px}
+.dlist span.s{display:block;font-size:12.5px;color:var(--ch-muted)}
+.note{font-size:12.5px;color:var(--ch-muted);border:1px solid var(--ch-line);background:var(--ch-panel);border-radius:8px;padding:12px}
+.stage{min-width:0;display:flex;flex-direction:column;gap:16px}
+.spec{background:var(--ch-panel);border:1px solid var(--ch-line);border-radius:10px;padding:18px;display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:18px}
+.spec h3{margin:0 0 6px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ch-muted);font-weight:600}
+.spec p{margin:0;font-size:13.5px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{display:flex;align-items:center;gap:6px;font-family:var(--f-mono);font-size:11.5px}
+.chip i{width:18px;height:18px;border-radius:4px;border:1px solid var(--ch-line);display:inline-block}
+.frame{border-radius:12px;overflow:hidden;border:1px solid var(--ch-line);box-shadow:0 20px 50px -30px rgba(10,20,40,.45)}
+.dir[hidden]{display:none!important}
+
+/* ===== Shared mini-site skeleton (styled per direction via tokens) ===== */
+.site{background:var(--bg);color:var(--fg);font-family:var(--body)}
+.site *{box-sizing:border-box}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:16px clamp(16px,4vw,44px);border-bottom:1px solid var(--line)}
+.nav .brand{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:700;letter-spacing:.02em;font-size:15px;color:var(--fg)}
+.nav ul{display:flex;gap:22px;list-style:none;margin:0;padding:0;font-size:13.5px;color:var(--muted)}
+@media (max-width:820px){.nav ul{display:none}}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 18px;border-radius:var(--r);font-weight:600;font-size:14px;cursor:pointer;border:1px solid transparent;font-family:var(--body);transition:transform .3s cubic-bezier(.22,.8,.2,1),background .2s}
+.btn:hover{transform:translateY(-2px)}
+.btn:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.btn.p{background:var(--accent);color:var(--on-accent)}
+.btn.s{background:transparent;color:var(--fg);border-color:var(--line-strong)}
+.hero{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:clamp(20px,4vw,48px);padding:clamp(28px,5vw,64px) clamp(16px,4vw,44px);align-items:center}
+@media (max-width:820px){.hero{grid-template-columns:minmax(0,1fr)}}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent-2)}
+.hero h2{font-family:var(--display);margin:14px 0 16px;line-height:.98;text-wrap:balance}
+.hero p.sub{margin:0 0 24px;color:var(--muted);max-width:52ch;font-size:16px}
+.ctas{display:flex;flex-wrap:wrap;gap:10px}
+.proof{display:flex;flex-wrap:wrap;gap:6px 18px;margin-top:20px;font-size:12.5px;color:var(--muted);font-family:var(--mono)}
+.proof span::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--accent-2);margin-right:8px;vertical-align:middle}
+.visual{position:relative;aspect-ratio:1/1;max-width:100%;min-width:0}
+.visual canvas,.visual svg{width:100%;height:100%;display:block}
+.band{padding:clamp(28px,5vw,56px) clamp(16px,4vw,44px);border-top:1px solid var(--line)}
+.band h4{font-family:var(--display);font-size:clamp(22px,3vw,32px);margin:0 0 6px;line-height:1.05;text-wrap:balance}
+.band .lede{color:var(--muted);margin:0 0 24px;max-width:60ch}
+/* journey */
+.journey{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:28px;align-items:stretch}
+@media (max-width:820px){.journey{grid-template-columns:minmax(0,1fr)}}
+.jday{font-family:var(--display);font-size:clamp(56px,9vw,104px);line-height:.9;color:var(--accent);font-variant-numeric:tabular-nums}
+.jday small{font-size:.28em;display:block;color:var(--muted);font-family:var(--mono);letter-spacing:.14em;text-transform:uppercase;margin-bottom:6px}
+.jtext{font-size:19px;line-height:1.35;margin:14px 0 0;min-height:3.2em;max-width:34ch}
+.jrail{display:flex;gap:6px;margin-top:22px}
+.jrail button{all:unset;cursor:pointer;flex:1;height:30px;display:flex;align-items:flex-end}
+.jrail button span{display:block;width:100%;height:4px;background:var(--line-strong);border-radius:2px;transition:background .3s,height .3s}
+.jrail button[aria-current="true"] span{background:var(--accent);height:8px}
+.jrail button:focus-visible span{outline:2px solid var(--accent);outline-offset:3px}
+.jlabels{display:flex;justify-content:space-between;font-family:var(--mono);font-size:11px;color:var(--muted);margin-top:6px}
+.jmap{border:1px solid var(--line);border-radius:var(--r);background:var(--panel);padding:16px;min-height:240px;position:relative;overflow:hidden}
+.jmap svg{width:100%;height:100%;display:block}
+.jmap .rt{fill:none;stroke:var(--line-strong);stroke-width:2;stroke-dasharray:4 6}
+.jmap .rt-on{fill:none;stroke:var(--accent);stroke-width:3;stroke-linecap:round;transition:stroke-dashoffset .9s cubic-bezier(.22,.8,.2,1)}
+.jmap .node{fill:var(--panel);stroke:var(--line-strong);stroke-width:2;transition:fill .4s}
+.jmap .node.on{fill:var(--accent);stroke:var(--accent)}
+.jmap text{font-family:var(--mono);font-size:10px;fill:var(--muted)}
+/* modes + tool */
+.duo{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:20px}
+@media (max-width:820px){.duo{grid-template-columns:minmax(0,1fr)}}
+.modes{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.mode{border:1px solid var(--line);border-radius:var(--r);padding:18px;background:var(--panel);display:flex;flex-direction:column;gap:8px;transition:transform .4s cubic-bezier(.22,.8,.2,1),border-color .3s}
+.mode:hover{transform:translateY(-4px);border-color:var(--accent)}
+.mode .ic{width:34px;height:34px;color:var(--accent)}
+.mode b{font-family:var(--display);font-size:18px;line-height:1.1}
+.mode p{margin:0;font-size:13.5px;color:var(--muted);line-height:1.45}
+.tool{border:1px solid var(--line-strong);border-radius:var(--r);padding:20px;background:var(--panel);display:flex;flex-direction:column;gap:14px}
+.tool header{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.tool header b{font-family:var(--display);font-size:18px}
+.tool header span{font-family:var(--mono);font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.12em}
+.fields{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+@media (max-width:480px){.fields{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.fields label{display:flex;flex-direction:column;gap:4px;font-size:11px;color:var(--muted);font-family:var(--mono);text-transform:uppercase;letter-spacing:.08em}
+.fields input{width:100%;min-width:0;padding:9px 10px;border-radius:calc(var(--r) * .6);border:1px solid var(--line-strong);background:var(--bg);color:var(--fg);font:500 15px var(--body);font-variant-numeric:tabular-nums}
+.fields input:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+.out{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:calc(var(--r) * .6);overflow:hidden}
+.out div{background:var(--panel);padding:10px 12px}
+.out small{display:block;font-family:var(--mono);font-size:10.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+.out strong{font-family:var(--display);font-size:22px;font-variant-numeric:tabular-nums}
+.tool .hint{font-size:13px;margin:0;color:var(--fg)}
+.foot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;padding:18px clamp(16px,4vw,44px);border-top:1px solid var(--line);font-size:12.5px;color:var(--muted);font-family:var(--mono)}
+
+/* ===== A · Port at Night ===== */
+.d-a .site{--bg:#0a1220;--panel:#0f1a2c;--fg:#e9eef5;--muted:#9aa9bd;--line:#1c2a40;--line-strong:#2d405d;--accent:#f3a43b;--accent-2:#f3a43b;--on-accent:#1a1006;--r:4px;
+  --display:"Archivo",sans-serif;--body:"IBM Plex Sans",sans-serif;--mono:"IBM Plex Mono",monospace}
+.d-a .hero h2{font-size:clamp(40px,6.4vw,82px);font-weight:800;font-stretch:72%;text-transform:uppercase;letter-spacing:-.01em}
+.d-a .hero h2 em{font-style:normal;color:var(--accent)}
+.d-a .band h4,.d-a .mode b,.d-a .tool header b{font-stretch:80%;text-transform:uppercase;font-weight:800}
+.d-a .jday{font-stretch:68%;font-weight:800}
+.d-a .site{background-image:radial-gradient(ellipse 80% 50% at 75% 0%,rgba(243,164,59,.10),transparent 60%)}
+
+/* ===== B · Manifest ===== */
+.d-b .site{--bg:#f4f6f6;--panel:#ffffff;--fg:#14223d;--muted:#566177;--line:#d5dbe2;--line-strong:#9aa6b6;--accent:#c4362b;--accent-2:#14223d;--on-accent:#ffffff;--r:0px;
+  --display:"Saira Stencil One",sans-serif;--body:"Public Sans",sans-serif;--mono:"IBM Plex Mono",monospace}
+.d-b .hero h2{font-size:clamp(38px,6vw,76px);font-weight:400;letter-spacing:.005em}
+.d-b .hero h2 em{font-style:normal;color:var(--accent)}
+.d-b .hero{background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:32px 32px;background-position:-1px -1px}
+.d-b .hero > *{background:transparent}
+.d-b .btn.s{border-color:var(--fg)}
+.d-b .form-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:1px solid var(--fg);border-left:1px solid var(--fg);margin-top:22px;background:var(--panel)}
+.d-b .form-grid div{border-right:1px solid var(--fg);border-bottom:1px solid var(--fg);padding:8px 10px;min-width:0}
+.d-b .form-grid small{display:block;font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.d-b .form-grid b{font-family:var(--mono);font-weight:500;font-size:13px;overflow-wrap:anywhere}
+
+/* ===== C · Savannah Corridor ===== */
+.d-c .site{--bg:#f6f2e9;--panel:#fffdf8;--fg:#1d2a22;--muted:#5d6a5f;--line:#e2dccd;--line-strong:#b9b19c;--accent:#1f4d3a;--accent-2:#b5651d;--on-accent:#f6f2e9;--r:999px;
+  --display:"Bricolage Grotesque",sans-serif;--body:"Manrope",sans-serif;--mono:"IBM Plex Mono",monospace}
+.d-c .mode,.d-c .tool,.d-c .jmap{border-radius:22px}
+.d-c .fields input,.d-c .out{border-radius:12px}
+.d-c .hero h2{font-size:clamp(40px,6.2vw,80px);font-weight:700;letter-spacing:-.03em;font-variation-settings:"opsz" 96}
+.d-c .hero h2 em{font-style:normal;color:var(--accent-2)}
+.d-c .band h4,.d-c .mode b,.d-c .tool header b{letter-spacing:-.02em;font-weight:700}
+.d-c .jday{font-weight:800;letter-spacing:-.04em}
+.d-c .visual{aspect-ratio:4/5;border-radius:28px;overflow:hidden}
+
+/* ===== D · Cobalt Signal ===== */
+.d-d .site{--bg:#ffffff;--panel:#f2f5fc;--fg:#0a1a4a;--muted:#4f5b7d;--line:#dfe5f3;--line-strong:#aab6d6;--accent:#1840d8;--accent-2:#1840d8;--on-accent:#ffffff;--sig:#c5f23a;--r:14px;
+  --display:"Unbounded",sans-serif;--body:"Figtree",sans-serif;--mono:"IBM Plex Mono",monospace}
+.d-d .hero{background:var(--accent);color:#fff}
+.d-d .hero .eyebrow{color:var(--sig)}
+.d-d .hero p.sub,.d-d .hero .proof{color:#d5ddfa}
+.d-d .hero .proof span::before{background:var(--sig)}
+.d-d .hero h2{font-size:clamp(32px,5vw,64px);font-weight:800;letter-spacing:-.03em;line-height:1.02}
+.d-d .hero h2 em{font-style:normal;color:var(--sig)}
+.d-d .hero .btn.p{background:var(--sig);color:#0a1a4a}
+.d-d .hero .btn.s{color:#fff;border-color:rgba(255,255,255,.45)}
+.d-d .band h4,.d-d .mode b,.d-d .tool header b{font-weight:600;letter-spacing:-.02em}
+.d-d .band h4{font-size:clamp(20px,2.6vw,28px)}
+.d-d .jday{font-weight:800;letter-spacing:-.05em}
+.d-d .mode b{font-size:15px}
+
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+
+<div class="shell">
+  <aside class="side">
+    <div>
+      <h1>Globetrot Cargolink · Website directions</h1>
+      <p>Four directions for the same homepage. Same copy, structure and tools. Only the visual system changes.</p>
+    </div>
+    <ul class="dlist" role="tablist" aria-label="Design directions">
+      <li><button role="tab" id="t-a" aria-controls="p-a" aria-selected="true" data-d="a"><span class="k">A</span><span><b>Port at Night</b><span class="s">Cinematic, sodium-lit, the 3D globe</span></span></button></li>
+      <li><button role="tab" id="t-b" aria-controls="p-b" aria-selected="false" data-d="b"><span class="k">B</span><span><b>Manifest</b><span class="s">Shipping-document precision, stamp red</span></span></button></li>
+      <li><button role="tab" id="t-c" aria-controls="p-c" aria-selected="false" data-d="c"><span class="k">C</span><span><b>Savannah Corridor</b><span class="s">Warm, Kenyan landscape, the SGR line</span></span></button></li>
+      <li><button role="tab" id="t-d" aria-controls="p-d" aria-selected="false" data-d="d"><span class="k">D</span><span><b>Cobalt Signal</b><span class="s">Bold blocks, evolves the old blue-lime</span></span></button></li>
+    </ul>
+    <p class="note">The live site replaces these illustrations with cinematic video and photography (blueprint §6). Here, judge the type, colour, layout and motion. The CBM calculator and journey steps work. Click them.</p>
+  </aside>
+
+  <main class="stage">
+    <!-- A -->
+    <section class="dir d-a" id="p-a" role="tabpanel" aria-labelledby="t-a">
+      <div class="spec">
+        <div><h3>Idea</h3><p>Mombasa at 3 a.m.: the port never sleeps. Deep harbour navy under sodium-amber crane lights. Condensed uppercase type that reads like container stencils at speed. The hero is the WebGL route globe.</p></div>
+        <div><h3>Palette</h3><div class="chips"><span class="chip"><i style="background:#0a1220"></i>Harbour</span><span class="chip"><i style="background:#0f1a2c"></i>Deck</span><span class="chip"><i style="background:#f3a43b"></i>Sodium</span><span class="chip"><i style="background:#e9eef5"></i>Floodlight</span></div></div>
+        <div><h3>Type & motion</h3><p>Archivo Condensed 800 · IBM Plex Sans · Plex Mono. Slow orbit, arcs drawing in, chapter wipes. Dark only.</p></div>
+      </div>
+      <div class="frame"><div class="site" data-site>
+        <nav class="nav"><span class="brand"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="none" stroke="#f3a43b" stroke-width="2"/><path d="M2 12h20M12 2c3 3 3 17 0 20" fill="none" stroke="#f3a43b" stroke-width="1.5"/></svg>GLOBETROT CARGOLINK</span><ul><li>Services</li><li>Trade lanes</li><li>Import guide</li><li>Tools</li><li>Track</li></ul><button class="btn p">Get a quote</button></nav>
+        <div class="hero">
+          <div>
+            <div class="eyebrow">Air · Sea · Land · Customs</div>
+            <h2>Cargo from anywhere. <em>Cleared</em> and delivered in Kenya.</h2>
+            <p class="sub">Air, sea and road freight with customs clearing handled in-house. One team from the supplier's door in China, Dubai or the UK to yours in Nairobi, Mombasa or Kampala.</p>
+            <div class="ctas"><button class="btn p">Get a quote →</button><button class="btn s">WhatsApp us</button></div>
+            <div class="proof"><span>Quote reply within 4 working hours</span><span>Entries lodged on KRA iCMS</span></div>
+          </div>
+          <div class="visual"><canvas data-globe aria-label="Animated globe with routes from Guangzhou, Dubai, Mumbai and London converging on Mombasa"></canvas></div>
+        </div>
+        <div class="band" data-journey></div>
+        <div class="band" data-duo></div>
+        <div class="foot"><span>© 2026 Globetrot Cargolink International</span><span>Nairobi · 1.29°S 36.82°E</span></div>
+      </div></div>
+    </section>
+
+    <!-- B -->
+    <section class="dir d-b" id="p-b" role="tabpanel" aria-labelledby="t-b" hidden>
+      <div class="spec">
+        <div><h3>Idea</h3><p>The site is built like a bill of lading: ruled grids, field labels, consignment numbers, a red customs stamp. It signals precision and compliance. That suits corporate and industrial importers.</p></div>
+        <div><h3>Palette</h3><div class="chips"><span class="chip"><i style="background:#f4f6f6"></i>Form white</span><span class="chip"><i style="background:#14223d"></i>Ink navy</span><span class="chip"><i style="background:#c4362b"></i>Stamp red</span><span class="chip"><i style="background:#9aa6b6"></i>Rule grey</span></div></div>
+        <div><h3>Type & motion</h3><p>Saira Stencil · Public Sans · Plex Mono. Fields type themselves in, the stamp lands with a small thud, ruled lines draw. Light-led.</p></div>
+      </div>
+      <div class="frame"><div class="site" data-site>
+        <nav class="nav"><span class="brand" style="font-family:'Saira Stencil One';font-weight:400;font-size:17px">GLOBETROT<span style="color:#c4362b">/</span>CARGOLINK</span><ul><li>Services</li><li>Trade lanes</li><li>Import guide</li><li>Tools</li><li>Track</li></ul><button class="btn p">Get a quote</button></nav>
+        <div class="hero">
+          <div>
+            <div class="eyebrow">Consignment GCL-261009 · Air · Sea · Land · Customs</div>
+            <h2>Cargo from anywhere. <em>Cleared</em> and delivered in Kenya.</h2>
+            <p class="sub">Air, sea and road freight with customs clearing handled in-house. One team from the supplier's door in China, Dubai or the UK to yours in Nairobi, Mombasa or Kampala.</p>
+            <div class="ctas"><button class="btn p">Get a quote →</button><button class="btn s">WhatsApp us</button></div>
+            <div class="form-grid" aria-label="Example consignment record">
+              <div><small>Port of loading</small><b>Nansha, CN</b></div><div><small>Port of discharge</small><b>Mombasa, KE</b></div><div><small>Final place</small><b>Nairobi ICD</b></div>
+              <div><small>Mode</small><b>Sea · LCL</b></div><div><small>Volume</small><b>6.40 CBM</b></div><div><small>Entry</small><b>iCMS · lodged</b></div>
+            </div>
+          </div>
+          <div class="visual"><svg viewBox="0 0 400 400" role="img" aria-label="Technical drawing of a 40-foot container with a CLEARED stamp">
+            <g fill="none" stroke="#14223d" stroke-width="1.5">
+              <path d="M60 170 L250 130 L350 160 L160 205 Z" />
+              <path d="M60 170 L60 270 L160 310 L160 205" />
+              <path d="M160 310 L350 262 L350 160" />
+              <g stroke-width="1" opacity=".7">
+                <path d="M80 175 v92 M100 180 v95 M120 186 v97 M140 192 v100"/>
+                <path d="M180 202 l0 101 M205 196 l0 101 M230 190 l0 101 M255 184 l0 100 M280 178 l0 99 M305 172 l0 98 M330 166 l0 97"/>
+              </g>
+              <path d="M60 300 L160 340 M60 292 v16 M160 332 v16" stroke-width="1"/>
+              <path d="M170 345 L350 300 M170 337 v16 M350 292 v16" stroke-width="1"/>
+            </g>
+            <text x="78" y="335" font-family="IBM Plex Mono" font-size="11" fill="#566177" transform="rotate(22 78 335)">2.44 m</text>
+            <text x="235" y="345" font-family="IBM Plex Mono" font-size="11" fill="#566177" transform="rotate(-14 235 345)">12.19 m · 40' HC</text>
+            <text x="250" y="152" font-family="IBM Plex Mono" font-size="10" fill="#566177" transform="rotate(-14 250 152)">GCLU 261009 4</text>
+            <g class="stamp" transform="translate(255 70) rotate(-12)">
+              <rect x="-78" y="-26" width="156" height="52" rx="4" fill="none" stroke="#c4362b" stroke-width="4"/>
+              <rect x="-70" y="-18" width="140" height="36" rx="2" fill="none" stroke="#c4362b" stroke-width="1.5"/>
+              <text x="0" y="9" text-anchor="middle" font-family="Saira Stencil One" font-size="26" fill="#c4362b" letter-spacing="3">CLEARED</text>
+            </g>
+          </svg></div>
+        </div>
+        <div class="band" data-journey></div>
+        <div class="band" data-duo></div>
+        <div class="foot"><span>© 2026 Globetrot Cargolink International</span><span>Form GCL-01 · Rev. 2026</span></div>
+      </div></div>
+    </section>
+
+    <!-- C -->
+    <section class="dir d-c" id="p-c" role="tabpanel" aria-labelledby="t-c" hidden>
+      <div class="spec">
+        <div><h3>Idea</h3><p>The Kenyan side of the journey at golden hour: the SGR crossing the savannah, acacia and soft light. Warm, human and proudly local. It feels like a premium travel brand applied to freight, and it suits SME importers.</p></div>
+        <div><h3>Palette</h3><div class="chips"><span class="chip"><i style="background:#f6f2e9"></i>Dust</span><span class="chip"><i style="background:#1f4d3a"></i>Acacia</span><span class="chip"><i style="background:#b5651d"></i>Laterite</span><span class="chip"><i style="background:#1d2a22"></i>Bark</span></div></div>
+        <div><h3>Type & motion</h3><p>Bricolage Grotesque · Manrope. Layered parallax landscape, the train slides across, soft pill shapes. Light-led with a dusk mode.</p></div>
+      </div>
+      <div class="frame"><div class="site" data-site>
+        <nav class="nav"><span class="brand" style="font-family:'Bricolage Grotesque';font-weight:800;letter-spacing:-.02em;font-size:17px"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="#1f4d3a"/><path d="M5 15c4-6 10-6 14 0" fill="none" stroke="#f6f2e9" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="9" r="2.4" fill="#b5651d"/></svg>Globetrot Cargolink</span><ul><li>Services</li><li>Trade lanes</li><li>Import guide</li><li>Tools</li><li>Track</li></ul><button class="btn p">Get a quote</button></nav>
+        <div class="hero">
+          <div>
+            <div class="eyebrow">Air · Sea · Land · Customs</div>
+            <h2>Cargo from anywhere. <em>Cleared</em> and delivered in Kenya.</h2>
+            <p class="sub">Air, sea and road freight with customs clearing handled in-house. One team from the supplier's door in China, Dubai or the UK to yours in Nairobi, Mombasa or Kampala.</p>
+            <div class="ctas"><button class="btn p">Get a quote →</button><button class="btn s">WhatsApp us</button></div>
+            <div class="proof"><span>Quote reply within 4 working hours</span><span>Door delivery across East Africa</span></div>
+          </div>
+          <div class="visual"><svg viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Container train crossing the savannah at golden hour">
+            <defs><linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f2c98a"/><stop offset=".55" stop-color="#f6dfb4"/><stop offset="1" stop-color="#efe3c8"/></linearGradient></defs>
+            <rect width="400" height="500" fill="url(#sky)"/>
+            <circle cx="270" cy="210" r="58" fill="#f7b45c" opacity=".9"/>
+            <path d="M0 300 C80 270 150 285 220 270 S350 250 400 265 V500 H0Z" fill="#c9a876"/>
+            <path d="M0 330 C90 310 180 320 260 305 S360 300 400 310 V500 H0Z" fill="#a98a5a"/>
+            <g class="train"><g transform="translate(0 348)">
+              <rect x="0" y="-22" width="44" height="22" fill="#1f4d3a"/><rect x="48" y="-20" width="52" height="20" fill="#b5651d"/><rect x="104" y="-20" width="52" height="20" fill="#2f3f36"/><rect x="160" y="-20" width="52" height="20" fill="#b5651d"/><rect x="216" y="-20" width="52" height="20" fill="#1f4d3a"/><rect x="272" y="-20" width="52" height="20" fill="#7a5a32"/>
+              <rect x="0" y="0" width="330" height="3" fill="#1d2a22"/></g></g>
+            <rect x="0" y="351" width="400" height="2" fill="#1d2a22" opacity=".6"/>
+            <path d="M0 370 C100 355 220 365 400 350 V500 H0Z" fill="#6f6a3a"/>
+            <g fill="#1d2a22"><path d="M60 372 l3 -40 l3 40z"/><ellipse cx="63" cy="330" rx="34" ry="8"/><path d="M330 362 l2 -30 l3 30z"/><ellipse cx="332" cy="331" rx="26" ry="6"/></g>
+            <path d="M0 420 C120 400 260 430 400 410 V500 H0Z" fill="#3d4a2c"/>
+          </svg></div>
+        </div>
+        <div class="band" data-journey></div>
+        <div class="band" data-duo></div>
+        <div class="foot"><span>© 2026 Globetrot Cargolink International</span><span>Mombasa → Nairobi ICD · overnight on the SGR</span></div>
+      </div></div>
+    </section>
+
+    <!-- D -->
+    <section class="dir d-d" id="p-d" role="tabpanel" aria-labelledby="t-d" hidden>
+      <div class="spec">
+        <div><h3>Idea</h3><p>Takes the brand equity the founder's clients already know (blue and lime) and makes it premium: confident cobalt blocks, wide geometric type, lime used only as a signal for live data and calls to action.</p></div>
+        <div><h3>Palette</h3><div class="chips"><span class="chip"><i style="background:#1840d8"></i>Cobalt</span><span class="chip"><i style="background:#c5f23a"></i>Signal</span><span class="chip"><i style="background:#0a1a4a"></i>Deep</span><span class="chip"><i style="background:#f2f5fc"></i>Ice</span></div></div>
+        <div><h3>Type & motion</h3><p>Unbounded · Figtree. Routes pulse through nodes, blocks slide in on scroll, bento tool grid. Light, with a cobalt hero.</p></div>
+      </div>
+      <div class="frame"><div class="site" data-site>
+        <nav class="nav"><span class="brand" style="font-family:'Unbounded';font-weight:800;font-size:14px"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="6" fill="#1840d8"/><path d="M6 15 L12 9 L18 15" fill="none" stroke="#c5f23a" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>globetrot cargolink</span><ul><li>Services</li><li>Trade lanes</li><li>Import guide</li><li>Tools</li><li>Track</li></ul><button class="btn p">Get a quote</button></nav>
+        <div class="hero">
+          <div>
+            <div class="eyebrow">Air · Sea · Land · Customs</div>
+            <h2>Cargo from anywhere. <em>Cleared</em> and delivered in Kenya.</h2>
+            <p class="sub">Air, sea and road freight with customs clearing handled in-house. One team from the supplier's door in China, Dubai or the UK to yours in Nairobi, Mombasa or Kampala.</p>
+            <div class="ctas"><button class="btn p">Get a quote →</button><button class="btn s">WhatsApp us</button></div>
+            <div class="proof"><span>Quote reply within 4 working hours</span><span>Entries lodged on KRA iCMS</span></div>
+          </div>
+          <div class="visual"><svg viewBox="0 0 400 400" role="img" aria-label="Route diagram: four origins converge on Nairobi">
+            <g fill="none" stroke="rgba(255,255,255,.22)" stroke-width="1"><circle cx="300" cy="230" r="60"/><circle cx="300" cy="230" r="110"/><circle cx="300" cy="230" r="160"/></g>
+            <g fill="none" stroke="#c5f23a" stroke-width="2.5" stroke-linecap="round" class="flow">
+              <path d="M40 60 C150 60 220 140 300 230"/><path d="M30 160 C140 150 220 190 300 230"/><path d="M50 270 C150 290 230 250 300 230"/><path d="M80 360 C170 360 250 300 300 230"/>
+            </g>
+            <g font-family="IBM Plex Mono" font-size="11" fill="#d5ddfa">
+              <circle cx="40" cy="60" r="5" fill="#fff"/><text x="40" y="45">GUANGZHOU</text>
+              <circle cx="30" cy="160" r="5" fill="#fff"/><text x="30" y="145">DUBAI</text>
+              <circle cx="50" cy="270" r="5" fill="#fff"/><text x="50" y="255">MUMBAI</text>
+              <circle cx="80" cy="360" r="5" fill="#fff"/><text x="80" y="345">LONDON</text>
+            </g>
+            <circle cx="300" cy="230" r="16" fill="#c5f23a"/><circle cx="300" cy="230" r="6" fill="#1840d8"/>
+            <text x="300" y="275" text-anchor="middle" font-family="Unbounded" font-weight="800" font-size="16" fill="#fff">NAIROBI</text>
+          </svg></div>
+        </div>
+        <div class="band" data-journey></div>
+        <div class="band" data-duo></div>
+        <div class="foot"><span>© 2026 Globetrot Cargolink International</span><span>Air · Land · Sea · Customs</span></div>
+      </div></div>
+    </section>
+  </main>
+</div>
+
+<style>
+.d-c .train{animation:train 14s linear infinite}
+@keyframes train{from{transform:translateX(-340px)}to{transform:translateX(420px)}}
+.d-d .flow path{stroke-dasharray:6 10;animation:flow 1.6s linear infinite}
+@keyframes flow{to{stroke-dashoffset:-32}}
+.d-b .stamp{animation:stamp 6s cubic-bezier(.22,.8,.2,1) infinite;transform-box:fill-box;transform-origin:center}
+@keyframes stamp{0%,8%{opacity:0;scale:1.6}16%,90%{opacity:1;scale:1}100%{opacity:0}}
+</style>
+
+<script>
+(function(){
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const CH = [
+    {d:'0',  t:'Guangzhou. Your supplier packs the order.', n:'Factory'},
+    {d:'2',  t:'Our origin warehouse checks, photographs and consolidates it.', n:'Origin WH'},
+    {d:'5',  t:'On the water. Booked, documented, insured.', n:'At sea'},
+    {d:'27', t:'Mombasa. Discharged and lined up for clearing.', n:'Mombasa'},
+    {d:'28', t:'On the SGR to Nairobi ICD, overnight.', n:'SGR'},
+    {d:'29', t:'Entry lodged on iCMS. Duties paid. Released.', n:'Customs'},
+    {d:'30', t:'Delivered to your door, with a WhatsApp update at every step.', n:'Your door'}
+  ];
+  const ic = {
+    air:'<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M2 16l20-6-3-2-7 2-5-5-2 1 3 5-4 1-2-2-1 1 2 4z"/></svg>',
+    sea:'<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 15l2 4h14l2-4zM6 15V9h5v6M11 11h6v4M2 21c2 0 2-1 4-1s2 1 4 1 2-1 4-1 2 1 4 1 2-1 4-1"/></svg>',
+    land:'<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M2 6h12v10H2zM14 10h4l3 3v3h-7"/><circle cx="6" cy="18" r="2"/><circle cx="17" cy="18" r="2"/></svg>',
+    cus:'<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M6 2h9l4 4v16H6z"/><path d="M15 2v4h4M9 13l2 2 4-4"/></svg>'
+  };
+  const pts = [[30,150],[80,120],[150,70],[255,110],[290,150],[320,175],[360,200]];
+  document.querySelectorAll('[data-site]').forEach((site, si) => {
+    const uid = 's'+si;
+    // Journey
+    const j = site.querySelector('[data-journey]');
+    let path = 'M'+pts.map(p=>p.join(' ')).join(' L ');
+    j.innerHTML = `<h4>The journey, chapter by chapter</h4><p class="lede">On the live site this is a pinned scroll story with a video for each chapter. Here, click the rail.</p>
+      <div class="journey"><div><div class="jday" aria-live="polite"><small>Typical sea journey · Day</small><span data-d>0</span></div>
+      <p class="jtext" data-t></p><div class="jrail" role="group" aria-label="Journey chapters">${CH.map((c,i)=>`<button aria-label="Chapter ${i+1}: ${c.n}" data-i="${i}"><span></span></button>`).join('')}</div>
+      <div class="jlabels"><span>China</span><span>Mombasa</span><span>Your door</span></div></div>
+      <div class="jmap"><svg viewBox="0 0 390 230" aria-hidden="true"><path class="rt" d="${path}"/><path class="rt-on" d="${path}" data-on/>${pts.map((p,i)=>`<circle class="node" cx="${p[0]}" cy="${p[1]}" r="7" data-n="${i}"/><text x="${p[0]}" y="${p[1]+(i%2?24:-14)}" text-anchor="middle">${CH[i].n}</text>`).join('')}</svg></div></div>`;
+    const on = j.querySelector('[data-on]'); const L = on.getTotalLength(); on.style.strokeDasharray = L; on.style.strokeDashoffset = L;
+    const segs = pts.map((p,i)=> i===0?0:Math.hypot(p[0]-pts[i-1][0],p[1]-pts[i-1][1])); let cum=0; const at = segs.map(s=>cum+=s);
+    let cur = 0, timer;
+    function show(i){ cur=i; j.querySelector('[data-d]').textContent = CH[i].d; j.querySelector('[data-t]').textContent = CH[i].t;
+      j.querySelectorAll('.jrail button').forEach((b,k)=>b.setAttribute('aria-current', k===i));
+      j.querySelectorAll('.node').forEach((n,k)=>n.classList.toggle('on', k<=i)); on.style.strokeDashoffset = L - at[i]*(L/cum); }
+    j.querySelectorAll('.jrail button').forEach(b=>b.addEventListener('click',()=>{ clearInterval(timer); show(+b.dataset.i); }));
+    show(0); if(!reduce) timer = setInterval(()=>show((cur+1)%CH.length), 2600);
+    // Modes + tool
+    const duo = site.querySelector('[data-duo]');
+    duo.innerHTML = `<h4>What we move, and a tool you can use now</h4><p class="lede">Mode cards open into service pages. Every tool ends in a pre-filled quote.</p>
+      <div class="duo"><div class="modes">
+        <div class="mode">${ic.air}<b>Air freight</b><p>Urgent and high-value cargo into JKIA, express or consolidated.</p></div>
+        <div class="mode">${ic.sea}<b>Sea freight</b><p>FCL and LCL into Mombasa, railed to Nairobi ICD on the SGR.</p></div>
+        <div class="mode">${ic.land}<b>Land & transit</b><p>Northern Corridor to Uganda, Rwanda, South Sudan and DRC.</p></div>
+        <div class="mode">${ic.cus}<b>Customs clearing</b><p>Entries on KRA iCMS, permits through KenTrade, fast release.</p></div>
+      </div>
+      <form class="tool" onsubmit="return false"><header><b>CBM & chargeable weight</b><span>Tool 03</span></header>
+        <div class="fields">
+          <label for="${uid}l">L cm<input id="${uid}l" inputmode="decimal" value="60"></label>
+          <label for="${uid}w">W cm<input id="${uid}w" inputmode="decimal" value="40"></label>
+          <label for="${uid}h">H cm<input id="${uid}h" inputmode="decimal" value="45"></label>
+          <label for="${uid}q">Cartons<input id="${uid}q" inputmode="numeric" value="24"></label>
+          <label for="${uid}k" style="grid-column:span 2">Total weight kg<input id="${uid}k" inputmode="decimal" value="310"></label>
+        </div>
+        <div class="out"><div><small>Volume</small><strong data-o="cbm">0</strong></div><div><small>Air vol. kg</small><strong data-o="vol">0</strong></div><div><small>Chargeable</small><strong data-o="ch">0</strong></div></div>
+        <p class="hint" data-o="hint"></p>
+        <button class="btn p" type="button">Quote this shipment →</button>
+      </form></div>`;
+    const v = id => parseFloat(site.querySelector('#'+uid+id).value) || 0;
+    function calc(){ const q=v('q'), cbm=v('l')*v('w')*v('h')*q/1e6, vol=cbm*1e6/6000, kg=v('k'), ch=Math.max(vol,kg);
+      const f=n=>n.toLocaleString('en-KE',{maximumFractionDigits:2});
+      site.querySelector('[data-o=cbm]').textContent = f(cbm)+' m³'; site.querySelector('[data-o=vol]').textContent = f(Math.round(vol));
+      site.querySelector('[data-o=ch]').textContent = f(Math.round(ch))+' kg';
+      site.querySelector('[data-o=hint]').textContent = cbm>=1 ? `At ${f(cbm)} m³, sea LCL is usually far cheaper than air.` + (cbm>=15?' Above ~15 m³, compare a 20′ FCL.':'') : 'Under 1 m³: air or consolidated air is often the better trade-off.'; }
+    site.querySelectorAll('.fields input').forEach(i=>i.addEventListener('input',calc)); calc();
+  });
+
+  // Globe (direction A)
+  const cv = document.querySelector('[data-globe]');
+  if(cv){
+    const ctx = cv.getContext('2d'); let W,H,R, rot = -0.9;
+    const N=1400, P=[]; const g=Math.PI*(3-Math.sqrt(5));
+    for(let i=0;i<N;i++){const y=1-(i/(N-1))*2, r=Math.sqrt(1-y*y), t=g*i; P.push([Math.cos(t)*r,y,Math.sin(t)*r]);}
+    const ll=(la,lo)=>{la*=Math.PI/180;lo*=Math.PI/180;return[Math.cos(la)*Math.cos(lo),Math.sin(la),Math.cos(la)*Math.sin(lo)]};
+    const dest=ll(-4.05,39.67), O=[ll(23.1,113.3),ll(25.2,55.3),ll(19,72.8),ll(51.5,-0.1)];
+    function slerp(a,b,t){const d=Math.acos(Math.min(1,a[0]*b[0]+a[1]*b[1]+a[2]*b[2]));const s=Math.sin(d);const k1=Math.sin((1-t)*d)/s,k2=Math.sin(t*d)/s;return[a[0]*k1+b[0]*k2,a[1]*k1+b[1]*k2,a[2]*k1+b[2]*k2]}
+    function proj(p){const c=Math.cos(rot),s=Math.sin(rot);const x=p[0]*c-p[2]*s, z=p[0]*s+p[2]*c; const tilt=.25, y=p[1]*Math.cos(tilt)-z*Math.sin(tilt), z2=p[1]*Math.sin(tilt)+z*Math.cos(tilt); return [W/2+x*R, H/2-y*R, z2]}
+    function size(){const b=cv.getBoundingClientRect(), d=devicePixelRatio||1; W=b.width;H=b.height; cv.width=W*d; cv.height=H*d; ctx.setTransform(d,0,0,d,0,0); R=Math.min(W,H)*.42}
+    let t0=performance.now();
+    function draw(now){ if(!W) size(); ctx.clearRect(0,0,W,H);
+      const grd=ctx.createRadialGradient(W/2-R*.3,H/2-R*.3,R*.1,W/2,H/2,R*1.1); grd.addColorStop(0,'rgba(40,70,120,.55)'); grd.addColorStop(1,'rgba(10,18,32,0)');
+      ctx.fillStyle=grd; ctx.beginPath(); ctx.arc(W/2,H/2,R*1.08,0,7); ctx.fill();
+      for(const p of P){const [x,y,z]=proj(p); if(z<-0.05) continue; ctx.fillStyle=`rgba(154,169,189,${.15+z*.55})`; ctx.fillRect(x,y,1.4,1.4)}
+      const tt=((now-t0)/2400)%1;
+      O.forEach((o,k)=>{ ctx.beginPath(); let started=false;
+        for(let i=0;i<=60;i++){const q=slerp(o,dest,i/60), lift=1+Math.sin(Math.PI*i/60)*.18; const [x,y,z]=proj(q.map(c=>c*lift)); if(z<-0.1){started=false;continue} started?ctx.lineTo(x,y):ctx.moveTo(x,y); started=true}
+        ctx.strokeStyle='rgba(243,164,59,.55)'; ctx.lineWidth=1.4; ctx.stroke();
+        const ph=(tt+k*.25)%1, q=slerp(o,dest,ph), lift=1+Math.sin(Math.PI*ph)*.18, [x,y,z]=proj(q.map(c=>c*lift));
+        if(z>-0.1){ctx.fillStyle='#f3a43b'; ctx.beginPath(); ctx.arc(x,y,2.6,0,7); ctx.fill()}
+        const [ox,oy,oz]=proj(o); if(oz>0){ctx.fillStyle='#e9eef5';ctx.beginPath();ctx.arc(ox,oy,2.4,0,7);ctx.fill()}
+      });
+      const [dx,dy]=proj(dest); const pr=6+4*Math.sin(now/300); ctx.strokeStyle='rgba(243,164,59,.8)'; ctx.lineWidth=1.5; ctx.beginPath(); ctx.arc(dx,dy,pr,0,7); ctx.stroke();
+      ctx.fillStyle='#f3a43b'; ctx.beginPath(); ctx.arc(dx,dy,3.5,0,7); ctx.fill();
+      ctx.font='500 11px "IBM Plex Mono", monospace'; ctx.fillStyle='#e9eef5'; ctx.fillText('MOMBASA', dx+10, dy+4);
+      if(!reduce){ rot = -0.9 + Math.sin(now/9000)*.35; requestAnimationFrame(draw);} }
+    addEventListener('resize',()=>{W=0}); requestAnimationFrame(draw);
+  }
+
+  // Direction list
+  const tabs=[...document.querySelectorAll('.dlist button')];
+  function pick(btn){ tabs.forEach(b=>{const on=b===btn; b.setAttribute('aria-selected',on); document.getElementById('p-'+b.dataset.d).hidden=!on}); try{localStorage.setItem('gcl-dir',btn.dataset.d)}catch(e){} }
+  tabs.forEach(b=>b.addEventListener('click',()=>pick(b)));
+  document.querySelector('.dlist').addEventListener('keydown',e=>{const i=tabs.indexOf(document.activeElement); if(i<0)return; if(e.key==='ArrowDown'||e.key==='ArrowUp'){e.preventDefault(); const n=tabs[(i+(e.key==='ArrowDown'?1:-1)+tabs.length)%tabs.length]; n.focus(); pick(n)}});
+  const h=(location.hash||'').slice(1); let saved; try{saved=localStorage.getItem('gcl-dir')}catch(e){}
+  const start=tabs.find(b=>b.dataset.d===h)||tabs.find(b=>b.dataset.d===saved); if(start) pick(start);
+})();
+</script>

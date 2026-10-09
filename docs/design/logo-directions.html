@@ -1,0 +1,160 @@
+<title>Globetrot Cargolink Logos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Outfit:wght@400;600;800&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+/* Layout: vertical direction list + specimen board (hero lockup, variants grid, scale test, in-use mockups). */
+:root{
+  --bg:#f3f5f7; --panel:#ffffff; --fg:#13202e; --muted:#5b6876; --line:#dde3e9; --accent:#1f5fbf; --sel:#e8eff9;
+  --f-ui:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif; --f-mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0d1219;--panel:#141b24;--fg:#e6ecf2;--muted:#93a1b0;--line:#253140;--accent:#6ea3f2;--sel:#1b2736;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0d1219;--panel:#141b24;--fg:#e6ecf2;--muted:#93a1b0;--line:#253140;--accent:#6ea3f2;--sel:#1b2736;color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--f-ui);font-size:15px;line-height:1.5;padding-inline:16px;padding-block:20px}
+.shell{display:grid;grid-template-columns:260px minmax(0,1fr);gap:20px;max-width:1360px;margin-inline:auto}
+@media (max-width:900px){.shell{grid-template-columns:minmax(0,1fr)}}
+.side{position:sticky;top:calc(env(safe-area-inset-top,0px) + 16px);align-self:start;display:flex;flex-direction:column;gap:14px}
+@media (max-width:900px){.side{position:static}}
+.side h1{font-size:18px;margin:0;line-height:1.25;text-wrap:balance}
+.side p{margin:0;color:var(--muted);font-size:13px}
+.dlist{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;border-top:1px solid var(--line)}
+.dlist button{all:unset;cursor:pointer;display:grid;grid-template-columns:22px 1fr;gap:10px;padding:12px 10px;border-bottom:1px solid var(--line);width:100%;box-sizing:border-box;border-radius:6px}
+.dlist button:hover{background:var(--sel)}
+.dlist button[aria-selected="true"]{background:var(--sel);box-shadow:inset 3px 0 0 var(--accent)}
+.dlist button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.dlist .k{font-family:var(--f-mono);font-size:12px;color:var(--muted);padding-top:2px}
+.dlist b{display:block;font-size:14px}
+.dlist .s{display:block;font-size:12.5px;color:var(--muted)}
+.note{font-size:12.5px;color:var(--muted);border:1px solid var(--line);background:var(--panel);border-radius:8px;padding:12px}
+.stage{min-width:0;display:flex;flex-direction:column;gap:16px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:20px}
+.spec{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px}
+.spec h3,.lbl{margin:0 0 6px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.spec p{margin:0;font-size:13.5px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{display:flex;align-items:center;gap:6px;font-family:var(--f-mono);font-size:11.5px}
+.chip i{width:18px;height:18px;border-radius:4px;border:1px solid var(--line);display:inline-block}
+.hero{display:grid;place-items:center;min-height:300px;border-radius:12px;padding:40px 16px}
+.hero svg{width:min(560px,100%);height:auto}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+.tile{border-radius:12px;display:grid;place-items:center;padding:28px 16px;min-height:200px;border:1px solid var(--line);position:relative}
+.tile svg{width:min(240px,90%);height:auto}
+.tile .lbl{position:absolute;left:12px;top:10px;margin:0}
+.tile.stack svg{width:min(170px,80%)}
+.scale{display:flex;flex-wrap:wrap;align-items:flex-end;gap:24px}
+.scale figure{margin:0;display:flex;flex-direction:column;align-items:center;gap:8px}
+.scale figcaption{font-family:var(--f-mono);font-size:11px;color:var(--muted)}
+.app{border-radius:22%;display:grid;place-items:center;overflow:hidden}
+.mock{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+.bc{aspect-ratio:1.75/1;max-width:100%;border-radius:10px;padding:20px;display:flex;flex-direction:column;justify-content:space-between;box-shadow:0 18px 40px -24px rgba(0,0,0,.45)}
+.bc svg{height:34px;width:auto;align-self:flex-start}
+.bc .who{font-size:12px;line-height:1.5;font-family:var(--f-ui)}
+.bc .who b{display:block;font-size:14px}
+.truck{border-radius:10px;overflow:hidden;border:1px solid var(--line)}
+.truck svg{display:block;width:100%;height:auto}
+.dir[hidden]{display:none!important}
+</style>
+
+<div class="shell">
+  <aside class="side">
+    <div><h1>Globetrot Cargolink · Logo directions</h1><p>Three original marks for the new company. None of them reuses the old GT-globe artwork.</p></div>
+    <ul class="dlist" role="tablist" aria-label="Logo directions">
+      <li><button role="tab" aria-selected="true" data-d="1"><span class="k">1</span><span><b>The Link</b><span class="s">Globe and chain link in one mark</span></span></button></li>
+      <li><button role="tab" aria-selected="false" data-d="2"><span class="k">2</span><span><b>Route G</b><span class="s">A G drawn as one shipping route</span></span></button></li>
+      <li><button role="tab" aria-selected="false" data-d="3"><span class="k">3</span><span><b>Meridian Seal</b><span class="s">Heritage emblem anchored on Nairobi</span></span></button></li>
+    </ul>
+    <p class="note">Colours here are neutral starting points. The chosen logo takes the palette of the website direction you pick. Each mark is tested at favicon size, as an app icon, on a business card and on a truck side.</p>
+  </aside>
+  <main class="stage" id="stage"></main>
+</div>
+
+<script>
+(function(){
+/* ---------- Marks (all use currentColor + one accent var) ---------- */
+const MARK = {
+  1:(a)=>`<g fill="none" stroke-width="7" stroke-linecap="round">
+      <circle cx="40" cy="50" r="30" stroke="currentColor"/>
+      <ellipse cx="40" cy="50" rx="12" ry="30" stroke="currentColor" stroke-width="4"/>
+      <path d="M11 50h58" stroke="currentColor" stroke-width="4"/>
+      <path d="M58 26 A30 30 0 1 1 58 74" stroke="${a}"/>
+    </g>`,
+  2:(a)=>`<g fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M74 30 A32 32 0 1 0 82 56 H54" stroke="currentColor" stroke-width="12"/>
+      <path d="M62 46 L52 56 L62 66" stroke="${a}" stroke-width="7"/>
+    </g><circle cx="74" cy="30" r="7.5" fill="${a}"/>`,
+  3:(a)=>`<g fill="none" stroke="currentColor">
+      <circle cx="50" cy="50" r="46" stroke-width="3"/><circle cx="50" cy="50" r="31" stroke-width="2"/>
+      <ellipse cx="50" cy="50" rx="13" ry="31" stroke-width="1.4"/><path d="M19 50h62M23 36h54M23 64h54" stroke-width="1.4"/>
+    </g>
+    <path d="M50 30 L54 46 L70 50 L54 54 L50 70 L46 54 L30 50 L46 46 Z" fill="${a}"/>
+    <circle cx="50" cy="50" r="3" fill="currentColor"/>
+    <defs><path id="ring" d="M50 50 m-38.5 0 a38.5 38.5 0 1 1 77 0 a38.5 38.5 0 1 1 -77 0"/></defs>
+    <text font-family="Archivo" font-weight="700" font-stretch="88%" font-size="7.6" letter-spacing="1.4" fill="currentColor"><textPath href="#ring" startOffset="0">GLOBETROT · CARGOLINK · INTERNATIONAL ·</textPath></text>`
+};
+const WORD = {
+  1:(a)=>`<text x="0" y="40" font-family="Archivo" font-weight="800" font-stretch="78%" font-size="44" letter-spacing="1" fill="currentColor">GLOBETROT</text>
+          <text x="2" y="62" font-family="Archivo" font-weight="600" font-stretch="100%" font-size="11.5" letter-spacing="5.2" fill="${a}">CARGOLINK INTERNATIONAL</text>`,
+  2:(a)=>`<text x="0" y="38" font-family="Outfit" font-weight="800" font-size="40" letter-spacing="-1.2" fill="currentColor">globetrot</text>
+          <text x="1" y="60" font-family="Outfit" font-weight="600" font-size="14" letter-spacing="2.4" fill="currentColor" opacity=".72">cargolink <tspan fill="${a}" opacity="1">international</tspan></text>`,
+  3:(a)=>`<text x="0" y="36" font-family="Archivo" font-weight="700" font-stretch="118%" font-size="30" letter-spacing="3" fill="currentColor">GLOBETROT</text>
+          <text x="1" y="58" font-family="Archivo" font-weight="500" font-stretch="118%" font-size="12" letter-spacing="7.4" fill="currentColor">CARGOLINK</text>
+          <path d="M1 68h260" stroke="${a}" stroke-width="1.5"/>
+          <text x="1" y="82" font-family="IBM Plex Mono" font-size="9" letter-spacing="2" fill="currentColor" opacity=".7">INTERNATIONAL · NAIROBI 1.29°S 36.82°E</text>`
+};
+const horiz=(d,a,fg)=>`<svg viewBox="0 0 400 100" role="img" aria-label="Globetrot Cargolink International logo" style="color:${fg}"><g transform="translate(0 0)">${MARK[d](a)}</g><g transform="translate(${d==3?118:108} ${d==3?8:16})">${WORD[d](a)}</g></svg>`;
+const stack=(d,a,fg)=>`<svg viewBox="-20 0 320 230" role="img" aria-label="Stacked logo" style="color:${fg}"><g transform="translate(90 0) scale(1)">${MARK[d](a)}</g><g transform="translate(${d==1?20:d==2?40:8} ${d==3?120:118})">${WORD[d](a)}</g></svg>`;
+const mark=(d,a,fg,px)=>`<svg viewBox="${d==2?'8 8 92 92':d==1?'2 12 80 76':'0 0 100 100'}" width="${px}" height="${px}" role="img" aria-label="Logo mark" style="color:${fg}">${MARK[d](a)}</svg>`;
+
+/* ---------- Direction data ---------- */
+const D = {
+  1:{name:'The Link', idea:'A globe and a chain link drawn as one figure. The accent arc closes the globe into a link, so the logo reads literally as "Globe + Cargolink". Condensed capitals give it weight and speed.',
+     why:'Easiest to read and remember, and close to what clients of the founder already recognise (a globe) without copying it.',
+     ink:'#0e1f3a', ac:'#1e6be6', alt:'#f3a43b', pal:[['#0e1f3a','Ink navy'],['#1e6be6','Link blue'],['#f3a43b','Signal amber'],['#f4f6f8','Paper']]},
+  2:{name:'Route G', idea:'The G is one shipping route. It starts at an origin dot, sweeps around the globe and turns inward with an arrow to the destination: Kenya. Friendly lowercase wordmark.',
+     why:'The most ownable and modern. It works as an app icon, a favicon and a moving logo that draws itself.',
+     ink:'#0a1a4a', ac:'#20b46a', alt:'#c5f23a', pal:[['#0a1a4a','Deep'],['#20b46a','Route green'],['#c5f23a','Signal'],['#ffffff','White']]},
+  3:{name:'Meridian Seal', idea:'A heritage seal: a globe grid with a compass star at its centre and the full name set around the ring. The wordmark carries Nairobi\'s coordinates, a quiet claim to home.',
+     why:'The most premium and established-looking. Strong for documents, stamps, uniforms and the customs-precision story.',
+     ink:'#14223d', ac:'#b8862f', alt:'#c4362b', pal:[['#14223d','Ink'],['#b8862f','Brass'],['#c4362b','Stamp red'],['#f4f6f6','Form white']]}
+};
+
+const stage=document.getElementById('stage');
+stage.innerHTML = Object.entries(D).map(([d,o])=>`
+<section class="dir" id="p${d}" ${d!=='1'?'hidden':''} aria-label="${o.name}">
+  <div class="card spec">
+    <div><h3>Idea</h3><p>${o.idea}</p></div>
+    <div><h3>Why it fits</h3><p>${o.why}</p></div>
+    <div><h3>Palette</h3><div class="chips">${o.pal.map(p=>`<span class="chip"><i style="background:${p[0]}"></i>${p[1]}</span>`).join('')}</div></div>
+  </div>
+  <div class="hero" style="background:#ffffff;border:1px solid var(--line)">${horiz(d,o.ac,o.ink)}</div>
+  <div class="grid">
+    <div class="tile" style="background:${o.ink}"><span class="lbl" style="color:#ffffffaa">Reversed</span>${horiz(d,o.alt,'#ffffff')}</div>
+    <div class="tile stack" style="background:#ffffff"><span class="lbl" style="color:#5b6876">Stacked</span>${stack(d,o.ac,o.ink)}</div>
+    <div class="tile" style="background:${o.ac}"><span class="lbl" style="color:#ffffffcc">One colour</span>${horiz(d,'#ffffff','#ffffff')}</div>
+  </div>
+  <div class="card"><p class="lbl">Scale test · app icon · favicon</p>
+    <div class="scale">
+      <figure><div class="app" style="width:120px;height:120px;background:${o.ink}">${mark(d,o.alt,'#ffffff',78)}</div><figcaption>App icon</figcaption></figure>
+      <figure><div class="app" style="width:64px;height:64px;background:#ffffff;border:1px solid var(--line)">${mark(d,o.ac,o.ink,44)}</div><figcaption>64 px</figcaption></figure>
+      <figure>${mark(d,o.ac,'var(--fg)',32)}<figcaption>32 px</figcaption></figure>
+      <figure>${mark(d,o.ac,'var(--fg)',16)}<figcaption>16 px</figcaption></figure>
+    </div></div>
+  <div class="mock">
+    <div class="bc" style="background:${o.ink};color:#fff">${horiz(d,o.alt,'#ffffff')}<div class="who"><b>Operations Desk</b>Air · Sea · Land · Customs<br><span style="opacity:.7">Nairobi, Kenya</span></div></div>
+    <div class="bc" style="background:#ffffff;color:${o.ink};border:1px solid var(--line)">${horiz(d,o.ac,o.ink)}<div class="who"><b>Get a quote</b>Cleared. Moved. Delivered.</div></div>
+    <div class="truck"><svg viewBox="0 0 420 180" role="img" aria-label="Logo on a container side">
+      <rect width="420" height="180" fill="#dfe4ea"/><rect x="18" y="22" width="384" height="124" fill="${o.ink}"/>
+      ${Array.from({length:23},(_,i)=>`<rect x="${26+i*16.5}" y="26" width="2" height="116" fill="#ffffff" opacity=".07"/>`).join('')}
+      <g transform="translate(70 50) scale(.72)">${horiz(d,o.alt,'#ffffff').replace('<svg','<svg width="400" height="100"')}</g>
+      <circle cx="80" cy="160" r="12" fill="#1f2730"/><circle cx="340" cy="160" r="12" fill="#1f2730"/></svg></div>
+  </div>
+</section>`).join('');
+
+const tabs=[...document.querySelectorAll('.dlist button')];
+function pick(b){tabs.forEach(t=>{const on=t===b;t.setAttribute('aria-selected',on);document.getElementById('p'+t.dataset.d).hidden=!on});try{localStorage.setItem('gcl-logo',b.dataset.d)}catch(e){}}
+tabs.forEach(b=>b.addEventListener('click',()=>pick(b)));
+document.querySelector('.dlist').addEventListener('keydown',e=>{const i=tabs.indexOf(document.activeElement);if(i<0)return;if(e.key==='ArrowDown'||e.key==='ArrowUp'){e.preventDefault();const n=tabs[(i+(e.key==='ArrowDown'?1:-1)+3)%3];n.focus();pick(n)}});
+let s;try{s=localStorage.getItem('gcl-logo')}catch(e){} const h=location.hash.slice(1); const st=tabs.find(t=>t.dataset.d===h)||tabs.find(t=>t.dataset.d===s); if(st)pick(st);
+})();
+</script>

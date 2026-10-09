@@ -13,3 +13,4 @@
 - Social accounts are created by the owner (platform identity rules); NAVAC gets admin access and supplies the launch kit.
 - Tool maths (duty, CBM, chargeable weight, vehicle) are critical: golden tests required.
 - 2026-10-09 Owner picks: portal + live tracking = Phase 2 (after launch); Christine VO = consented voice clone (written consent required before any generation); video loops = AI-generated with capped budget, swap in real footage as available.
+- 2026-10-09 Blueprint v1.1 approved. Design artifacts: website directions https://claude.ai/artifact/7HhQbSYVjzXpW7YnNqPioh (A Port at Night, B Manifest, C Savannah Corridor, D Cobalt Signal); logos https://claude.ai/artifact/XAbpaDmZYpj4vwieF53bBC (1 The Link, 2 Route G, 3 Meridian Seal). Sources in docs/design/. Awaiting picks.
