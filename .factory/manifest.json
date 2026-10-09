@@ -1,0 +1,23 @@
+{
+  "project": "globetrot-cargolink",
+  "playbook_version": "2.1.0",
+  "applied_migrations": ["init@2.1.0"],
+  "checks": {
+    "typecheck": "",
+    "test": "",
+    "build": "",
+    "guards": ""
+  },
+  "gates": [
+    { "name": "no-old-company-name", "pattern": "Globetrot Logistics|globetrotlogisticsltd", "paths": ["src/**", "public/**"], "exclude": [] },
+    { "name": "no-lorem", "pattern": "[Ll]orem ipsum|TODO-COPY", "paths": ["src/**"], "exclude": [] },
+    { "name": "no-console-log", "pattern": "console\\.log\\(", "paths": ["src/**"], "exclude": [] },
+    { "name": "no-hotlinked-images", "pattern": "https?://[^\"' )]+\\.(jpe?g|png|webp|avif)", "paths": ["src/**"], "exclude": [] },
+    { "name": "no-raw-hex-outside-tokens", "pattern": "#[0-9a-fA-F]{6}\\b", "paths": ["src/components/**", "src/pages/**", "src/layouts/**"], "exclude": [] }
+  ],
+  "protected": ["docs/Software_Factory_Playbook.md", "docs/reference/**"],
+  "append_only_dirs": [".factory/history"],
+  "critical_paths": ["src/pages/api/**", "src/lib/forms/**", "astro.config.*", "netlify.toml", "vercel.json", ".github/workflows/**"],
+  "source_globs": ["src/**", "public/**", "astro.config.*", "package.json", "tsconfig.json"],
+  "caps": { "CLAUDE.md": 80, ".factory/DECISIONS.md": 250 }
+}
