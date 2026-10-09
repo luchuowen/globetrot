@@ -19,3 +19,4 @@
 - 2026-10-09 Owner's chosen design basis: G Cargo Cinema (hero, fonts, stage-to-stage container, explainer) as primary + E's horizontal journey and stacking mode cards + F's radar. Fused homepage: https://claude.ai/artifact/Uq56ZNciavyJ8Cn244ti3e (docs/design/fusion-home.html). Owner wants real footage that feels like motion, not drawings.
 - Preview media: Pexels stock (free licence) in media/source (gitignored originals) → media/web (720p H.264, -g 6 for scroll scrubbing). Placeholders until AI/real footage. Some clips show third-party brands (Delta, MSC) — must be replaced before launch.
 - Logo track: Contrail → Vapour → Halftone globe (owner likes halftone). Latest: https://claude.ai/artifact/9AwjZ4ND6iXo1aHQNm27Co
+- 2026-10-09 LOGO LOCKED: Halftone dot globe + Vapour trail + white plane, GT (G white, T amber), GLOBETROT / CARGOLINK INTERNATIONAL fitted to same width. https://claude.ai/artifact/6vudFebdB6H3jF6n7vezTP (docs/design/logo-selected.html)

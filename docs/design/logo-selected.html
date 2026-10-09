@@ -1,0 +1,157 @@
+<title>Globetrot Logo · Halftone</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,400..900;1,62..125,400..900&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+/* Layout: vertical variant list + specimen board. Brand colours are fixed (Port at Night); the page chrome follows the viewer theme. */
+:root{
+  --bg:#f3f5f7; --panel:#ffffff; --fg:#13202e; --muted:#5b6876; --line:#dde3e9; --accent:#c7801f; --sel:#fbf1e2;
+  --harbour:#0b1628; --sodium:#f3a43b; --flood:#ffffff; --globe:#2f5d9e;
+  --f-ui:"IBM Plex Sans",system-ui,sans-serif; --f-mono:"IBM Plex Mono",ui-monospace,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0d1219;--panel:#141b24;--fg:#e6ecf2;--muted:#93a1b0;--line:#253140;--accent:#f3a43b;--sel:#2a2316;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0d1219;--panel:#141b24;--fg:#e6ecf2;--muted:#93a1b0;--line:#253140;--accent:#f3a43b;--sel:#2a2316;color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--f-ui);font-size:15px;line-height:1.5;padding-inline:16px;padding-block:20px}
+.shell{display:grid;grid-template-columns:260px minmax(0,1fr);gap:20px;max-width:1360px;margin-inline:auto}
+@media (max-width:900px){.shell{grid-template-columns:minmax(0,1fr)}}
+.side{position:sticky;top:calc(env(safe-area-inset-top,0px) + 16px);align-self:start;display:flex;flex-direction:column;gap:14px}
+@media (max-width:900px){.side{position:static}}
+.side h1{font-size:18px;margin:0;line-height:1.25}
+.side p{margin:0;color:var(--muted);font-size:13px}
+.dlist{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.dlist button{all:unset;cursor:pointer;display:grid;grid-template-columns:22px 1fr;gap:10px;padding:12px 10px;border-bottom:1px solid var(--line);width:100%;box-sizing:border-box;border-radius:6px}
+.dlist button:hover{background:var(--sel)}
+.dlist button[aria-selected="true"]{background:var(--sel);box-shadow:inset 3px 0 0 var(--accent)}
+.dlist button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.dlist .k{font-family:var(--f-mono);font-size:12px;color:var(--muted);padding-top:2px}
+.dlist b{display:block;font-size:14px}
+.dlist .s{display:block;font-size:12.5px;color:var(--muted)}
+.note{font-size:12.5px;color:var(--muted);border:1px solid var(--line);background:var(--panel);border-radius:8px;padding:12px}
+.stage{min-width:0;display:flex;flex-direction:column;gap:14px}
+.lbl{margin:0 0 8px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.hero{background:var(--harbour);border-radius:14px;display:grid;place-items:center;padding:48px 20px}
+.hero svg{width:min(720px,100%);height:auto}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px}
+.tile{border-radius:12px;display:grid;place-items:center;padding:36px 16px 24px;border:1px solid var(--line);position:relative;min-height:190px}
+.tile svg{width:min(380px,100%);height:auto}
+.tile .lbl{position:absolute;left:14px;top:10px}
+.tile.dark{background:var(--harbour)}.tile.dark .lbl{color:#93a3b8}
+.tile.light{background:#ffffff}.tile.light .lbl{color:#5b6876}
+.tile.stack svg{width:min(230px,90%)}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:20px}
+.scale{display:flex;flex-wrap:wrap;align-items:flex-end;gap:26px}
+.scale figure{margin:0;display:flex;flex-direction:column;align-items:center;gap:8px}
+.scale figcaption{font-family:var(--f-mono);font-size:11px;color:var(--muted)}
+.app{border-radius:22%;display:grid;place-items:center;background:var(--harbour);overflow:hidden}
+.fav{display:grid;place-items:center;background:var(--harbour);border-radius:4px}
+.mock{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px}
+.bc{aspect-ratio:1.75/1;max-width:100%;border-radius:10px;padding:22px;display:flex;flex-direction:column;justify-content:space-between;background:var(--harbour);color:#fff;box-shadow:0 18px 40px -24px rgba(0,0,0,.5)}
+.bc svg{width:72%;height:auto}
+.bc .who{font-size:12px;line-height:1.5}.bc .who b{display:block;font-size:14px}
+.box{border-radius:10px;overflow:hidden;border:1px solid var(--line)}
+.box svg{display:block;width:100%;height:auto}
+.spec{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:18px}
+.spec p{margin:0;font-size:13.5px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{display:flex;align-items:center;gap:6px;font-family:var(--f-mono);font-size:11.5px}
+.chip i{width:18px;height:18px;border-radius:4px;border:1px solid var(--line)}
+.dir[hidden]{display:none!important}
+</style>
+
+<div class="shell">
+  <aside class="side">
+    <div><h1>Globetrot Cargolink · Contrail</h1><p>The selected mark: Halftone globe with the Vapour trail. Same wordmark: CARGOLINK INTERNATIONAL spans exactly the width of GLOBETROT.</p></div>
+    <ul class="dlist" role="tablist" aria-label="Mark variants">
+      <li><button role="tab" aria-selected="true" data-d="1"><span class="k">1</span><span><b>Halftone</b><span class="s">Selected: dot globe with vapour trail</span></span></button></li>
+      </ul>
+    <p class="note">Each variant shows the full name and a shorter "CARGOLINK INTL" option. Both fill the GLOBETROT width exactly. Once you pick, I'll convert the letters to outlines and deliver the SVG, PNG and favicon files.</p>
+  </aside>
+  <main class="stage" id="stage"></main>
+</div>
+
+<script>
+(function(){
+const C={navy:'#0b1628',amber:'#f3a43b',white:'#ffffff',globe:'#2f5d9e',globeLine:'#3f74c2',ink:'#0b1628'};
+// plane pointing +x, centred at 0,0, ~44 long
+const PLANE='<path d="M22 0C20 -2.4 13 -2.8 -15 -2.6L-20 -1.2V1.2L-15 2.6C13 2.8 20 2.4 22 0Z"/><path d="M5 -2.2L-7 -19H-11.5L-4 -2.2Z"/><path d="M5 2.2L-7 19H-11.5L-4 2.2Z"/><path d="M-13 -2.2L-19 -9H-21.5L-17.5 -2.2Z"/><path d="M-13 2.2L-19 9H-21.5L-17.5 2.2Z"/>';
+function globe(cx,cy,r,o){const fill=o.fill??C.globe,line=o.line??C.globeLine,sw=o.sw??2.2;
+  return `<circle cx="${cx}" cy="${cy}" r="${r}" fill="${fill}" ${o.ring?`stroke="${o.ring}" stroke-width="${sw*1.6}"`:''}/>
+  <g fill="none" stroke="${line}" stroke-width="${sw}"><ellipse cx="${cx}" cy="${cy}" rx="${r*.42}" ry="${r}"/><ellipse cx="${cx}" cy="${cy}" rx="${r*.8}" ry="${r}"/><path d="M${cx-r} ${cy}H${cx+r}M${cx-r*.86} ${cy-r*.5}H${cx+r*.86}M${cx-r*.86} ${cy+r*.5}H${cx+r*.86}"/></g>`}
+function letters(x,y,size,g,t){return `<text x="${x}" y="${y}" font-family="Archivo" font-style="italic" font-weight="900" font-stretch="100%" font-size="${size}" letter-spacing="-2"><tspan fill="${g}">G</tspan><tspan fill="${t}" dx="-3">T</tspan></text>`}
+// MARKS in a 200x150 box. opts: tone 'dark' | 'light'
+const VAP=(tone,plane)=>{const dots=Array.from({length:16},(_,i)=>{const t=i/15,a=Math.PI*(0.95-1.25*t);const x=98+92*Math.cos(a),y=78+30*Math.sin(a);const r=(0.9+t*2.4).toFixed(2);return `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${r}" fill="${C.amber}" opacity="${(0.35+t*0.65).toFixed(2)}"/>`}).join('');
+  return `<g transform="rotate(-18 98 78)">${dots}</g><g transform="translate(178 30) rotate(-34)" fill="${plane}">${PLANE}</g>`};
+// halftone sphere: dots shrink toward the limb, lit from top-left
+function halftone(cx,cy,r,col,step){let o='';for(let y=-r;y<=r;y+=step)for(let x=-r;x<=r;x+=step){const d=Math.hypot(x,y)/r;if(d>1)continue;const z=Math.sqrt(1-d*d);const light=Math.max(0,(-x*.45-y*.55)/r+z*.8);const rr=(step*.5*(.25+.75*z)*(.55+.45*Math.min(1,light))).toFixed(2);o+=`<circle cx="${(cx+x).toFixed(1)}" cy="${(cy+y).toFixed(1)}" r="${rr}" fill="${col}"/>`}return o}
+// rough Africa + Arabia outline in a 100x100 box (lon/lat-ish), placed into the globe
+const AFR='M38 6 L50 4 L60 8 L66 6 L74 12 L80 22 L90 30 L86 36 L78 40 L74 50 L70 60 L66 72 L58 84 L50 94 L44 92 L42 80 L40 66 L34 56 L26 50 L16 46 L8 38 L8 26 L14 16 L26 10 Z M80 6 L94 12 L98 20 L90 28 L82 20 Z M84 70 L90 66 L92 78 L86 84 Z';
+const MARK={
+ 1:(tone)=>{const G=tone==='dark'?C.white:C.ink;
+   return `<circle cx="96" cy="75" r="53" fill="${tone==='dark'?C.navy:'#ffffff'}"/>${halftone(96,75,52,tone==='dark'?'#4f86d6':'#2f5d9e',5.2)}
+   <circle cx="96" cy="75" r="53" fill="none" stroke="${tone==='dark'?'#ffffff':C.ink}" stroke-width="2.4"/>
+   ${VAP(tone,tone==='dark'?C.white:C.ink)}${letters(44,103,72,G,C.amber)}`},
+ 2:(tone)=>{const G=tone==='dark'?C.white:C.ink,b1=tone==='dark'?'#1d3d70':'#d6e3f5',b2=tone==='dark'?'#2f5d9e':'#a9c3e8',b3=tone==='dark'?'#4f86d6':'#6f97d4';
+   return `<defs><clipPath id="gc${tone}"><circle cx="96" cy="75" r="53"/></clipPath></defs>
+   <g clip-path="url(#gc${tone})"><rect x="40" y="20" width="112" height="112" fill="${b1}"/>
+     <ellipse cx="96" cy="75" rx="40" ry="53" fill="${b2}"/><ellipse cx="96" cy="75" rx="22" ry="53" fill="${b3}"/><ellipse cx="96" cy="75" rx="7" ry="53" fill="${b2}"/>
+     <path d="M30 95 Q96 50 162 55" fill="none" stroke="${C.amber}" stroke-width="5"/></g>
+   <circle cx="96" cy="75" r="53" fill="none" stroke="${tone==='dark'?'#ffffff':C.ink}" stroke-width="2.4"/>
+   ${VAP(tone,tone==='dark'?C.white:C.ink)}${letters(44,103,72,G,C.amber)}`},
+ 3:(tone)=>{const G=tone==='dark'?C.white:C.ink,land=tone==='dark'?'#2f5d9e':'#c9daf2',sea=tone==='dark'?'#0f2244':'#ffffff';
+   return `<defs><clipPath id="ga${tone}"><circle cx="96" cy="75" r="53"/></clipPath></defs>
+   <circle cx="96" cy="75" r="53" fill="${sea}"/>
+   <g clip-path="url(#ga${tone})"><g fill="none" stroke="${tone==='dark'?'#1d3d70':'#e1e9f5'}" stroke-width="1.2"><ellipse cx="96" cy="75" rx="22" ry="53"/><ellipse cx="96" cy="75" rx="42" ry="53"/><path d="M43 75H149M48 49H144M48 101H144"/></g>
+   <path d="${AFR}" transform="translate(52 32) scale(.98 .92)" fill="${land}"/></g>
+   <circle cx="${52+66*.98}" cy="${32+58*.92}" r="3.6" fill="${C.amber}"/><circle cx="${52+66*.98}" cy="${32+58*.92}" r="7" fill="none" stroke="${C.amber}" stroke-width="1.2" opacity=".7"/>
+   <circle cx="96" cy="75" r="53" fill="none" stroke="${tone==='dark'?'#ffffff':C.ink}" stroke-width="2.4"/>
+   ${VAP(tone,tone==='dark'?C.white:C.ink)}${letters(22,122,54,G,C.amber)}`}
+};
+const vb='0 0 200 150';
+// wordmark: subtitle fitted to the GLOBETROT width via textLength (set after fonts load)
+function word(x,y,tone,short){const W=tone==='dark'?C.white:C.ink;
+  return `<g class="wm"><text class="w1" x="${x}" y="${y}" font-family="Archivo" font-weight="900" font-stretch="80%" font-size="60" fill="${W}" letter-spacing="1">GLOBETROT</text>
+  <path class="rule" d="" stroke="${C.amber}" stroke-width="2"/>
+  <text class="w2" x="${x+2}" y="${y+28}" font-family="Archivo" font-weight="600" font-stretch="100%" font-size="16" fill="${C.amber}" lengthAdjust="spacing">${short?'CARGOLINK INTL':'CARGOLINK INTERNATIONAL'}</text></g>`}
+const lockup=(d,tone,short)=>`<svg viewBox="0 0 560 150" role="img" aria-label="Globetrot Cargolink International logo"><g>${MARK[d](tone)}</g>${word(212,86,tone,short)}</svg>`;
+const stacked=(d,tone)=>`<svg viewBox="0 0 320 260" role="img" aria-label="Stacked logo"><g transform="translate(60 0)">${MARK[d](tone)}</g><g class="center">${word(0,210,tone,false)}</g></svg>`;
+const markOnly=(d,tone,px)=>`<svg viewBox="${vb}" width="${px}" height="${px*.75}" role="img" aria-label="Logo mark">${MARK[d](tone)}</svg>`;
+const favicon=(px)=>`<svg viewBox="0 0 64 64" width="${px}" height="${px}" aria-label="Favicon"><circle cx="30" cy="34" r="22" fill="#0b1628" stroke="#fff" stroke-width="3"/><path d="M6 46A30 10 -18 0 0 58 14" fill="none" stroke="#f3a43b" stroke-width="4" stroke-dasharray="5 5" stroke-linecap="round"/><text x="12" y="44" font-family="Archivo" font-style="italic" font-weight="900" font-size="26" letter-spacing="-1.5"><tspan fill="#fff">G</tspan><tspan fill="#f3a43b" dx="-1">T</tspan></text></svg>`;
+const NAMES={1:'Vapour · Halftone',2:'Vapour · Meridian',3:'Vapour · Africa'};
+const WHY={1:'The globe is built from the same dots as the vapour trail, lit from the top left so it reads as a sphere. One idea throughout: the world and the route are made of the same particles.',2:'The globe becomes bold blue segments like a stylised map, with an amber route line crossing it. Very graphic, prints well in one or two colours, strong as an app icon.',3:'A globe centred on Africa with Kenya marked in amber. The vapour trail and plane leave from home, which says Kenyan company, global reach without a word.'};
+
+document.getElementById('stage').className='stage';document.getElementById('stage').innerHTML=[1].map(d=>`
+<section class="dir" id="p${d}" ${d>1?'hidden':''} aria-label="${NAMES[d]}">
+  <div class="hero">${lockup(d,'dark',false)}</div>
+  <div class="grid">
+    <div class="tile dark"><span class="lbl">Short option · CARGOLINK INTL</span>${lockup(d,'dark',true)}</div>
+    <div class="tile light"><span class="lbl">On white</span>${lockup(d,'light',false)}</div>
+    <div class="tile dark stack"><span class="lbl">Stacked</span>${stacked(d,'dark')}</div>
+  </div>
+  <div class="card"><p class="lbl">App icon · mark · favicon</p><div class="scale">
+    <figure><div class="app" style="width:128px;height:128px">${markOnly(d,'dark',112)}</div><figcaption>App icon</figcaption></figure>
+    <figure><div class="app" style="width:64px;height:64px">${markOnly(d,'dark',56)}</div><figcaption>64 px</figcaption></figure>
+    <figure><div class="fav" style="width:32px;height:32px">${favicon(32)}</div><figcaption>Favicon 32</figcaption></figure>
+    <figure><div class="fav" style="width:16px;height:16px">${favicon(16)}</div><figcaption>16</figcaption></figure>
+  </div></div>
+  <div class="mock">
+    <div class="bc">${lockup(d,'dark',false)}<div class="who"><b>Operations Desk</b>Air · Sea · Land · Customs<br><span style="opacity:.7">Nairobi, Kenya</span></div></div>
+    <div class="box"><svg viewBox="0 0 560 220" role="img" aria-label="Logo on a container side"><rect width="560" height="220" fill="#d9dee5"/><rect x="20" y="20" width="520" height="168" fill="#0b1628"/>${Array.from({length:30},(_,i)=>`<rect x="${28+i*17.2}" y="24" width="2" height="160" fill="#fff" opacity=".06"/>`).join('')}<g transform="translate(40 50) scale(.84)">${lockup(d,'dark',false).replace('<svg','<svg width="560" height="150"')}</g><circle cx="100" cy="200" r="14" fill="#1f2730"/><circle cx="460" cy="200" r="14" fill="#1f2730"/></svg></div>
+  </div>
+  <div class="card spec"><div><p class="lbl">Why this one</p><p>${WHY[d]}</p></div>
+    <div><p class="lbl">Colours</p><div class="chips"><span class="chip"><i style="background:#0b1628"></i>Harbour</span><span class="chip"><i style="background:#f3a43b"></i>Sodium</span><span class="chip"><i style="background:#2f5d9e"></i>Globe blue</span><span class="chip"><i style="background:#ffffff"></i>White</span></div></div>
+    <div><p class="lbl">Type</p><p>Archivo Black Italic for GT · Archivo Condensed 900 for GLOBETROT · Archivo 600 for the line beneath.</p></div></div>
+</section>`).join('');
+
+// fit subtitle to the GLOBETROT width; centre stacked wordmarks
+function fit(){document.querySelectorAll('.wm').forEach(g=>{const w1=g.querySelector('.w1'),w2=g.querySelector('.w2');let L=0;try{L=w1.getComputedTextLength()}catch(e){}if(!L)return;
+  w2.setAttribute('textLength',L-4);const c=g.parentNode;if(c.classList&&c.classList.contains('center'))c.setAttribute('transform',`translate(${160-L/2} 0)`)});
+  document.querySelectorAll('.stage svg[aria-label*="ogo"]').forEach(svg=>{let bb;try{bb=svg.getBBox()}catch(e){return}if(!bb||!bb.width)return;const m=6;svg.setAttribute('viewBox',`${bb.x-m} ${bb.y-m} ${bb.width+2*m} ${bb.height+2*m}`)})}
+(document.fonts?document.fonts.ready:Promise.resolve()).then(fit);setTimeout(fit,1200);
+
+const tabs=[...document.querySelectorAll('.dlist button')];
+function pick(b){tabs.forEach(t=>{const on=t===b;t.setAttribute('aria-selected',on);document.getElementById('p'+t.dataset.d).hidden=!on});fit();try{localStorage.setItem('gcl-sel',b.dataset.d)}catch(e){}}
+tabs.forEach(b=>b.addEventListener('click',()=>pick(b)));
+let s;try{s=localStorage.getItem('gcl-sel')}catch(e){}
+})();
+</script>
