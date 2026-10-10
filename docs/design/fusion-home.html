@@ -76,11 +76,11 @@ video{display:block}
 /* ===== spine: the container travels from stage to stage ===== */
 .spine{position:relative}
 .spine > svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0}
-.spine .pb{fill:none;stroke:var(--hull);stroke-width:2;stroke-dasharray:2 10}
-.spine .pf{fill:none;stroke:var(--sodium);stroke-width:2.5}
-.spine .rider{position:absolute;left:0;top:0;z-index:4;width:58px;height:26px;margin:-13px 0 0 -29px;border-radius:2px;pointer-events:none;
-  background:#f3a43b repeating-linear-gradient(90deg,rgba(0,0,0,.18) 0 2px,transparent 2px 7px);box-shadow:0 0 30px rgba(243,164,59,.55),0 0 0 1px #ffd08a inset}
-.spine .rider::after{content:"GCLU 261009";position:absolute;left:4px;top:4px;font:600 7px var(--f-mono);color:#3a2205;letter-spacing:.05em}
+.spine .pb{fill:none;stroke:#16253c;stroke-width:1.5;stroke-dasharray:1 9;stroke-linecap:round}
+.spine .pf{fill:none;stroke:none}
+.spine > svg{overflow:visible}
+.spine .rider{position:absolute;left:0;top:0;z-index:4;width:56px;height:56px;pointer-events:none;will-change:transform;filter:drop-shadow(0 0 10px rgba(255,255,255,.35))}
+.spine .rider svg{display:block;width:100%;height:100%;overflow:visible}
 .spine > section{position:relative;z-index:1}
 
 /* ===== 3. Four ways in (stacking cards with footage) ===== */
@@ -161,71 +161,221 @@ video{display:block}
 .credits{padding:clamp(90px,11vw,150px) var(--gut);text-align:center;background:linear-gradient(transparent,#03070e 60%)}
 .role{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px;max-width:760px;margin:0 auto;padding:10px 0;text-align:left}
 .role span:first-child{text-align:right;color:var(--fog);font-family:var(--f-mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;padding-top:4px}
-.role span:last-child{font-family:var(--f-display);font-stretch:110%;font-weight:300;font-size:20px;letter-spacing:.04em}
+.role span:last-child{font-family:var(--f-body);font-weight:400;font-size:16px;line-height:1.5;color:#d7dee8}
 .end{margin-top:72px;display:grid;gap:22px;justify-items:center}
 footer{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;padding:22px var(--gut) calc(22px + env(safe-area-inset-bottom,0px));color:var(--fog);background:#03070e;border-top:1px solid var(--hull)}
 .wa{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:70;display:flex;align-items:center;gap:8px;padding:12px 16px;border-radius:999px;background:#0e1a2c;border:1px solid var(--steel);color:var(--flood);font-size:13px;font-weight:600;box-shadow:0 10px 30px rgba(0,0,0,.5);cursor:pointer}
 .wa i{width:9px;height:9px;border-radius:50%;background:var(--go);box-shadow:0 0 10px var(--go)}
 
 .note-stock{position:fixed;left:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:70;font-family:var(--f-mono);font-size:10.5px;letter-spacing:.08em;color:var(--fog);background:rgba(6,12,23,.8);border:1px solid var(--hull);padding:7px 10px;border-radius:6px;max-width:60vw}
+
+.brand{display:flex;align-items:center;height:48px}
+.brand svg{height:100%;width:auto;display:block}
+.flogo{height:54px;display:block;flex-basis:100%}
+.flogo svg{height:100%;width:auto}
+.screen video.hv{opacity:0;transition:opacity 1.2s var(--ease)}
+.screen video.hv.on{opacity:1}
+.h1{font-size:clamp(22px,2.7vw,44px)!important;line-height:1.05}
+.title-card{gap:18px;max-width:min(980px,100%)}
+.msgs{display:grid;gap:14px;max-width:760px}
+.msg-stage{position:relative;min-height:4.6em}
+.msg{position:absolute;inset:0 auto auto 0;opacity:0;transform:translateY(14px);transition:opacity .7s var(--ease),transform .7s var(--ease);pointer-events:none}
+.msg.on{opacity:1;transform:none;pointer-events:auto}
+.msg .big{margin:0;font-family:var(--f-display);font-stretch:105%;font-weight:500;font-size:clamp(18px,1.9vw,28px);line-height:1.2;text-shadow:0 2px 20px rgba(0,0,0,.6)}
+.msg .big b{color:var(--sodium);font-weight:800}
+.msg .sm{margin:6px 0 0;color:#c9d3df;font-size:clamp(13px,1.1vw,16px)}
+.tabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;max-width:520px}
+.tabs button{all:unset;cursor:pointer;display:grid;gap:7px;font-family:var(--f-mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--fog)}
+.tabs button span b{color:var(--sodium);font-weight:500;margin-right:6px}
+.tabs button i{display:block;height:3px;background:rgba(238,242,247,.22);border-radius:2px;overflow:hidden;position:relative}
+.tabs button i::after{content:"";position:absolute;inset:0;width:var(--p,0%);background:var(--sodium)}
+.tabs button[aria-selected="true"]{color:var(--flood)}
+.tabs button:focus-visible{outline:2px solid var(--sodium);outline-offset:4px}
+@media (max-width:760px){.msg-stage{min-height:6.4em}.title-card{bottom:5%}}
+
+.h1{font-size:clamp(26px,3.2vw,52px)!important;line-height:1.04!important}
+.eyebrow{color:var(--glow)}
+.jintro{padding:clamp(70px,9vw,120px) var(--gut) clamp(40px,5vw,60px);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.9fr);gap:clamp(20px,4vw,56px);align-items:end;border-top:1px solid var(--hull)}
+@media (max-width:860px){.jintro{grid-template-columns:minmax(0,1fr)}}
+.jintro p{margin:0 0 22px;color:var(--fog);font-size:17px;max-width:52ch}
+.day{font-size:clamp(90px,15vw,220px)!important}
+.day small{font-size:.14em!important}
+.svc .lead{max-width:46ch!important}
+.svc ul{margin:0 0 18px!important}
+.svc li{display:block!important;padding:9px 0 9px 18px!important;font-size:14px!important;line-height:1.45;position:relative;color:#d7dee8}
+.svc li::before{content:"";position:absolute;left:0;top:16px;width:7px;height:7px;border-radius:50%;background:var(--sodium)}
+.svc li b{color:var(--flood);font-weight:600}
+.svc .note{font-size:12.5px;color:var(--fog);margin:0 0 16px;padding:10px 12px;border:1px dashed var(--steel);border-radius:8px}
+.svc .btn{align-self:flex-start;margin-top:auto}
+.legend{display:flex;flex-wrap:wrap;gap:10px 22px;padding:12px 16px;border-top:1px solid var(--hull);font-size:13px;color:#c9d3df}
+.legend span{display:inline-flex;align-items:center;gap:8px}
+.legend i{display:inline-block;width:9px;height:9px;border-radius:50%}
+.legend i.tri{width:0;height:0;border-radius:0;border-left:5px solid transparent;border-right:5px solid transparent;border-bottom:9px solid #5fd39a}
+.corr .head p + p{margin-top:12px}
+.explain .lead2{color:var(--flood);margin:0 0 24px;max-width:46ch;font-size:15px}
+.helps{max-width:820px;margin:28px auto 0}
+.final{margin-top:90px;display:grid;gap:18px;justify-items:center}
+.final p{margin:0;color:var(--fog);max-width:60ch;font-size:17px}
+.final .reassure{color:var(--flood);font-size:14px;font-family:var(--f-mono);letter-spacing:.06em}
+.fdesc{flex-basis:100%;max-width:70ch;font-family:var(--f-body);font-size:13.5px;letter-spacing:0;text-transform:none;color:#c9d3df;margin:4px 0 6px}
+.note-stock{bottom:calc(70px + env(safe-area-inset-bottom,0px))!important}
+
+.h2{font-size:clamp(28px,3.4vw,54px)!important}
+.svc{grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr)!important;margin-bottom:24vh!important}
+.svc:last-child{margin-bottom:0!important}
+.svc h3{font-size:clamp(28px,3vw,46px)!important;margin:12px 0 8px!important}
+.svc .txt{padding:clamp(22px,3vw,40px)!important}
+.svc .lead{font-size:15px;margin-bottom:12px!important}
+@media (max-width:860px){.svc{grid-template-columns:minmax(0,1fr)!important;margin-bottom:28px!important;position:relative!important;top:auto!important}.svc .media{min-height:220px}}
+@media (max-width:640px){.reel span:last-child{display:none}}
+.svc-link{all:unset;cursor:pointer;margin-top:auto;font-size:14px;font-weight:600;color:var(--sodium);border-bottom:1px solid rgba(243,164,59,.4);padding-bottom:2px;align-self:flex-start}.svc-link:hover{border-color:var(--sodium)}.svc-link:focus-visible{outline:2px solid var(--sodium);outline-offset:3px}
+.intro{grid-template-columns:minmax(0,1fr)!important;justify-items:center;text-align:center}.intro p{margin-inline:auto!important;max-width:60ch!important}.intro .ctas{justify-content:center}
+.jintro{align-items:center!important}.jintro p{margin:0!important}
+.journey{height:min(82svh,760px)!important}
+.pcopy{bottom:clamp(90px,13vh,130px)!important;gap:10px!important}
+.day{font-size:clamp(64px,9vw,140px)!important;line-height:.85!important}
+.pcopy h3{font-size:clamp(22px,2.4vw,36px)!important}
+.pcopy p{font-size:15.5px!important}
+.rail i{height:4px!important;top:-1px;background:radial-gradient(circle,var(--sodium) 1.6px,transparent 2px) 0 50%/10px 4px repeat-x!important;-webkit-mask-image:linear-gradient(90deg,transparent,#000 70%);mask-image:linear-gradient(90deg,transparent,#000 70%)}
+.cbox{width:44px!important;height:44px!important;top:-21px!important;margin-left:-26px!important;background:none!important;box-shadow:none!important;border-radius:0!important;filter:drop-shadow(0 0 10px rgba(255,255,255,.35))}
+.cbox svg{display:block;width:100%;height:100%}
+
+.foot{display:block!important;position:relative;background:#03070e;border-top:1px solid var(--hull);padding:clamp(48px,6vw,80px) var(--gut) 0;color:#c9d3df;font-size:14px}
+.foot + .foot{border-top:6px solid #0b1626}
+.optlab{position:absolute;top:14px;right:var(--gut);font:500 10.5px var(--f-mono);letter-spacing:.18em;text-transform:uppercase;color:var(--sodium);background:rgba(243,164,59,.1);border:1px solid rgba(243,164,59,.35);padding:5px 10px;border-radius:999px}
+.foot h4{margin:0 0 14px;font:500 11px var(--f-mono);letter-spacing:.2em;text-transform:uppercase;color:var(--fog)}
+.foot ul{list-style:none;margin:0;padding:0;display:grid;gap:9px}
+.foot a{color:#d7dee8;text-decoration:none}
+.foot a:hover{color:var(--sodium)}
+.foot a:focus-visible{outline:2px solid var(--sodium);outline-offset:3px;border-radius:4px}
+.foot .flogo{display:block;height:52px}
+.foot .flogo svg{height:100%;width:auto}
+.fbrand p{margin:16px 0 20px;max-width:46ch;line-height:1.6}
+.contact li{display:grid;gap:2px}
+.ck{display:block;font:500 10px var(--f-mono);letter-spacing:.16em;text-transform:uppercase;color:var(--fog)}
+.socs{display:flex;flex-wrap:wrap;gap:10px}
+.socs.center{justify-content:center;margin-top:34px}
+.soc{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;border:1px solid var(--steel);color:var(--flood)!important;transition:all .3s var(--ease)}
+.soc:hover{border-color:var(--sodium);color:var(--sodium)!important;transform:translateY(-2px)}
+.soc.wa-s{background:#1f7a4d;border-color:#1f7a4d}
+.soc.wa-s:hover{background:#25a565;color:#fff!important}
+.fbar{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;margin-top:clamp(40px,5vw,64px);padding:20px 0 calc(22px + env(safe-area-inset-bottom,0px));border-top:1px solid var(--hull);font-size:13px;color:var(--fog)}
+.navac{color:var(--sodium)!important;font-weight:700;letter-spacing:.04em}
+.navac:hover{text-decoration:underline}
+/* option 1 */
+.fgrid{display:grid;grid-template-columns:minmax(0,1.5fr) repeat(3,minmax(0,1fr));gap:clamp(24px,4vw,56px)}
+@media (max-width:900px){.fgrid{grid-template-columns:repeat(2,minmax(0,1fr))}.fgrid .fbrand{grid-column:1/-1}}
+@media (max-width:520px){.fgrid{grid-template-columns:minmax(0,1fr)}}
+/* option 2 */
+.band{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:28px;align-items:center;padding:28px clamp(20px,3vw,40px);border:1px solid var(--steel);border-radius:18px;background:linear-gradient(120deg,#0e1a2c,#13233b)}
+@media (max-width:900px){.band{grid-template-columns:minmax(0,1fr)}}
+.band h3{margin:0 0 8px;font-family:var(--f-display);font-weight:200;font-stretch:118%;text-transform:uppercase;letter-spacing:.03em;font-size:clamp(22px,2.4vw,34px);line-height:1.05}
+.band h3 b{font-weight:800;color:var(--sodium)}
+.band p{margin:0;color:var(--fog)}
+.bigsocs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+@media (max-width:520px){.bigsocs{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.bs{display:flex;align-items:center;gap:10px;padding:12px 14px;border-radius:12px;border:1px solid var(--steel);color:var(--flood)!important;font-weight:600;font-size:14px;transition:all .3s var(--ease)}
+.bs:hover{border-color:var(--sodium);transform:translateY(-2px)}
+.bs.wa-b{background:#1f7a4d;border-color:#1f7a4d}
+.f2grid{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1.2fr) minmax(0,1fr);gap:clamp(24px,4vw,56px);margin-top:48px}
+@media (max-width:900px){.f2grid{grid-template-columns:minmax(0,1fr)}}
+.two{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+/* option 3 */
+.f3top{display:grid;justify-items:center;text-align:center;gap:14px}
+.f3top p{margin:0;max-width:62ch;line-height:1.6}
+.route-nav{position:relative;display:flex;justify-content:space-between;gap:8px;margin:44px auto 0;max-width:1000px;padding-top:6px}
+.rline{position:absolute;left:4%;right:4%;top:13px;height:4px;background:radial-gradient(circle,var(--sodium) 1.6px,transparent 2px) 0 50%/10px 4px repeat-x;opacity:.8}
+.stop{position:relative;display:grid;justify-items:center;gap:12px;flex:1;text-align:center;font-size:13px}
+.stop i{width:16px;height:16px;border-radius:50%;background:#03070e;border:2px solid var(--sodium);transition:all .3s}
+.stop:hover i{background:var(--sodium);box-shadow:0 0 0 6px rgba(243,164,59,.18)}
+@media (max-width:700px){.route-nav{flex-wrap:wrap;justify-content:center}.stop{flex:0 0 30%}.rline{display:none}}
+.ccards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;max-width:1000px;margin:40px auto 0}
+@media (max-width:700px){.ccards{grid-template-columns:minmax(0,1fr)}}
+.cc{border:1px solid var(--hull);border-radius:14px;padding:16px 18px;background:#0b1626;display:grid;gap:4px;text-align:center}
+.cc b{font-weight:500;color:var(--flood)}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.day{--fill:100%}}
 @media (max-width:640px){.note-stock{display:none}}
 </style>
 
 <header class="nav" id="nav">
-  <span class="brand"><b>Globetrot</b> Cargolink</span>
+  <a class="brand" id="brandLogo" href="#" aria-label="Globetrot Cargolink International home"></a>
   <nav class="links" aria-label="Main"><span>Services</span><span>Trade lanes</span><span>Import guide</span><span>Tools</span><span>Track</span></nav>
   <button class="btn">Get a quote</button>
 </header>
 
 <!-- 1 · OPENING SCENE -->
-<section class="open" aria-label="Opening scene">
+<section class="open" aria-label="Introduction">
   <div class="screen" id="screen">
     <img class="poster" src="media/hero.jpg" alt="">
-    <video id="heroVid" src="media/hero.mp4" poster="media/hero.jpg" muted playsinline loop autoplay preload="auto" aria-label="Night aerial view of a container ship being worked at a port"></video>
+    <video id="heroVid" class="hv on" src="media/hero.mp4" poster="media/hero.jpg" muted playsinline loop autoplay preload="auto" aria-hidden="true"></video>
+    <video class="hv" src="media/cus.mp4" poster="media/cus.jpg" muted playsinline loop preload="auto" aria-hidden="true"></video>
+    <video class="hv" src="media/j7.mp4" poster="media/j7.jpg" muted playsinline loop preload="auto" aria-hidden="true"></video>
     <div class="grain" aria-hidden="true"></div>
-    <div class="title-card"><span class="mono pre">Globetrot Cargolink International presents</span><h1 class="h1">Cargo from anywhere. <b>Cleared</b> and delivered in Kenya.</h1></div>
+    <div class="title-card">
+      <span class="mono eyebrow">International freight &amp; import logistics</span>
+      <h1 class="h1">We <b>ship</b> your cargo to Kenya, <b>clear customs</b> and <b>deliver</b> it to you.</h1>
+      <div class="msgs" role="region" aria-roledescription="carousel" aria-label="Our main services">
+        <div class="msg-stage" aria-live="polite">
+          <div class="msg on"><p class="big"><b>Air, sea &amp; road freight</b></p><p class="sm">Choose a suitable shipping option based on your cargo, volume, urgency and destination.</p></div>
+          <div class="msg"><p class="big"><b>Customs clearance</b></p><p class="sm">We coordinate Kenyan customs entries and relevant import documentation, with applicable duties and charges explained before payment.</p></div>
+          <div class="msg"><p class="big"><b>Delivery to your destination</b></p><p class="sm">We arrange delivery in Nairobi, Mombasa and other locations in Kenya, with regional transit options to selected East African destinations.</p></div>
+        </div>
+        <div class="tabs" role="tablist" aria-label="Choose a service">
+          <button role="tab" aria-selected="true"><span><b>01</b>Freight</span><i></i></button>
+          <button role="tab" aria-selected="false"><span><b>02</b>Customs</span><i></i></button>
+          <button role="tab" aria-selected="false"><span><b>03</b>Delivery</span><i></i></button>
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="reel mono"><span>Scene 01 · Mombasa · 03:14 EAT</span><span id="tc">00:00:00:00</span></div>
-  <div class="intro"><p>One container. Thirty days. One team accountable for every step. <span>Follow it from a factory floor to a shop in Nairobi, and see what we do along the way.</span></p><div class="ctas"><button class="btn">Get a quote →</button><button class="btn g">WhatsApp us</button></div></div>
+  <div class="reel mono"><span>Shipping from China · Dubai · India · UK · Europe</span><span>To Kenya &amp; East Africa</span></div>
+  <div class="intro"><p>Globetrot Cargolink coordinates cargo shipments from China, Dubai, India, the UK and Europe to Kenya by air and sea. <span>We also arrange road transport, customs clearance, cargo consolidation and delivery to your destination.</span></p><div class="ctas"><button class="btn">Get a quote →</button><button class="btn g">WhatsApp us</button></div></div>
 </section>
 
-<!-- 2 · THE JOURNEY -->
-<section class="journey" id="journey" aria-label="The journey of a typical sea shipment">
-  <div class="jhead mono"><span><b class="amber" style="font-weight:500">01</b> · The journey · typical sea shipment</span><span>Scroll →</span></div>
+<!-- 2 · HOW YOUR SHIPMENT WORKS -->
+<section class="jintro" id="how-it-works" aria-label="How your shipment works">
+  <div><div class="kick mono"><b>01</b><span>How your shipment works</span></div><h2 class="h2">From your supplier to your doorstep, <b>we coordinate the entire journey.</b></h2></div>
+  <div><p>We help arrange collection, cargo handling, international shipping, customs clearance and final delivery. Follow the steps involved in a typical sea shipment from a supplier to a customer in Kenya. The actual route and process depend on the shipment and destination.</p></div>
+</section>
+<section class="journey" id="journey" aria-label="A typical sea shipment to Kenya, step by step">
+  <div class="jhead mono"><span>A typical sea shipment to Kenya</span><span>Steps vary by shipment · Scroll →</span></div>
   <div class="track" id="track"></div>
-  <div class="rail" aria-hidden="true"><i id="railfill"></i><span class="cbox" id="cbox"></span></div>
-  <div class="stops mono" id="stops"><span>Origin</span><span>Crossing</span><span>Gateway</span><span>Home</span></div>
+  <div class="rail" aria-hidden="true"><i id="railfill"></i><span class="cbox" id="cbox"><svg viewBox="-28 -28 56 56" aria-hidden="true"><g fill="#ffffff"><path d="M22 0C20 -2.4 13 -2.8 -15 -2.6L-20 -1.2V1.2L-15 2.6C13 2.8 20 2.4 22 0Z"/><path d="M5 -2.2L-7 -19H-11.5L-4 -2.2Z"/><path d="M5 2.2L-7 19H-11.5L-4 2.2Z"/><path d="M-13 -2.2L-19 -9H-21.5L-17.5 -2.2Z"/><path d="M-13 2.2L-19 9H-21.5L-17.5 2.2Z"/></g></svg></span></div>
+  <div class="stops mono" id="stops"><span>Supplier →</span><span>Shipping →</span><span>Kenyan customs →</span><span>Delivery</span></div>
 </section>
 
 <div class="spine" id="spine">
-  <svg aria-hidden="true" preserveAspectRatio="none"><path class="pb" id="pb"/><path class="pf" id="pf"/></svg>
-  <div class="rider" id="rider" aria-hidden="true"></div>
+  <svg aria-hidden="true" preserveAspectRatio="none"><path class="pb" id="pb"/><path class="pf" id="pf"/><g id="vtrail"></g></svg>
+  <div class="rider" id="rider" aria-hidden="true"><svg viewBox="-28 -28 56 56"><g fill="#ffffff"><path d="M22 0C20 -2.4 13 -2.8 -15 -2.6L-20 -1.2V1.2L-15 2.6C13 2.8 20 2.4 22 0Z"/><path d="M5 -2.2L-7 -19H-11.5L-4 -2.2Z"/><path d="M5 2.2L-7 19H-11.5L-4 2.2Z"/><path d="M-13 -2.2L-19 -9H-21.5L-17.5 -2.2Z"/><path d="M-13 2.2L-19 9H-21.5L-17.5 2.2Z"/></g></svg></div>
 
   <!-- 3 · FOUR WAYS IN -->
-  <section class="modes" aria-label="What we move">
-    <div class="kick mono"><b>02</b><span>What we move</span></div>
-    <h2 class="h2">Four ways in. <b>One team</b> accountable for all of it.</h2>
+  <section class="modes" id="services" aria-label="Our services">
+    <div class="kick mono"><b>02</b><span>Our services</span></div>
+    <h2 class="h2">Freight, customs clearance and delivery <b>in one coordinated service.</b></h2>
+    <p style="color:var(--fog);max-width:62ch;margin:0;font-size:17px">Choose the service that fits your shipment. Globetrot Cargolink helps coordinate cargo movement from its origin through Kenyan customs to its final destination, with road transport and regional transit options.</p>
     <div class="stack" id="stack"></div>
   </section>
 
   <!-- 4 · CORRIDORS -->
-  <section class="corr" aria-label="Trade corridors">
-    <div class="head"><div><div class="kick mono"><b>03</b><span>Corridors</span></div><h2 class="h2">Every route <b>ends in Kenya.</b></h2></div><p>China, the Gulf, India and Europe, converging on Mombasa and JKIA, then onward by rail and road to Nairobi and the region. Clients see their own shipments on this map in the portal.</p></div>
+  <section class="corr" id="network" aria-label="Our shipping network">
+    <div class="head"><div><div class="kick mono"><b>03</b><span>Our shipping network</span></div><h2 class="h2">From international suppliers to <b>Kenya and the region.</b></h2></div><div><p>We coordinate cargo from China, Dubai, India, the UK and Europe into Kenya. Air freight typically arrives through JKIA, while sea freight uses the available port and shipping arrangements. After arrival, we coordinate customs clearance and onward delivery by road or rail where appropriate.</p><p>For regional shipments, our road and transit services connect Kenya with destinations along the Northern Corridor, including Uganda, Rwanda, South Sudan and the DRC.</p></div></div>
     <div class="console"><div class="clocks" id="clocks"></div>
-      <div class="radar"><canvas id="radar" aria-label="Stylised radar of the Indian Ocean showing vessels and flights converging on Mombasa"></canvas><span class="tag mono">Indian Ocean · inbound to Mombasa</span><span class="tag2 mono">Illustrative</span><span class="xy mono" id="xy">4.04°S 39.67°E</span></div>
+      <div class="radar"><canvas id="radar" aria-label="Illustrative map of sea routes into Mombasa and air routes into JKIA from China, Dubai, India and Europe"></canvas><span class="tag mono">Routes into Kenya</span><span class="tag2 mono">Illustrative map · times indicative</span><span class="xy mono" id="xy">4.04°S 39.67°E</span></div>
+      <div class="legend" aria-label="Map legend"><span><i style="background:#f3a43b"></i>Sea freight into Mombasa</span><span><i class="tri"></i>Air freight into JKIA</span><span><i style="background:#9fb3cc"></i>Sea route from Europe</span><span><i style="background:#f3a43b;border-radius:2px"></i>Kenyan gateways</span></div>
       <div class="lanes" id="lanes"></div></div>
+    <p class="mono" style="color:var(--fog);margin:14px 0 0;letter-spacing:.08em">Transit times are estimates, not guarantees. Track shipments via the client portal.</p>
   </section>
 
   <!-- 5 · EXPLAINER -->
-  <section class="explain" aria-label="Explainer film">
-    <div><div class="kick mono"><b>04</b><span>Watch · 90 seconds</span></div><h2 class="h2">How importing with us <b>works</b></h2>
-      <p class="lead">Narrated by our team, with captions and a full transcript. Nine short films on the site explain customs, landed cost, LCL and FCL, KEBS certificates and importing a car.</p>
-      <button class="btn g">See all explainers →</button>
+  <section class="explain" id="import-guides" aria-label="How importing into Kenya works">
+    <div><div class="kick mono"><b>04</b><span>Import guides</span></div><h2 class="h2">How importing into Kenya <b>works</b></h2>
+      <p class="lead">New to importing? Explore our practical guides to understand the process before your cargo ships. Our existing explainers cover customs clearance, landed cost, full and shared containers, KEBS certificates and importing a vehicle.</p>
+      <p class="lead2">Learn what documents may be required, which shipping method may suit your cargo, and which charges to consider when planning an import.</p>
+      <button class="btn g">Explore import guides →</button>
       <div class="narr"><i>C</i><span>Narrated by Christine · Globetrot Cargolink</span></div></div>
     <div class="player" id="player">
       <video src="media/j3.mp4" poster="media/j3.jpg" muted playsinline loop preload="metadata" aria-hidden="true"></video>
-      <div class="pt mono"><span>Explainer 01</span><span id="pt">0:00 / 1:30</span></div>
+      <div class="pt mono"><span>Explainer 01 · How it works</span><span id="pt">0:00 / 1:30</span></div>
       <button class="play" id="play" aria-label="Play preview"><svg width="26" height="26" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4l13 8-13 8z" fill="#1a1006"/></svg></button>
       <div class="cap" id="cap">"Tell us what you're shipping. We'll handle the rest."</div>
       <div class="wave" id="wave"></div>
@@ -235,23 +385,35 @@ footer{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;paddin
   </section>
 
   <!-- 6 · CREDITS -->
-  <section class="credits" aria-label="Services">
-    <span class="mono amber">Starring</span>
-    <div style="margin-top:28px">
-      <div class="role"><span>Air freight</span><span>Into JKIA · express & consolidated</span></div>
-      <div class="role"><span>Sea freight</span><span>FCL & LCL into Mombasa</span></div>
-      <div class="role"><span>Consolidation</span><span>Many suppliers, one container</span></div>
-      <div class="role"><span>Customs clearing</span><span>KRA iCMS · KenTrade · PVoC</span></div>
-      <div class="role"><span>Land & transit</span><span>Northern Corridor to UG · RW · SS · DRC</span></div>
-      <div class="role"><span>Warehousing</span><span>Storage & distribution, Nairobi</span></div>
-      <div class="role"><span>Import advisory</span><span>Sourcing support & compliance</span></div>
+  <section class="credits" id="quote" aria-label="How we help and getting a quote">
+    <span class="mono amber">How we help</span>
+    <div class="helps">
+      <div class="role"><span>Air freight</span><span>Express and consolidated cargo shipments arriving through JKIA.</span></div>
+      <div class="role"><span>Sea freight</span><span>Full and shared container shipping, including options for vehicles and machinery.</span></div>
+      <div class="role"><span>Cargo consolidation</span><span>Combine goods from multiple suppliers into one coordinated shipment where suitable.</span></div>
+      <div class="role"><span>Customs clearance</span><span>Coordination of customs entries, import documentation and relevant permit requirements.</span></div>
+      <div class="role"><span>Road haulage &amp; transit</span><span>Cargo transport across Kenya and regional routes to selected neighbouring countries.</span></div>
+      <div class="role"><span>Warehousing</span><span>Storage and distribution services in Nairobi.</span></div>
+      <div class="role"><span>Import advisory</span><span>Support with supplier coordination, import planning and relevant compliance requirements.</span></div>
     </div>
-    <div class="end"><h2 class="h2" style="margin:0">Your shipment is <b>the next story</b></h2><div class="ctas" style="justify-content:center"><button class="btn">Get a quote →</button><button class="btn g">WhatsApp us</button></div></div>
+    <div class="final"><h2 class="h2" style="margin:0">Ready to ship cargo <b>to Kenya?</b></h2>
+      <p>Tell us what you are shipping, where it is coming from, its approximate size or weight, and where you need it delivered. Our team can help you understand the available shipping options, the documentation required and the expected costs.</p>
+      <div class="ctas" style="justify-content:center"><button class="btn">Get a quote →</button><button class="btn g">WhatsApp our team</button></div>
+      <span class="reassure">One point of contact for your freight, customs clearance and delivery arrangements.</span></div>
   </section>
 </div>
-<footer class="mono"><span>© 2026 Globetrot Cargolink International</span><span>Nairobi · 1.29°S 36.82°E</span></footer>
-<button class="wa" aria-label="Chat on WhatsApp"><i></i>WhatsApp the desk</button>
-<div class="note-stock">Preview footage: Pexels stock. Final site uses our own and generated footage.</div>
+<footer class="foot f1" aria-label="Footer option 1"><span class="optlab">Footer option 1 · Columns</span>
+  <div class="fgrid"><div class="fbrand"><span class="flogo" data-logo></span><p>Globetrot Cargolink coordinates international freight, cargo consolidation, customs clearance, warehousing and delivery services for shipments into Kenya, with road haulage and regional transit options.</p><div class="socs"><a class="soc wa-s" href="#" aria-label="WhatsApp" title="WhatsApp"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.6-1.2A9 9 0 1 0 12 3z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 8.2c.3-.6.6-.6.9-.6h.6c.2 0 .4.1.5.4l.7 1.7c.1.2 0 .5-.1.6l-.5.6c-.1.2-.1.4 0 .5.6 1 1.4 1.8 2.4 2.4.2.1.4.1.5 0l.6-.6c.2-.2.4-.2.6-.1l1.7.8c.2.1.4.3.3.5 0 .7-.3 1.4-.9 1.8-.6.4-1.5.4-2.6 0a10 10 0 0 1-5-4.6c-.6-1.2-.7-2.3-.2-3.4z" fill="currentColor"/></svg></a><a class="soc" href="#" aria-label="LinkedIn" title="LinkedIn"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3" fill="none" stroke="currentColor" stroke-width="1.8"/><rect x="7" y="10" width="2.2" height="7" fill="currentColor"/><circle cx="8.1" cy="7.4" r="1.3" fill="currentColor"/><path d="M11.5 10h2.1v1c.4-.7 1.2-1.2 2.3-1.2 1.8 0 2.6 1.1 2.6 3.2V17h-2.2v-3.7c0-1-.3-1.6-1.2-1.6s-1.4.6-1.4 1.6V17h-2.2z" fill="currentColor"/></svg></a><a class="soc" href="#" aria-label="Instagram" title="Instagram"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="17.3" cy="6.7" r="1.2" fill="currentColor"/></svg></a><a class="soc" href="#" aria-label="Facebook" title="Facebook"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M13.5 21v-7.5h2.6l.4-3h-3V8.6c0-.9.3-1.5 1.5-1.5h1.6V4.4c-.3 0-1.2-.1-2.3-.1-2.3 0-3.9 1.4-3.9 4v2.2H7.8v3h2.6V21z" fill="currentColor"/></svg></a><a class="soc" href="#" aria-label="TikTok" title="TikTok"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M14 3h2.7c.2 1.9 1.6 3.4 3.5 3.6v2.7c-1.3 0-2.5-.4-3.5-1.1v6.6a5.6 5.6 0 1 1-5.6-5.6c.3 0 .6 0 .9.1v2.8a2.9 2.9 0 1 0 2 2.7z" fill="currentColor"/></svg></a><a class="soc" href="#" aria-label="YouTube" title="YouTube"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><rect x="2.5" y="5.5" width="19" height="13" rx="4" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M10 9v6l5.2-3z" fill="currentColor"/></svg></a></div></div>
+  <nav aria-label="Pages"><h4>Pages</h4><ul><li><a href="#services">Services</a></li><li><a href="#network">Shipping network</a></li><li><a href="#how-it-works">How it works</a></li><li><a href="#import-guides">Import guides</a></li><li><a href="#quote">Get a quote</a></li><li><a href="#">Track a shipment</a></li><li><a href="#">About us</a></li><li><a href="#">Contact</a></li></ul></nav><nav aria-label="Services"><h4>Services</h4><ul><li><a href="#services">Air freight</a></li><li><a href="#services">Sea freight (FCL &amp; LCL)</a></li><li><a href="#services">Cargo consolidation</a></li><li><a href="#services">Customs clearance</a></li><li><a href="#services">Road haulage &amp; transit</a></li><li><a href="#services">Warehousing</a></li><li><a href="#services">Import advisory</a></li></ul></nav><div><h4>Contact</h4><ul class="contact"><li><span class="ck">Office</span>Nairobi, Kenya</li><li><span class="ck">Phone &amp; WhatsApp</span>Number to be confirmed</li><li><span class="ck">Email</span>Address to be confirmed</li><li><span class="ck">Hours</span>To be confirmed</li></ul></div></div><div class="fbar"><span>© 2026 Globetrot Cargolink International. All rights reserved.</span><span>Designed by <a class="navac" href="https://navac.co.ke" target="_blank" rel="noopener">NAVAC GLOBAL</a></span></div></footer>
+<footer class="foot f2" aria-label="Footer option 2"><span class="optlab">Footer option 2 · Connect band</span>
+  <div class="band"><div><h3>Shipping to Kenya? <b>Talk to our team.</b></h3><p>Message us on WhatsApp or follow us for shipping updates and import tips.</p></div>
+    <div class="bigsocs"><a class="bs wa-b" href="#" aria-label="WhatsApp"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.6-1.2A9 9 0 1 0 12 3z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 8.2c.3-.6.6-.6.9-.6h.6c.2 0 .4.1.5.4l.7 1.7c.1.2 0 .5-.1.6l-.5.6c-.1.2-.1.4 0 .5.6 1 1.4 1.8 2.4 2.4.2.1.4.1.5 0l.6-.6c.2-.2.4-.2.6-.1l1.7.8c.2.1.4.3.3.5 0 .7-.3 1.4-.9 1.8-.6.4-1.5.4-2.6 0a10 10 0 0 1-5-4.6c-.6-1.2-.7-2.3-.2-3.4z" fill="currentColor"/></svg><span>WhatsApp</span></a><a class="bs" href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3" fill="none" stroke="currentColor" stroke-width="1.8"/><rect x="7" y="10" width="2.2" height="7" fill="currentColor"/><circle cx="8.1" cy="7.4" r="1.3" fill="currentColor"/><path d="M11.5 10h2.1v1c.4-.7 1.2-1.2 2.3-1.2 1.8 0 2.6 1.1 2.6 3.2V17h-2.2v-3.7c0-1-.3-1.6-1.2-1.6s-1.4.6-1.4 1.6V17h-2.2z" fill="currentColor"/></svg><span>LinkedIn</span></a><a class="bs" href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="17.3" cy="6.7" r="1.2" fill="currentColor"/></svg><span>Instagram</span></a><a class="bs" href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M13.5 21v-7.5h2.6l.4-3h-3V8.6c0-.9.3-1.5 1.5-1.5h1.6V4.4c-.3 0-1.2-.1-2.3-.1-2.3 0-3.9 1.4-3.9 4v2.2H7.8v3h2.6V21z" fill="currentColor"/></svg><span>Facebook</span></a><a class="bs" href="#" aria-label="TikTok"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M14 3h2.7c.2 1.9 1.6 3.4 3.5 3.6v2.7c-1.3 0-2.5-.4-3.5-1.1v6.6a5.6 5.6 0 1 1-5.6-5.6c.3 0 .6 0 .9.1v2.8a2.9 2.9 0 1 0 2 2.7z" fill="currentColor"/></svg><span>TikTok</span></a><a class="bs" href="#" aria-label="YouTube"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><rect x="2.5" y="5.5" width="19" height="13" rx="4" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M10 9v6l5.2-3z" fill="currentColor"/></svg><span>YouTube</span></a></div></div>
+  <div class="f2grid"><div class="fbrand"><span class="flogo" data-logo></span><p>Globetrot Cargolink coordinates international freight, cargo consolidation, customs clearance, warehousing and delivery services for shipments into Kenya, with road haulage and regional transit options.</p></div><nav aria-label="Pages"><h4>Pages</h4><ul class="two"><li><a href="#services">Services</a></li><li><a href="#network">Shipping network</a></li><li><a href="#how-it-works">How it works</a></li><li><a href="#import-guides">Import guides</a></li><li><a href="#quote">Get a quote</a></li><li><a href="#">Track a shipment</a></li><li><a href="#">About us</a></li><li><a href="#">Contact</a></li></ul></nav><div><h4>Contact</h4><ul class="contact"><li><span class="ck">Office</span>Nairobi, Kenya</li><li><span class="ck">Phone &amp; WhatsApp</span>Number to be confirmed</li><li><span class="ck">Email</span>Address to be confirmed</li><li><span class="ck">Hours</span>To be confirmed</li></ul></div></div><div class="fbar"><span>© 2026 Globetrot Cargolink International. All rights reserved.</span><span>Designed by <a class="navac" href="https://navac.co.ke" target="_blank" rel="noopener">NAVAC GLOBAL</a></span></div></footer>
+<footer class="foot f3" aria-label="Footer option 3"><span class="optlab">Footer option 3 · Route line</span>
+  <div class="f3top"><span class="flogo" data-logo></span><p>Globetrot Cargolink coordinates international freight, cargo consolidation, customs clearance, warehousing and delivery services for shipments into Kenya, with road haulage and regional transit options.</p></div>
+  <nav class="route-nav" aria-label="Pages"><div class="rline"></div><a href="#services" class="stop"><i></i><span>Services</span></a><a href="#network" class="stop"><i></i><span>Shipping network</span></a><a href="#how-it-works" class="stop"><i></i><span>How it works</span></a><a href="#import-guides" class="stop"><i></i><span>Import guides</span></a><a href="#quote" class="stop"><i></i><span>Get a quote</span></a><a href="#" class="stop"><i></i><span>Track a shipment</span></a></nav>
+  <div class="ccards"><div class="cc"><span class="ck">Office</span><b>Nairobi, Kenya</b></div><div class="cc"><span class="ck">Phone &amp; WhatsApp</span><b>Number to be confirmed</b></div><div class="cc"><span class="ck">Email</span><b>Address to be confirmed</b></div></div>
+  <div class="socs center"><a class="soc wa-s" href="#" aria-label="WhatsApp" title="WhatsApp"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.6-1.2A9 9 0 1 0 12 3z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 8.2c.3-.6.6-.6.9-.6h.6c.2 0 .4.1.5.4l.7 1.7c.1.2 0 .5-.1.6l-.5.6c-.1.2-.1.4 0 .5.6 1 1.4 1.8 2.4 2.4.2.1.4.1.5 0l.6-.6c.2-.2.4-.2.6-.1l1.7.8c.2.1.4.3.3.5 0 .7-.3 1.4-.9 1.8-.6.4-1.5.4-2.6 0a10 10 0 0 1-5-4.6c-.6-1.2-.7-2.3-.2-3.4z" fill="currentColor"/></svg></a><a class="soc" href="#" aria-label="LinkedIn" title="LinkedIn"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3" fill="none" stroke="currentColor" stroke-width="1.8"/><rect x="7" y="10" width="2.2" height="7" fill="currentColor"/><circle cx="8.1" cy="7.4" r="1.3" fill="currentColor"/><path d="M11.5 10h2.1v1c.4-.7 1.2-1.2 2.3-1.2 1.8 0 2.6 1.1 2.6 3.2V17h-2.2v-3.7c0-1-.3-1.6-1.2-1.6s-1.4.6-1.4 1.6V17h-2.2z" fill="currentColor"/></svg></a><a class="soc" href="#" aria-label="Instagram" title="Instagram"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="17.3" cy="6.7" r="1.2" fill="currentColor"/></svg></a><a class="soc" href="#" aria-label="Facebook" title="Facebook"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M13.5 21v-7.5h2.6l.4-3h-3V8.6c0-.9.3-1.5 1.5-1.5h1.6V4.4c-.3 0-1.2-.1-2.3-.1-2.3 0-3.9 1.4-3.9 4v2.2H7.8v3h2.6V21z" fill="currentColor"/></svg></a><a class="soc" href="#" aria-label="TikTok" title="TikTok"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M14 3h2.7c.2 1.9 1.6 3.4 3.5 3.6v2.7c-1.3 0-2.5-.4-3.5-1.1v6.6a5.6 5.6 0 1 1-5.6-5.6c.3 0 .6 0 .9.1v2.8a2.9 2.9 0 1 0 2 2.7z" fill="currentColor"/></svg></a><a class="soc" href="#" aria-label="YouTube" title="YouTube"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><rect x="2.5" y="5.5" width="19" height="13" rx="4" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M10 9v6l5.2-3z" fill="currentColor"/></svg></a></div><div class="fbar"><span>© 2026 Globetrot Cargolink International. All rights reserved.</span><span>Designed by <a class="navac" href="https://navac.co.ke" target="_blank" rel="noopener">NAVAC GLOBAL</a></span></div></footer>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
@@ -265,33 +427,68 @@ addEventListener('scroll',()=>$('nav').classList.toggle('solid',scrollY>40),{pas
 
 /* hero timecode */
 const hv=$('heroVid');
-(function tc(){const t=(hv.currentTime||0)+0;const f=Math.floor(t*24);$('tc').textContent=['03','14',String(Math.floor(f/24)%60).padStart(2,'0'),String(f%24).padStart(2,'0')].join(':');requestAnimationFrame(tc)})();
+
 if(reduce){hv.removeAttribute('autoplay');hv.pause()}
+
+
+/* logo (locked Halftone mark) */
+(function(){const A='#f3a43b';
+const PLANE='<path d="M22 0C20 -2.4 13 -2.8 -15 -2.6L-20 -1.2V1.2L-15 2.6C13 2.8 20 2.4 22 0Z"/><path d="M5 -2.2L-7 -19H-11.5L-4 -2.2Z"/><path d="M5 2.2L-7 19H-11.5L-4 2.2Z"/><path d="M-13 -2.2L-19 -9H-21.5L-17.5 -2.2Z"/><path d="M-13 2.2L-19 9H-21.5L-17.5 2.2Z"/>';
+let dots='';for(let y=-52;y<=52;y+=5.2)for(let x=-52;x<=52;x+=5.2){const d=Math.hypot(x,y)/52;if(d>1)continue;const z=Math.sqrt(1-d*d),l=Math.max(0,(-x*.45-y*.55)/52+z*.8);dots+=`<circle cx="${(96+x).toFixed(1)}" cy="${(75+y).toFixed(1)}" r="${(2.6*(.25+.75*z)*(.55+.45*Math.min(1,l))).toFixed(2)}" fill="#4f86d6"/>`}
+const vap=Array.from({length:16},(_,i)=>{const t=i/15,a=Math.PI*(.95-1.25*t);return `<circle cx="${(98+92*Math.cos(a)).toFixed(1)}" cy="${(78+30*Math.sin(a)).toFixed(1)}" r="${(.9+t*2.4).toFixed(2)}" fill="${A}" opacity="${(.35+t*.65).toFixed(2)}"/>`}).join('');
+const mark=`<circle cx="96" cy="75" r="53" fill="#0b1628"/>${dots}<circle cx="96" cy="75" r="53" fill="none" stroke="#fff" stroke-width="2.4"/><g transform="rotate(-18 98 78)">${vap}</g><g transform="translate(178 30) rotate(-34)" fill="#fff">${PLANE}</g><text x="44" y="103" font-family="Archivo" font-style="italic" font-weight="900" font-size="72" letter-spacing="-2"><tspan fill="#fff">G</tspan><tspan fill="${A}" dx="-3">T</tspan></text>`;
+const svg=`<svg viewBox="0 0 560 150" role="img" aria-label="Globetrot Cargolink International">${mark}<text class="w1" x="212" y="86" font-family="Archivo" font-weight="900" font-stretch="80%" font-size="60" fill="#fff" letter-spacing="1">GLOBETROT</text><text class="w2" x="214" y="114" font-family="Archivo" font-weight="600" font-size="16" fill="${A}" lengthAdjust="spacing">CARGOLINK INTERNATIONAL</text></svg>`;
+const _bl=$('brandLogo');if(_bl)_bl.innerHTML=svg;document.querySelectorAll('[data-logo]').forEach(el=>el.innerHTML=svg);
+function fit(){document.querySelectorAll('#brandLogo svg,[data-logo] svg').forEach(s=>{const w1=s.querySelector('.w1'),w2=s.querySelector('.w2');try{const L=w1.getComputedTextLength();if(L)w2.setAttribute('textLength',L-4);const b=s.getBBox();s.setAttribute('viewBox',`${b.x-4} ${b.y-4} ${b.width+8} ${b.height+8}`)}catch(e){}})}
+(document.fonts?document.fonts.ready:Promise.resolve()).then(fit);setTimeout(fit,1500);
+})();
+
+/* hero message carousel */
+(function(){const msgs=[...document.querySelectorAll('.msg')],tabs=[...document.querySelectorAll('.tabs button')],vids=[...document.querySelectorAll('.hv')];
+let cur=0,start=performance.now(),paused=false;const DUR=4200;
+function go(i){cur=i;start=performance.now();msgs.forEach((m,k)=>m.classList.toggle('on',k===i));tabs.forEach((t,k)=>{t.setAttribute('aria-selected',k===i);t.querySelector('i').style.setProperty('--p',k<i?'100%':'0%')});
+  vids.forEach((v,k)=>{v.classList.toggle('on',k===i);if(k===i&&!reduce){v.play().catch(()=>{})}else if(k!==i){setTimeout(()=>{if(k!==cur)v.pause()},1300)}})}
+tabs.forEach((t,k)=>t.addEventListener('click',()=>go(k)));
+const tc=document.querySelector('.title-card');tc.addEventListener('mouseenter',()=>paused=true);tc.addEventListener('mouseleave',()=>{paused=false;start=performance.now()-(parseFloat(tabs[cur].querySelector('i').style.getPropertyValue('--p'))||0)/100*DUR});
+function loop(now){if(!paused&&!reduce){const p=Math.min(1,(now-start)/DUR);tabs[cur].querySelector('i').style.setProperty('--p',(p*100)+'%');if(p>=1)go((cur+1)%msgs.length)}requestAnimationFrame(loop)}
+if(reduce){tabs.forEach(t=>t.querySelector('i').style.setProperty('--p','100%'))}
+requestAnimationFrame(loop);
+})();
 
 /* journey */
 const CH=[
- ['j1','I','Origin','0','The <b>factory</b>','Your supplier packs the order. We confirm pickup, check the paperwork and book collection.'],
- ['j2','I','Origin','2','Origin <b>warehouse</b>','Every carton is received, checked and photographed, then consolidated with your other suppliers\' goods.'],
- ['j3','II','Crossing','5','On the <b>water</b>','Booked, documented and insured on the main leg across the Indian Ocean. You get a WhatsApp update when it sails.'],
- ['j4','III','Gateway','27','<b>Mombasa</b>','Discharged at the port. Your entry is already prepared on KRA iCMS, so clearing starts the moment it lands.'],
- ['j5','III','Gateway','28','The <b>SGR</b>','Railed overnight on the standard-gauge line from Mombasa to the Nairobi Inland Container Depot.'],
- ['j6','III','Gateway','29','<b>Released</b>','Duties paid, IDF 2.5% and RDL 2% settled, release order issued. No runaround, no surprise charges.'],
- ['j7','IV','Home','30','Your <b>door</b>','Delivered in Nairobi, or onward to Kampala, Kigali or Juba, with a WhatsApp update at every step.']
+ ['j1','Supplier','The <b>supplier</b>','Your supplier prepares the order. We coordinate collection, review the available shipping documents and arrange the next steps.'],
+ ['j2','Supplier','Origin <b>warehouse</b>','Cargo is received and checked. Where needed, we coordinate consolidation so goods from different suppliers can travel together.'],
+ ['j3','Shipping','International <b>shipping</b>','We arrange the sea freight and associated shipping documentation. We share updates as the shipment progresses.'],
+ ['j4','Kenyan customs','Arrival at <b>Mombasa</b>','Cargo arrives at the port. We coordinate the Kenyan customs entry and the steps required to clear the goods.'],
+ ['j5','Kenyan customs','Rail or road to <b>Nairobi</b>','Where the route and shipment arrangements allow, containers can move from Mombasa to the Nairobi Inland Container Depot using the Standard Gauge Railway (SGR).'],
+ ['j6','Kenyan customs','Customs <b>release</b>','We coordinate payment of applicable duties and levies, completion of required documentation and customs release. We explain expected charges before payment.'],
+ ['j7','Delivery','<b>Delivery</b>','Once cargo is released, we arrange delivery in Nairobi or onward regional transport where available, including routes serving Kampala, Kigali and Juba.']
 ];
 $('track').innerHTML=CH.map((c,i)=>`<article class="panel" data-i="${i}"><img src="media/${c[0]}.jpg" alt=""><video src="media/${c[0]}.mp4" poster="media/${c[0]}.jpg" muted playsinline preload="auto" aria-hidden="true"></video>
-  <div class="pcopy"><span class="mono act">Act ${c[1]} · ${c[2]} · Chapter ${i+1} of 7</span><div class="day" aria-label="Day ${c[3]}">${c[3]}<small>DAY</small></div><h3>${c[4]}</h3><p>${c[5]}</p></div></article>`).join('');
+  <div class="pcopy"><div class="day" aria-label="Step ${i+1}">${i+1}</div><span class="mono act">${c[1]}</span><h3>${c[2]}</h3><p>${c[3]}</p></div></article>`).join('');
 const panels=[...document.querySelectorAll('.panel')],pv=panels.map(p=>p.querySelector('video'));
 const stops=[...$('stops').children],actIdx=[0,0,1,2,2,2,3];
 
 /* services */
 const SV=[
- ['air','Air <b>freight</b>','Urgent and high-value cargo into JKIA, express or consolidated.',[['Express','2–7 days from China'],['Consolidated','weekly'],['Door to door','Nairobi & upcountry'],['Chargeable weight','÷ 6000']],'JKIA'],
- ['sea','Sea <b>freight</b>','FCL and LCL into Mombasa, railed to Nairobi ICD on the SGR.',[['FCL','20′ · 40′ · 40′HC'],['LCL','per CBM'],['RoRo','vehicles & machinery'],['Gateways','Mombasa · Lamu']],'Mombasa'],
- ['road','Land & <b>transit</b>','Haulage across Kenya and the Northern Corridor to Uganda, Rwanda, South Sudan and DRC.',[['FTL / LTL','Kenya-wide'],['Container haulage','Mombasa · ICD'],['Transit','Malaba · Busia'],['Last mile','Nairobi']],'Northern Corridor'],
- ['cus','Customs <b>clearing</b>','Entries lodged on KRA iCMS, permits through KenTrade, cargo released fast.',[['HS classification','EAC CET bands'],['iCMS entry','lodged & tracked'],['Permits','KEBS · KEPHIS · PPB'],['PVoC / CoC','guidance']],'iCMS · KenTrade']
+ ['air','Air <b>freight</b>','For urgent or high-value goods that need to reach Kenya by air. We coordinate express and consolidated air shipments arriving through Jomo Kenyatta International Airport (JKIA).',
+  ['<b>Express air freight from China:</b> indicative transit of 2–7 days.','<b>Weekly consolidated</b> air shipments.','<b>Delivery arrangements</b> in Nairobi and other parts of Kenya.','<b>Pricing based on chargeable weight,</b> which can take both actual weight and cargo volume into account.'],'','Request an air freight quote','JKIA'],
+ ['sea','Sea <b>freight</b>','A shipping option for larger consignments, heavy cargo and goods that do not require air-freight transit times. We coordinate container shipping and relevant port and onward transport arrangements.',
+  ['<b>Full Container Load (FCL):</b> a full container for your shipment.','<b>Less-than-Container Load (LCL):</b> share container space with other shipments; charges may be based on volume in cubic metres (CBM).','<b>Container options:</b> 20-foot, 40-foot and 40-foot high-cube.','<b>Roll-on/Roll-off (RoRo):</b> shipping options for vehicles and machinery.','<b>Sea-freight gateways:</b> Mombasa and Lamu.','<b>Onward transport,</b> including rail to the Nairobi Inland Container Depot where applicable.'],
+  'Indicative sea transit: approximately 22–30 days. Origin, sailing schedules, handling, customs and onward delivery can affect the total time.','Request a sea freight quote','Mombasa · Lamu'],
+ ['road','Road transport and <b>regional transit</b>','We arrange road transport for cargo moving within Kenya and regional transit along the Northern Corridor to selected destinations in East and Central Africa.',
+  ['<b>Full Truck Load (FTL) and Less-than-Truck Load (LTL)</b> transport options.','<b>Container haulage</b> between Mombasa and the Nairobi Inland Container Depot.','<b>Transit arrangements</b> through the Malaba and Busia corridors.','<b>Last-mile delivery</b> arrangements in Nairobi.','<b>Regional destinations:</b> Uganda, Rwanda, South Sudan and the Democratic Republic of the Congo (DRC).'],'','Request a transport quote','Northern Corridor'],
+ ['cus','Customs clearance and <b>import documentation</b>','We help coordinate the documentation and clearance required to import goods into Kenya, working with the relevant customs and regulatory systems.',
+  ['<b>Customs declarations</b> through the Kenya Revenue Authority\'s iCMS system.','<b>Coordination of applicable trade permits</b> through KenTrade.','<b>Harmonised System (HS) classification support</b> and guidance on the East African Community Common External Tariff (EAC CET).','<b>Guidance on applicable requirements</b> involving KEBS, KEPHIS, the Pharmacy and Poisons Board (PPB), and Pre-Export Verification of Conformity (PVoC) or Certificates of Conformity (CoC).','<b>Explanation of applicable duties, taxes, levies</b> and clearance charges before payment.'],
+  'Requirements depend on your goods and the applicable regulations. Not every permit or certificate applies to every shipment.','Get customs clearance assistance','iCMS · KenTrade']
 ];
-$('stack').innerHTML=SV.map((s,i)=>`<article class="svc"><div class="txt"><span class="mono amber">0${i+1} / 04</span><h3>${s[1]}</h3><p class="lead">${s[2]}</p><ul>${s[3].map(r=>`<li><span>${r[0]}</span><span>${r[1]}</span></li>`).join('')}</ul></div>
-  <div class="media"><img src="media/${s[0]}.jpg" alt=""><video src="media/${s[0]}.mp4" poster="media/${s[0]}.jpg" muted playsinline loop preload="metadata" aria-hidden="true"></video><span class="tag mono">${s[4]}</span></div></article>`).join('');
+$('stack').innerHTML=SV.map((s,i)=>`<article class="svc"><div class="txt"><span class="mono amber">0${i+1} / 04</span><h3>${s[1]}</h3><p class="lead">${s[2]}</p><ul>${s[3].map(r=>`<li>${r}</li>`).join('')}</ul>${s[4]?`<p class="note">${s[4]}</p>`:''}<button class="svc-link">${s[5]} →</button></div>
+  <div class="media"><img src="media/${s[0]}.jpg" alt=""><video src="media/${s[0]}.mp4" poster="media/${s[0]}.jpg" muted playsinline loop preload="metadata" aria-hidden="true"></video><span class="tag mono">${s[6]}</span></div></article>`).join('');
+
+/* keep tall service cards fully readable while stacked */
+function fitCards(){document.querySelectorAll('.svc').forEach((c,i)=>{if(innerWidth<=860){c.style.top='';return}const base=88+i*20;c.style.top=Math.min(base,innerHeight-c.offsetHeight-16)+'px'})}
+fitCards();addEventListener('resize',fitCards);if(document.fonts)document.fonts.ready.then(fitCards);
 const svcV=[...document.querySelectorAll('.svc video')];
 const io=new IntersectionObserver(es=>es.forEach(e=>{const v=e.target;if(e.isIntersecting&&!reduce){v.play().catch(()=>{})}else v.pause()}),{threshold:.25});
 svcV.forEach(v=>io.observe(v));
@@ -307,9 +504,9 @@ $('play').addEventListener('click',()=>{on=!on;$('player').classList.toggle('on'
 
 /* clocks + lanes */
 const Z=[['Guangzhou','Asia/Shanghai'],['Dubai','Asia/Dubai'],['Mumbai','Asia/Kolkata'],['London','Europe/London'],['Nairobi','Africa/Nairobi']];
-$('clocks').innerHTML=Z.map(z=>`<div><small>${z[0]}</small><b data-tz="${z[1]}">--:--</b></div>`).join('');
+$('clocks').innerHTML=Z.map(z=>`<div><small>Local time · ${z[0]}</small><b data-tz="${z[1]}">--:--</b></div>`).join('');
 const tick=()=>document.querySelectorAll('[data-tz]').forEach(b=>b.textContent=new Intl.DateTimeFormat('en-GB',{hour:'2-digit',minute:'2-digit',second:'2-digit',timeZone:b.dataset.tz}).format(new Date()));tick();setInterval(tick,1000);
-$('lanes').innerHTML=[['China → Mombasa','Sea · 22–30 d'],['Gulf → Mombasa','Sea · direct'],['India → Mombasa','Sea · direct'],['China → JKIA','Air · 2–7 d']].map(l=>`<div><small>Lane</small><b>${l[0]}</b><span>${l[1]}</span></div>`).join('');
+$('lanes').innerHTML=[['Sea freight into Mombasa','China, Dubai, India, Europe'],['Indicative sea transit','≈ 22–30 days from China'],['Air freight into JKIA','Indicative 2–7 days from China'],['Onward transport','Rail and road from Mombasa']].map(l=>`<div><small>Route</small><b>${l[0]}</b><span>${l[1]}</span></div>`).join('');
 
 /* radar */
 const cv=$('radar'),ctx=cv.getContext('2d');let W=0,H=0;const box={lo0:25,lo1:122,la0:-18,la1:46};
@@ -333,26 +530,41 @@ function draw(now){if(!W)rsize();ctx.clearRect(0,0,W,H);
   if(ctx.createConicGradient&&!reduce){const g=ctx.createConicGradient(ang-0.6,mx,my);g.addColorStop(0,'rgba(243,164,59,0)');g.addColorStop(.09,'rgba(243,164,59,.16)');g.addColorStop(.1,'rgba(243,164,59,0)');ctx.fillStyle=g;ctx.beginPath();ctx.arc(mx,my,Rr,0,7);ctx.fill()}
   ctx.strokeStyle='rgba(243,164,59,.18)';[60,120,200].forEach(r=>{ctx.beginPath();ctx.arc(mx,my,r,0,7);ctx.stroke()});
   SHIPS.forEach((s,i)=>{const sp=s.l.air?9000:26000;const t=(s.o+(reduce?0:(now-t0)/sp))%1;const[lo,la]=at(s.l.pts,t);const[x,y]=px(lo,la);ctx.fillStyle=s.l.c;ctx.beginPath();if(s.l.air){ctx.moveTo(x,y-4);ctx.lineTo(x+4,y+3);ctx.lineTo(x-4,y+3);ctx.closePath()}else ctx.arc(x,y,2.8,0,7);ctx.fill();
-    if(i%3===0){ctx.font='500 9.5px "IBM Plex Mono",monospace';ctx.fillStyle='rgba(238,242,247,.75)';const eta=Math.max(1,Math.round((1-t)*(s.l.air?5:26)));ctx.fillText(`${s.l.n}·${String(i).padStart(2,'0')}  ETA ${eta}d`,x+7,y-6)}});
+    if(i%3===0){ctx.font='500 9.5px "IBM Plex Mono",monospace';ctx.fillStyle='rgba(238,242,247,.75)';ctx.fillText({GZ:'Sea from China',JEA:'Sea from Dubai',NSA:'Sea from India',SUZ:'Sea from Europe',AIR:'Air from China'}[s.l.n],x+7,y-6)}});
   [['MOMBASA',39.67,-4.05],['NAIROBI',36.82,-1.29],['GUANGZHOU',113.3,23.1],['JEBEL ALI',55,25],['NHAVA SHEVA',72.8,18.9],['SUEZ',32.5,30]].forEach((p,k)=>{const[x,y]=px(p[1],p[2]);ctx.fillStyle=k<2?'#f3a43b':'#eef2f7';ctx.fillRect(x-2.5,y-2.5,5,5);ctx.font='600 9.5px "IBM Plex Mono",monospace';ctx.fillStyle=k<2?'#f3a43b':'rgba(238,242,247,.7)';ctx.fillText(p[0],x+(k===1?-58:7),y+(k===1?-6:4))});
   const ph=((now-t0)/1500)%1;ctx.strokeStyle=`rgba(243,164,59,${1-ph})`;ctx.beginPath();ctx.arc(mx,my,4+ph*20,0,7);ctx.stroke();
   if(rvis&&!reduce)requestAnimationFrame(draw)}
 requestAnimationFrame(draw);
 
-/* spine path (stage to stage) */
-const spine=$('spine'),svg=spine.querySelector('svg'),pb=$('pb'),pf=$('pf'),rider=$('rider');let SL=0,sp=0;
+/* spine: vapour flight (logo plane + dotted vapour trail, loops at each section) */
+const spine=$('spine'),svg=spine.querySelector('svg'),pb=$('pb'),pf=$('pf'),rider=$('rider'),vtrail=$('vtrail');let SL=0;
 function buildSpine(){const w=spine.clientWidth,h=spine.clientHeight;svg.setAttribute('viewBox',`0 0 ${w} ${h}`);
-  const secs=[...spine.querySelectorAll(':scope > section')];const pts=secs.map((s,i)=>[i%2?w*.06:w*.94,s.offsetTop+30]);pts.push([w*.5,h-40]);
-  let d=`M ${w*.5} 0`;let prev=[w*.5,0];pts.forEach(p=>{const mid=(prev[1]+p[1])/2;d+=` C ${prev[0]} ${mid}, ${p[0]} ${mid}, ${p[0]} ${p[1]}`;prev=p});
-  pb.setAttribute('d',d);pf.setAttribute('d',d);SL=pf.getTotalLength();pf.style.strokeDasharray=SL;setSpine(sp)}
-function setSpine(p){sp=p;if(!SL)return;pf.style.strokeDashoffset=SL*(1-p);const a=pf.getPointAtLength(SL*p),b=pf.getPointAtLength(Math.min(SL,SL*p+2));rider.style.transform=`translate(${a.x}px,${a.y}px) rotate(${Math.atan2(b.y-a.y,b.x-a.x)*180/Math.PI}deg)`}
+  const secs=[...spine.querySelectorAll(':scope > section')];const g=Math.max(26,w*.035);
+  const pts=secs.map((s,i)=>{const k=s.querySelector('.kick');const y=s.offsetTop+(k?k.offsetTop+k.offsetHeight/2:80);return[i%2===0?g:w-g,y]});
+  const sx=w-g,sy=0,endY=h-60,r=26;
+  // take off from "Delivery" with a short climb, bank down into the page
+  let d=`M ${sx} ${sy} C ${sx+8} ${sy-70}, ${w*.78} ${sy-50}, ${w*.62} ${sy+70} S ${pts[0][0]+140} ${pts[0][1]-80}, ${pts[0][0]+r} ${pts[0][1]}`;
+  pts.forEach((p,i)=>{const dir=i%2===0?1:-1;const cx=p[0]+dir*r;
+    d+=` a ${r} ${r} 0 1 ${dir>0?1:0} 0 ${2*r} a ${r} ${r} 0 1 ${dir>0?1:0} 0 ${-2*r}`;
+    if(i<pts.length-1){const n=pts[i+1],ndir=(i+1)%2===0?1:-1,nax=n[0]+ndir*r,y1=p[1]+200,y2=n[1]-260;d+=` C ${cx} ${p[1]+90}, ${p[0]} ${p[1]+120}, ${p[0]} ${y1}`;if(y2>y1)d+=` L ${p[0]} ${y2}`;d+=` C ${p[0]} ${n[1]-120}, ${nax} ${n[1]-140}, ${nax} ${n[1]}`}});
+  const last=pts[pts.length-1];const wb=spine.querySelector('.final .btn.g');
+  if(wb){const sr=spine.getBoundingClientRect(),br=wb.getBoundingClientRect();const ex=br.right-sr.left+44,ey=br.top-sr.top+br.height/2;
+    d+=` C ${last[0]} ${last[1]+260}, ${Math.min(w-g,ex+260)} ${ey-160}, ${ex+90} ${ey} L ${ex} ${ey}`}
+  else d+=` C ${last[0]} ${endY}, ${w/2} ${endY-60}, ${w/2} ${endY}`;
+  pb.setAttribute('d',d);pf.setAttribute('d',d);SL=pf.getTotalLength();setSpine()}
+function setSpine(){if(!SL)return;const top=spine.getBoundingClientRect().top;const target=innerHeight*.5-top;
+  let lo=0,hi=SL;if(reduce){lo=SL}else for(let k=0;k<22;k++){const m=(lo+hi)/2;pf.getPointAtLength(m).y<target?lo=m:hi=m}
+  const len=lo,a=pf.getPointAtLength(len),b=pf.getPointAtLength(Math.min(SL,len+2));
+  rider.style.transform=`translate(${a.x-28}px,${a.y-28}px) rotate(${Math.atan2(b.y-a.y,b.x-a.x)*180/Math.PI}deg)`;
+  let h='';const N=30;for(let i=1;i<=N;i++){const t=len-i*15;if(t<0)break;const q=pf.getPointAtLength(t),f=1-i/N;h+=`<circle cx="${q.x.toFixed(1)}" cy="${q.y.toFixed(1)}" r="${(1+f*3.2).toFixed(2)}" fill="#f3a43b" opacity="${(f*.95).toFixed(2)}"/>`}vtrail.innerHTML=h}
+addEventListener('scroll',()=>requestAnimationFrame(setSpine),{passive:true});
 
 /* motion */
 function scrub(v,p){if(!v||!v.duration||isNaN(v.duration))return;const t=Math.max(0,Math.min(v.duration-.05,p*v.duration));if(Math.abs(v.currentTime-t)>1/30)v.currentTime=t}
 if(window.gsap&&!reduce){
   gsap.registerPlugin(ScrollTrigger);
   gsap.from('.title-card > *',{y:30,opacity:0,duration:1.4,stagger:.25,ease:'power3.out',delay:.2});
-  gsap.to('#heroVid',{scale:1.12,ease:'none',scrollTrigger:{trigger:'#screen',start:'top top',end:'bottom top',scrub:true}});
+  gsap.to('.hv',{scale:1.12,ease:'none',scrollTrigger:{trigger:'#screen',start:'top top',end:'bottom top',scrub:true}});
   const track=$('track'),dist=()=>track.scrollWidth-innerWidth;
   gsap.to(track,{x:()=>-dist(),ease:'none',scrollTrigger:{trigger:'#journey',pin:true,scrub:.6,end:()=>'+='+dist()*1.15,invalidateOnRefresh:true,
     onUpdate:s=>{const p=s.progress,n=CH.length;const f=p*(n-1);$('railfill').style.width=(p*100)+'%';$('cbox').style.left=(p*100)+'%';
@@ -361,11 +573,11 @@ if(window.gsap&&!reduce){
         if(near)scrub(pv[i],local);el.querySelector('.day').style.setProperty('--fill',(Math.max(0,Math.min(1,1-Math.abs(f-i)*1.4))*100)+'%');
         const vid=pv[i];if(vid)vid.style.transform=`scale(${1.12-.08*local}) translateX(${(i-f)*-6}%)`;})}}});
   document.querySelectorAll('.svc').forEach((c,i,all)=>{if(i<all.length-1)gsap.to(c,{scale:.93,opacity:.45,ease:'none',scrollTrigger:{trigger:all[i+1],start:'top bottom',end:'top 25%',scrub:true}})});
-  ScrollTrigger.create({trigger:spine,start:'top 55%',end:'bottom 70%',scrub:.6,onUpdate:s=>setSpine(s.progress),onRefresh:buildSpine});
+  ScrollTrigger.addEventListener('refresh',buildSpine);
   gsap.from('.role',{y:24,opacity:0,stagger:.07,duration:.8,scrollTrigger:{trigger:'.credits',start:'top 70%'}});
   if(document.fonts)document.fonts.ready.then(()=>ScrollTrigger.refresh());
   pv.forEach(v=>v.addEventListener('loadedmetadata',()=>ScrollTrigger.update()));
-}else{document.querySelectorAll('.day').forEach(d=>d.style.setProperty('--fill','100%'));setSpine(1)}
+}else{document.querySelectorAll('.day').forEach(d=>d.style.setProperty('--fill','100%'));setSpine()}
 buildSpine();addEventListener('resize',buildSpine);
 })();
 </script>

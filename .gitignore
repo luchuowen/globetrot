@@ -9,3 +9,7 @@ dist/
 .vercel/
 .netlify/
 media/source/
+_to_delete/
+media/web1080/
+media/trim/
+media/web4k/

@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Contact · Globetrot Cargolink</title>
+<meta name="description" content="Contact Globetrot Cargolink in Nairobi by phone, WhatsApp or email, or send us a message about your shipment.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900;1,62..125,100..900&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="site.css">
+</head>
+<body>
+<header data-site-nav></header>
+<style>
+/* Contact: split screen. A tall photo column with contact channels layered on it, and a calm form column. */
+.ct{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);min-height:100svh}
+@media (max-width:960px){.ct{grid-template-columns:minmax(0,1fr)}}
+.left{position:relative;overflow:hidden;isolation:isolate;padding:calc(env(safe-area-inset-top,0px) + 130px) clamp(20px,4vw,64px) 50px;display:flex;flex-direction:column;justify-content:space-between;gap:30px}
+.left img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2}
+.left::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(6,12,23,.9),rgba(6,12,23,.55) 45%,rgba(6,12,23,.95))}
+.chs{display:grid;gap:10px}
+.chn{display:grid;grid-template-columns:48px minmax(0,1fr) auto;gap:14px;align-items:center;padding:16px;border-radius:18px;background:rgba(11,22,38,.82);backdrop-filter:blur(10px);border:1px solid var(--steel);text-decoration:none;transition:border-color .3s,transform .3s var(--ease)}
+.chn:hover{border-color:var(--sodium);transform:translateX(4px)}
+.chn svg{width:48px;height:48px;padding:12px;border-radius:14px;background:rgba(243,164,59,.12);color:var(--sodium)}
+.chn small{display:block;font-family:var(--f-mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--fog)}
+.chn b{font-size:16px}
+.chn .arr{color:var(--sodium);font-size:18px}
+.right{padding:calc(env(safe-area-inset-top,0px) + 130px) clamp(20px,5vw,80px) 60px;background:var(--harbour)}
+@media (max-width:960px){.right{padding-top:50px}}
+.form{display:grid;gap:14px;margin-top:26px;max-width:620px}
+.two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+@media (max-width:560px){.two{grid-template-columns:minmax(0,1fr)}}
+.topics{display:flex;flex-wrap:wrap;gap:8px}
+.topics button{all:unset;cursor:pointer;padding:10px 14px;border-radius:999px;border:1px solid var(--steel);font-size:14px;color:#c9d3df}
+.topics button[aria-pressed="true"]{background:var(--sodium);border-color:var(--sodium);color:#1a1006;font-weight:600}
+.topics button:focus-visible{outline:2px solid var(--sodium);outline-offset:2px}
+.ok{display:none;padding:24px;border-radius:20px;border:1px solid rgba(95,211,154,.4);background:rgba(95,211,154,.08);margin-top:26px;max-width:620px}
+.ok.show{display:block}
+.ok b{color:var(--go);font-size:18px}
+.err{color:var(--red);font-size:13px;min-height:1em}
+.hours{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:34px;max-width:620px}
+.hours div{padding:16px;border-radius:16px;border:1px solid var(--hull);background:var(--panel)}
+.hours small{display:block;font-family:var(--f-mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--fog)}
+</style>
+
+<section class="ct" aria-label="Contact us">
+  <div class="left">
+    <img src="media/img/call.jpg" alt="Logistics coordinator on a phone call at his desk">
+    <div data-reveal>
+      <h1 class="h1">Talk to <b>our team.</b></h1>
+      <p class="lead">Questions about a shipment, a quote or importing in general? Reach us the way that suits you.</p>
+    </div>
+    <div class="chs" data-reveal>
+      <a class="chn" href="#" onclick="return false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.6-1.2A9 9 0 1 0 12 3z"/></svg><span><small>WhatsApp</small><b>Number to be confirmed</b></span><span class="arr">→</span></a>
+      <a class="chn" href="#" onclick="return false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg><span><small>Phone</small><b>Number to be confirmed</b></span><span class="arr">→</span></a>
+      <a class="chn" href="#" onclick="return false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg><span><small>Email</small><b>Address to be confirmed</b></span><span class="arr">→</span></a>
+      <a class="chn" href="#" onclick="return false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg><span><small>Office</small><b>Nairobi, Kenya</b></span><span class="arr">→</span></a>
+    </div>
+  </div>
+
+  <div class="right">
+    <div class="kick"><b>Message</b><span>We usually reply within working hours</span></div>
+    <h2 class="h2" style="max-width:16ch">Send us <b>a message.</b></h2>
+    <form class="form" id="cf" novalidate>
+      <div class="field"><span class="lbl">What's it about?</span><div class="topics" id="topics"><button type="button" aria-pressed="true">A new shipment</button><button type="button" aria-pressed="false">An existing shipment</button><button type="button" aria-pressed="false">Customs clearance</button><button type="button" aria-pressed="false">Something else</button></div></div>
+      <div class="two"><div class="field"><label for="cn">Full name</label><input id="cn" autocomplete="name" required></div><div class="field"><label for="cc">Company (optional)</label><input id="cc" autocomplete="organization"></div></div>
+      <div class="two"><div class="field"><label for="cp">Phone or WhatsApp</label><input id="cp" autocomplete="tel" inputmode="tel" required></div><div class="field"><label for="ce">Email</label><input id="ce" type="email" autocomplete="email" required></div></div>
+      <div class="field"><label for="cm">Your message</label><textarea id="cm" required placeholder="Tell us what you're shipping, from where, and where it needs to go."></textarea></div>
+      <p class="err" id="err" role="alert"></p>
+      <div><button class="btn" type="submit">Send message →</button></div>
+    </form>
+    <div class="ok" id="ok" role="status"><b>Thank you. Your message is ready.</b><p class="muted" style="margin:8px 0 0">Once the website is connected, messages from this form will go straight to our team. For now, please contact us using the details on this page.</p></div>
+    <div class="hours"><div><small>Office hours</small><b>To be confirmed</b></div><div><small>Location</small><b>Nairobi, Kenya</b></div></div>
+  </div>
+</section>
+
+
+
+<footer data-site-footer></footer>
+<script src="site.js"></script>
+<script data-page>
+(function(){
+const t=document.getElementById('topics');t.querySelectorAll('button').forEach(b=>b.onclick=()=>t.querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x===b)));
+document.getElementById('cf').addEventListener('submit',e=>{e.preventDefault();const req=['cn','cp','ce','cm'].map(id=>document.getElementById(id));const miss=req.filter(i=>!i.value.trim());
+  const em=document.getElementById('ce');if(miss.length){document.getElementById('err').textContent='Please fill in your name, phone, email and message.';miss[0].focus();return}
+  if(!/^\S+@\S+\.\S+$/.test(em.value)){document.getElementById('err').textContent='Please check your email address.';em.focus();return}
+  document.getElementById('err').textContent='';e.target.style.display='none';document.getElementById('ok').classList.add('show')});
+})();
+</script>
+</body>
+</html>

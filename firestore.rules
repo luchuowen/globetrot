@@ -1,0 +1,23 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function str(v, max) { return v is string && v.size() <= max; }
+    match /globetrot_messages/{id} {
+      allow create: if request.resource.data.keys().hasOnly(['topic','name','company','phone','email','message','page','createdAt'])
+        && str(request.resource.data.name, 200) && request.resource.data.name.size() > 0
+        && str(request.resource.data.phone, 60) && str(request.resource.data.email, 200)
+        && str(request.resource.data.message, 4000)
+        && request.resource.data.createdAt == request.time;
+      allow read, update, delete: if false;
+    }
+    match /globetrot_quotes/{id} {
+      allow create: if request.resource.data.keys().hasOnly(['ref','service','fromCountry','fromCity','to','when','customs','delivery','collection','cargo','weightKg','volumeCbm','value','notes','name','company','phone','email','whatsapp','page','createdAt'])
+        && str(request.resource.data.name, 200) && request.resource.data.name.size() > 0
+        && str(request.resource.data.phone, 60)
+        && str(request.resource.data.ref, 40)
+        && request.resource.data.createdAt == request.time;
+      allow read, update, delete: if false;
+    }
+    match /{document=**} { allow read, write: if false; }
+  }
+}

@@ -1,0 +1,4 @@
+{
+  "projects": {"default": "smart-diary-e103c"},
+  "targets": {"smart-diary-e103c": {"hosting": {"globetrot": ["globetrot-cargolink"]}}}
+}

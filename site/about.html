@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>About Us · Globetrot Cargolink</title>
+<meta name="description" content="Globetrot Cargolink International is a Nairobi-based freight forwarding and import logistics company coordinating air, sea and road freight, customs clearance and delivery into Kenya.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900;1,62..125,100..900&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="site.css">
+</head>
+<body>
+<header data-site-nav></header>
+<style>
+/* About: magazine spread. Full-bleed city-at-night opener, a giant statement, alternating photo/text features, a values index and a Nairobi close. */
+.ab-hero{position:relative;min-height:min(92svh,860px);display:grid;align-items:end;padding:calc(env(safe-area-inset-top,0px) + 120px) var(--gut) clamp(40px,6vw,80px);overflow:hidden;isolation:isolate}
+.ab-hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;transform:scale(1.04)}
+.ab-hero::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(0deg,var(--harbour) 5%,rgba(6,12,23,.35) 55%,rgba(6,12,23,.55))}
+.ab-hero .inner{max-width:1320px;margin-inline:auto;width:100%}
+.ab-hero .h1{font-size:clamp(40px,7vw,110px);line-height:.95;max-width:12ch}
+.statement{max-width:1320px;margin-inline:auto;padding:clamp(70px,9vw,130px) var(--gut);display:grid;grid-template-columns:200px minmax(0,1fr);gap:clamp(20px,4vw,60px)}
+@media (max-width:860px){.statement{grid-template-columns:minmax(0,1fr)}}
+.statement p.big{font-family:var(--f-display);font-weight:300;font-stretch:110%;font-size:clamp(24px,3vw,44px);line-height:1.25;margin:0;color:var(--flood);text-wrap:balance}
+.statement p.big b{color:var(--sodium);font-weight:700}
+.feature{max-width:1320px;margin-inline:auto;padding:0 var(--gut) clamp(60px,8vw,110px);display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:clamp(24px,5vw,80px);align-items:center}
+.feature.flip{grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr)}
+.feature.flip .ph{order:2}
+@media (max-width:860px){.feature,.feature.flip{grid-template-columns:minmax(0,1fr)}.feature.flip .ph{order:0}}
+.ph{position:relative;border-radius:28px;overflow:hidden;aspect-ratio:5/4}
+.ph img{width:100%;height:100%;object-fit:cover;transition:transform 1.4s var(--ease)}
+.ph:hover img{transform:scale(1.04)}
+.ph .cap{position:absolute;left:16px;bottom:14px;font-family:var(--f-mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;background:rgba(6,12,23,.7);backdrop-filter:blur(6px);padding:6px 12px;border-radius:999px}
+.feature ul{list-style:none;margin:20px 0 0;padding:0;display:grid;gap:0;border-top:1px solid var(--hull)}
+.feature li{padding:13px 0;border-bottom:1px solid var(--hull);color:#d0d8e3;font-size:15.5px}
+.feature li b{color:var(--flood)}
+.values{border-block:1px solid var(--hull);background:#0a1424}
+.values .in{max-width:1320px;margin-inline:auto;padding:clamp(60px,8vw,110px) var(--gut)}
+.vgrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));margin-top:36px;border-top:1px solid var(--steel)}
+@media (max-width:960px){.vgrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:520px){.vgrid{grid-template-columns:minmax(0,1fr)}}
+.v{padding:28px 24px 30px 0;border-right:1px solid var(--hull);display:grid;gap:12px;align-content:start}
+.v:last-child{border-right:0}
+@media (max-width:960px){.v{border-right:0;border-bottom:1px solid var(--hull);padding-right:16px}}
+.v .n{font-family:var(--f-display);font-weight:900;font-stretch:62%;font-size:64px;line-height:.8;color:transparent;-webkit-text-stroke:1.5px var(--sodium)}
+.v b{font-size:19px;font-family:var(--f-display)}
+.v p{margin:0;color:#c9d3df;font-size:15px}
+.close{position:relative;overflow:hidden;isolation:isolate;padding:clamp(80px,10vw,150px) var(--gut);text-align:center}
+.close img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2}
+.close::after{content:"";position:absolute;inset:0;z-index:-1;background:rgba(6,12,23,.78)}
+.close .h2{max-width:20ch;margin-inline:auto}
+.close .lead{margin:0 auto 26px}
+.close .ctas{justify-content:center}
+</style>
+
+<header class="ab-hero" aria-label="About Globetrot Cargolink">
+  <img src="media/img/nightcity.jpg" alt="Nairobi skyline at night">
+  <div class="inner" data-reveal>
+    <h1 class="h1">Nairobi's link to <b>the world's suppliers.</b></h1>
+  </div>
+</header>
+
+<section class="statement" aria-label="Who we are">
+  <span class="mono amber" data-reveal>Who we are</span>
+  <div data-reveal>
+    <p class="big">Globetrot Cargolink International is a Nairobi-based freight forwarding and import logistics company. We help businesses and individuals <b>bring goods into Kenya</b> from China, Dubai, India, the UK and Europe, and move them on <b>across East Africa.</b></p>
+    <p class="lead" style="margin-top:24px">We don't own ships or aircraft. We coordinate them. Our job is to plan the route, arrange the transport, handle the paperwork and keep you informed, so you deal with one team from your supplier's door to yours.</p>
+  </div>
+</section>
+
+<section class="feature" aria-label="What we do">
+  <div class="ph"><img src="media/img/team.jpg" alt="Three colleagues working together at a desk" loading="lazy" style="object-position:50% 35%"><span class="cap">Our team</span></div>
+  <div data-reveal>
+    <div class="kick"><b>01</b><span>What we do</span></div>
+    <h2 class="h2">One team for <b>the whole journey.</b></h2>
+    <p class="lead">Importing usually means dealing with suppliers, shipping lines, airlines, customs and transporters separately. We bring it together.</p>
+    <ul><li><b>Freight:</b> air, sea and road shipments, including consolidation.</li><li><b>Customs:</b> clearance and import documentation in Kenya.</li><li><b>Delivery:</b> to your door in Kenya or onward to the region.</li><li><b>Storage:</b> warehousing and distribution in Nairobi.</li></ul>
+  </div>
+</section>
+
+<section class="feature flip" aria-label="How we work">
+  <div class="ph"><img src="media/img/sign.jpg" alt="Signing shipping paperwork on a clipboard" loading="lazy"><span class="cap">Clear paperwork</span></div>
+  <div data-reveal>
+    <div class="kick"><b>02</b><span>How we work</span></div>
+    <h2 class="h2">Clear prices, <b>clear updates.</b></h2>
+    <p class="lead">You should know what you're paying for and where your cargo is. That shapes how we work.</p>
+    <ul><li><b>Itemised quotes:</b> freight, clearance and delivery shown separately.</li><li><b>Charges explained first:</b> expected duties and fees before you pay.</li><li><b>Regular updates:</b> at each milestone, on WhatsApp if you prefer.</li><li><b>Plain language:</b> no jargon without an explanation.</li></ul>
+  </div>
+</section>
+
+<section class="values" aria-label="Our values">
+  <div class="in">
+    <div class="kick"><b>03</b><span>What we stand for</span></div>
+    <h2 class="h2">Four commitments <b>to every client.</b></h2>
+    <div class="vgrid">
+      <div class="v" data-reveal><span class="n">01</span><b>Accountable</b><p>One point of contact who owns your shipment from start to finish.</p></div>
+      <div class="v" data-reveal><span class="n">02</span><b>Transparent</b><p>Itemised costs and honest timelines, with estimates labelled as estimates.</p></div>
+      <div class="v" data-reveal><span class="n">03</span><b>Responsive</b><p>Quick answers by phone, email or WhatsApp when you need them.</p></div>
+      <div class="v" data-reveal><span class="n">04</span><b>Compliant</b><p>Correct documents and declarations, so goods clear without avoidable delays.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="close" aria-label="Get in touch">
+  <img src="media/img/nairobi.jpg" alt="" loading="lazy">
+  <span class="mono amber">Based in Nairobi</span>
+  <h2 class="h2">Let's move your <b>next shipment.</b></h2>
+  <p class="lead">Tell us what you're shipping and where it needs to go. We'll explain your options and the costs.</p>
+  <div class="ctas"><a class="btn" href="quote.html">Get a quote →</a><a class="btn g" href="contact.html">Contact us</a></div>
+</section>
+
+<footer data-site-footer></footer>
+<script src="site.js"></script>
+
+</body>
+</html>

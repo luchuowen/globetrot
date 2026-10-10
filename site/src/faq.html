@@ -1,0 +1,80 @@
+<!--TITLE:FAQ · Globetrot Cargolink-->
+<!--DESC:Answers to common questions about quotes, shipping, customs clearance, delivery and regional transit with Globetrot Cargolink.-->
+<style>
+/* FAQ: search-led help centre. Large search field, vertical topic list, and accordion answers with a live match count. */
+.fq-hero{padding:calc(env(safe-area-inset-top,0px) + 130px) var(--gut) 40px;max-width:1100px;margin-inline:auto;text-align:center}
+.fq-hero .h1,.fq-hero .lead{margin-inline:auto}
+.sbox{position:relative;max-width:720px;margin:30px auto 0}
+.sbox input{width:100%;padding:18px 20px 18px 54px;border-radius:18px;border:1px solid var(--steel);background:var(--panel);color:var(--flood);font:500 17px var(--f-body)}
+.sbox input:focus-visible{outline:2px solid var(--sodium);outline-offset:2px}
+.sbox svg{position:absolute;left:18px;top:50%;transform:translateY(-50%);color:var(--fog)}
+.count{margin-top:12px;color:var(--fog);font-family:var(--f-mono);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase}
+.fq{display:grid;grid-template-columns:240px minmax(0,1fr);gap:clamp(24px,4vw,60px);max-width:1180px;margin-inline:auto;padding:30px var(--gut) clamp(60px,8vw,110px)}
+@media (max-width:860px){.fq{grid-template-columns:minmax(0,1fr)}}
+.cats{position:sticky;top:110px;align-self:start;display:grid;gap:4px}
+@media (max-width:860px){.cats{position:static;display:flex;overflow-x:auto}}
+.cats button{all:unset;cursor:pointer;display:flex;justify-content:space-between;gap:10px;padding:12px 14px;border-radius:12px;border-bottom:1px solid var(--hull);font-size:14.5px;color:#c9d3df}
+@media (max-width:860px){.cats button{white-space:nowrap;border:1px solid var(--hull)}}
+.cats button span{font-family:var(--f-mono);font-size:11px;color:var(--fog)}
+.cats button[aria-pressed="true"]{background:#15233a;color:var(--flood);box-shadow:inset 3px 0 0 var(--sodium)}
+.cats button:focus-visible{outline:2px solid var(--sodium)}
+.list{display:grid;gap:10px}
+details{border:1px solid var(--hull);border-radius:18px;background:var(--panel);overflow:hidden;transition:border-color .3s}
+details[open]{border-color:var(--steel)}
+summary{list-style:none;cursor:pointer;display:grid;grid-template-columns:minmax(0,1fr) 30px;gap:14px;align-items:center;padding:18px 20px;font-weight:600;font-size:16px}
+summary::-webkit-details-marker{display:none}
+summary i{width:30px;height:30px;border-radius:50%;border:1px solid var(--steel);display:grid;place-items:center;font-style:normal;color:var(--sodium);transition:transform .3s var(--ease)}
+details[open] summary i{transform:rotate(45deg);background:var(--sodium);color:#1a1006;border-color:var(--sodium)}
+summary:focus-visible{outline:2px solid var(--sodium);outline-offset:-2px}
+details .a{padding:0 20px 20px;color:#d0d8e3;line-height:1.7}
+details .a p{margin:0 0 10px}
+details small{display:inline-block;margin-bottom:6px;font-family:var(--f-mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--fog)}
+mark{background:rgba(243,164,59,.3);color:var(--flood);border-radius:3px}
+.none{display:none;padding:30px;text-align:center;color:var(--fog);border:1px dashed var(--steel);border-radius:18px}
+.ask{margin-top:30px;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:16px;padding:22px 24px;border-radius:20px;border:1px solid var(--steel);background:linear-gradient(120deg,#0e1a2c,#13233b)}
+</style>
+
+<section class="fq-hero" aria-label="Frequently asked questions">
+  <h1 class="h1">Questions, <b>answered.</b></h1>
+  <p class="lead">Quick answers about quotes, shipping, customs and delivery. Can't find what you need? Ask our team.</p>
+  <div class="sbox"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg><label for="s" style="position:absolute;left:-9999px">Search questions</label><input id="s" placeholder="Search, e.g. customs, CBM, delivery" autocomplete="off"></div>
+  <div class="count" id="count"></div>
+</section>
+
+<section class="fq" aria-label="Questions">
+  <nav class="cats" id="cats" aria-label="Topics"></nav>
+  <div><div class="list" id="list"></div><div class="none" id="none">No questions match your search. Try another word, or <a class="tlink" href="contact.html">ask our team</a>.</div>
+    <div class="ask"><div><b style="font-size:18px">Still have a question?</b><p class="muted" style="margin:4px 0 0">Our team will explain your options.</p></div><div class="ctas"><a class="btn" href="contact.html">Contact us →</a><a class="btn g" href="quote.html">Get a quote</a></div></div></div>
+</section>
+
+<script data-page>
+(function(){
+const Q=[
+ ['Quotes','What do I need to get a quote?','Tell us what you are shipping, where it is coming from, its approximate weight or volume, and where it needs to be delivered. The <a class="tlink" href="quote.html">quote form</a> takes about two minutes.'],
+ ['Quotes','What does an itemised quote include?','Each part is shown separately: freight, customs clearance, delivery and any other services you asked for. Expected duties and taxes are explained before you pay them.'],
+ ['Quotes','How is air freight priced?','By chargeable weight: the higher of the actual weight and the volumetric weight (length × width × height in cm, divided by 6,000). Try the <a class="tlink" href="tools.html#cbm">CBM calculator</a>.'],
+ ['Quotes','How is sea freight priced?','A full container (FCL) is priced per container. A shared container (LCL) is usually priced by volume in cubic metres (CBM).'],
+ ['Shipping','Should I ship by air or by sea?','Air is faster and suits urgent or high-value goods. Sea is more economical for larger or heavier cargo. We can quote both so you can compare.'],
+ ['Shipping','What is the difference between FCL and LCL?','FCL (Full Container Load) means your goods have a container to themselves. LCL (Less-than-Container Load) means your goods share a container with other shipments, and you pay for the space you use.'],
+ ['Shipping','How long does shipping take?','As an indication, sea freight from China takes about 22–30 days port to port and express air freight 2–7 days. Total time also depends on schedules, handling, customs and delivery. These are estimates.'],
+ ['Shipping','Can you collect from several suppliers?','Yes. We can coordinate collection from several suppliers and consolidate the goods into one shipment where suitable.'],
+ ['Customs','What documents do I need to import?','Usually a commercial invoice, packing list, bill of lading or air waybill, and the importer\'s KRA PIN. Some goods also need a Certificate of Conformity or a permit. See the <a class="tlink" href="tools.html#docs">document checklist</a>.'],
+ ['Customs','Do I need a Certificate of Conformity?','Goods covered by KEBS\' Pre-Export Verification of Conformity (PVoC) programme need a Certificate of Conformity before shipping. Ask us to check your product before your supplier ships.'],
+ ['Customs','What duties and taxes will I pay?','It depends on the goods. Charges can include import duty, excise duty, the Import Declaration Fee, the Railway Development Levy and VAT. We explain the expected amounts before payment. Try the <a class="tlink" href="tools.html#landed">landed cost estimator</a>.'],
+ ['Customs','How long does customs clearance take?','It depends on the goods, the documents and any inspections. Complete, accurate documents are the best way to avoid delays.'],
+ ['Delivery','Where do you deliver?','In Nairobi, Mombasa and other locations in Kenya, with regional transit to Uganda, Rwanda, South Sudan and the DRC.'],
+ ['Delivery','Can I track my shipment?','Yes. Every shipment has a Globetrot reference, and we update each milestone. Account clients can follow shipments in the client portal. See <a class="tlink" href="track.html">tracking</a>.'],
+ ['Delivery','Do you offer storage?','Yes. We arrange warehousing and distribution in Nairobi.'],
+ ['Vehicles','Can I import a car into Kenya?','Kenya registers right-hand-drive vehicles within an age limit. In 2026 a vehicle must have been first registered in 2019 or later. Check with the <a class="tlink" href="tools.html#vehicle">vehicle checker</a> and confirm with us before you buy.']
+];
+const cats=['All',...new Set(Q.map(q=>q[0]))];let cat='All';
+const ce=document.getElementById('cats');ce.innerHTML=cats.map((c,i)=>`<button aria-pressed="${i===0}" data-c="${c}">${c}<span>${c==='All'?Q.length:Q.filter(q=>q[0]===c).length}</span></button>`).join('');
+const list=document.getElementById('list');
+function render(){const s=document.getElementById('s').value.trim().toLowerCase();let n=0;
+  const esc=t=>s?t.replace(new RegExp('('+s.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')(?![^<]*>)','gi'),'<mark>$1</mark>'):t;
+  list.innerHTML=Q.filter(q=>(cat==='All'||q[0]===cat)&&(!s||(q[1]+' '+q[2]).toLowerCase().includes(s))).map((q,i)=>{n++;return `<details${(s&&n===1)?' open':''}><summary>${esc(q[1])}<i>+</i></summary><div class="a"><small>${q[0]}</small><p>${esc(q[2])}</p></div></details>`}).join('');
+  document.getElementById('none').style.display=n?'none':'block';document.getElementById('count').textContent=s?`${n} matching question${n===1?'':'s'}`:`${Q.length} questions · ${cats.length-1} topics`}
+ce.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;cat=b.dataset.c;ce.querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x===b));render()});
+document.getElementById('s').addEventListener('input',render);render();
+})();
+</script>

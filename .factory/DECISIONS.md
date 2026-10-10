@@ -20,3 +20,12 @@
 - Preview media: Pexels stock (free licence) in media/source (gitignored originals) → media/web (720p H.264, -g 6 for scroll scrubbing). Placeholders until AI/real footage. Some clips show third-party brands (Delta, MSC) — must be replaced before launch.
 - Logo track: Contrail → Vapour → Halftone globe (owner likes halftone). Latest: https://claude.ai/artifact/9AwjZ4ND6iXo1aHQNm27Co
 - 2026-10-09 LOGO LOCKED: Halftone dot globe + Vapour trail + white plane, GT (G white, T amber), GLOBETROT / CARGOLINK INTERNATIONAL fitted to same width. https://claude.ai/artifact/6vudFebdB6H3jF6n7vezTP (docs/design/logo-selected.html)
+
+- 2026-10-10: Inner pages (services, network, import-guide, tools, track, about, contact, quote, faq) built in site/ from src fragments via build.py; shared site.css/site.js. Awaiting owner approval before GCP (Firestore, europe-west3, globetrot.navac.co.ke).
+
+- 2026-10-10: Media refresh: local scenes use Black Kenyan people (8 Canva-generated images, AI-upscaled to 3840px); videos re-encoded to 1080p; j7 delivery and cus replaced (Pexels 4K); air clip made from generated JKIA image (stock air clips all showed airline livery). Hero scrim strengthened for text legibility. Prompts in docs/design/media-prompts.md.
+- 2026-10-10: All videos now 3840x2160; j2/j3/j6 swapped to 4K stock; city/coast photos 3840. Removed journey header text per owner.
+- 2026-10-10: Breadcrumbs removed from all inner pages. Mobile (<=760px): logo centred in nav, content centred site-wide (lists/forms stay left for readability).
+- 2026-10-10: AI apron image replaced with a real Kenya Airways Boeing 787-8 photo (5Y-KZB at Schiphol), public domain, Wikimedia Commons; 4K crop + 4K air clip made from it. Map key and route cells shortened.
+- 2026-10-10: LIVE on Firebase Hosting site globetrot-cargolink in project smart-diary-e103c (account luchuowen@gmail.com; Firebase project limit reached so reused unused project). Billing: Firebase Payment (018CF3-5A66CF-6A435C), $5/mo budget alert. Firestore (default) europe-west3, create-only rules for globetrot_messages / globetrot_quotes. DNS: only added CNAME globetrot -> globetrot-cargolink.web.app. in DirectAdmin. OG card og.jpg 1200x630.
+- 2026-10-10: Replaced j2 (Origin warehouse, AI forklift posture) and j4 (Mombasa, washed-out/branded) with new dark cinematic Canva images → 4K clips. Deployed live.

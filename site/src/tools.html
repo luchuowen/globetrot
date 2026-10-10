@@ -1,0 +1,213 @@
+<!--TITLE:Importer's Toolkit · Globetrot Cargolink-->
+<!--DESC:Free tools for importers: CBM and chargeable weight calculator, landed cost estimator, container fit planner, vehicle import checker and document checklist.-->
+<style>
+/* Tools: an app-style workspace. Vertical tool list on the left, one large working tool with a live result panel on the right. */
+.tl-head{padding:calc(env(safe-area-inset-top,0px) + 120px) var(--gut) 30px;max-width:1440px;margin-inline:auto;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.8fr);gap:24px;align-items:end}
+@media (max-width:900px){.tl-head{grid-template-columns:minmax(0,1fr)}}
+.app{max-width:1440px;margin:0 auto clamp(60px,8vw,110px);padding-inline:var(--gut)}
+.shell{display:grid;grid-template-columns:290px minmax(0,1fr);border:1px solid var(--steel);border-radius:26px;overflow:hidden;background:var(--panel);min-height:620px;box-shadow:0 40px 90px -50px rgba(0,0,0,.9)}
+@media (max-width:900px){.shell{grid-template-columns:minmax(0,1fr)}}
+.tlist{border-right:1px solid var(--hull);display:flex;flex-direction:column;background:#0b1626}
+@media (max-width:900px){.tlist{flex-direction:row;overflow-x:auto;border-right:0;border-bottom:1px solid var(--hull)}}
+.tlist button{all:unset;cursor:pointer;display:grid;grid-template-columns:38px minmax(0,1fr);gap:12px;align-items:center;padding:18px;border-bottom:1px solid var(--hull);transition:background .3s}
+@media (max-width:900px){.tlist button{min-width:220px;border-bottom:0;border-right:1px solid var(--hull)}}
+.tlist button:hover{background:#12213a}
+.tlist button[aria-selected="true"]{background:#16263f;box-shadow:inset 3px 0 0 var(--sodium)}
+.tlist button:focus-visible{outline:2px solid var(--sodium);outline-offset:-2px}
+.tlist svg{width:38px;height:38px;padding:8px;border-radius:12px;background:rgba(243,164,59,.1);color:var(--sodium)}
+.tlist b{display:block;font-size:15px}
+.tlist span{font-size:12.5px;color:var(--fog)}
+.pane{display:none;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);min-height:100%}
+.pane.on{display:grid}
+@media (max-width:1100px){.pane.on{grid-template-columns:minmax(0,1fr)}}
+.form{padding:clamp(22px,3vw,40px);display:grid;gap:18px;align-content:start}
+.form h2{font-family:var(--f-display);font-weight:200;font-stretch:118%;text-transform:uppercase;font-size:clamp(22px,2.2vw,32px);margin:0;line-height:1.05}
+.form h2 b{font-weight:800;color:var(--sodium)}
+.form > p{margin:0;color:#c9d3df}
+.row{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:12px}
+.rows{display:grid;gap:10px}
+.line{display:grid;grid-template-columns:repeat(4,minmax(0,1fr)) 40px;gap:8px;align-items:end}
+@media (max-width:560px){.line{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.del{all:unset;cursor:pointer;width:40px;height:46px;display:grid;place-items:center;border-radius:12px;border:1px solid var(--steel);color:var(--fog)}
+.add{all:unset;cursor:pointer;color:var(--sodium);font-weight:600;font-size:14px}
+.result{background:linear-gradient(160deg,#13243d,#0b1626);border-left:1px solid var(--hull);padding:clamp(22px,3vw,40px);display:grid;gap:16px;align-content:start}
+@media (max-width:1100px){.result{border-left:0;border-top:1px solid var(--hull)}}
+.big{font-family:var(--f-display);font-weight:900;font-stretch:66%;font-size:clamp(54px,6vw,88px);line-height:.9;font-variant-numeric:tabular-nums}
+.big small{font-size:.3em;font-weight:500;color:var(--fog);margin-left:6px;font-stretch:100%}
+.kv{display:grid;gap:0;border-top:1px solid var(--hull)}
+.kv div{display:flex;justify-content:space-between;gap:12px;padding:11px 0;border-bottom:1px solid var(--hull);font-size:14.5px}
+.kv span:last-child{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+.kv .tot{color:var(--sodium);font-weight:600;font-size:16px}
+.hint{display:grid;grid-template-columns:24px minmax(0,1fr);gap:10px;padding:14px;border-radius:14px;background:rgba(243,164,59,.08);border:1px solid rgba(243,164,59,.3);font-size:14px}
+.verdict{display:inline-flex;align-items:center;gap:10px;padding:12px 16px;border-radius:14px;font-weight:600;font-size:16px}
+.verdict.yes{background:rgba(95,211,154,.12);color:var(--go)}
+.verdict.no{background:rgba(255,122,92,.12);color:var(--red)}
+.boxviz{display:grid;gap:8px}
+.boxviz .bar{height:16px;border-radius:8px;background:var(--hull);overflow:hidden}
+.boxviz .bar i{display:block;height:100%;background:linear-gradient(90deg,var(--sodium),var(--glow));border-radius:8px;transition:width .6s var(--ease)}
+.boxviz small{display:flex;justify-content:space-between;font-family:var(--f-mono);font-size:11px;color:var(--fog)}
+.checks{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.checks li{display:grid;grid-template-columns:24px minmax(0,1fr);gap:10px;padding:12px 14px;border-radius:12px;background:#0b1626;border:1px solid var(--hull);font-size:14.5px}
+.checks li i{width:22px;height:22px;border-radius:6px;border:2px solid var(--sodium);display:grid;place-items:center;font-style:normal;color:var(--sodium);font-size:12px}
+.checks small{display:block;color:var(--fog);font-size:12.5px}
+.seg{display:flex;flex-wrap:wrap;gap:8px}
+.seg button{all:unset;cursor:pointer;padding:10px 14px;border-radius:999px;border:1px solid var(--steel);font-size:14px;color:#c9d3df}
+.seg button[aria-pressed="true"]{background:var(--sodium);border-color:var(--sodium);color:#1a1006;font-weight:600}
+.seg button:focus-visible{outline:2px solid var(--sodium);outline-offset:2px}
+</style>
+
+<section class="tl-head" aria-label="Importer's toolkit">
+  <div data-reveal>
+    <h1 class="h1">Importer's <b>toolkit.</b></h1></div>
+  <p class="lead" data-reveal>Free tools to plan a shipment: work out volume and chargeable weight, estimate the landed cost, check a vehicle and list the documents you're likely to need. Results are estimates; we confirm the details in your quote.</p>
+</section>
+
+<section class="app" aria-label="Tools">
+  <div class="shell">
+    <div class="tlist" role="tablist" aria-label="Choose a tool">
+      <button role="tab" data-t="cbm" aria-selected="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2l9 5v10l-9 5-9-5V7z"/><path d="M12 22V12M21 7l-9 5-9-5"/></svg><span><b>CBM &amp; weight</b><span>Volume and chargeable weight</span></span></button>
+      <button role="tab" data-t="landed" aria-selected="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 7h8M8 11h2M12 11h2M16 11h0M8 15h2M12 15h2M8 18h8"/></svg><span><b>Landed cost</b><span>Duties, taxes and total</span></span></button>
+      <button role="tab" data-t="container" aria-selected="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="7" width="20" height="11" rx="1"/><path d="M6 7v11M10 7v11M14 7v11M18 7v11"/></svg><span><b>Container fit</b><span>LCL or a full container?</span></span></button>
+      <button role="tab" data-t="vehicle" aria-selected="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 14l2-6h14l2 6v4H3z"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/></svg><span><b>Vehicle checker</b><span>Can it be imported?</span></span></button>
+      <button role="tab" data-t="docs" aria-selected="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 2h9l5 5v15H6z"/><path d="M15 2v5h5M9 13l2 2 4-4"/></svg><span><b>Document checklist</b><span>What your goods may need</span></span></button>
+    </div>
+
+    <div>
+      <!-- CBM -->
+      <div class="pane on" id="cbm" role="tabpanel">
+        <div class="form">
+          <h2>CBM &amp; <b>chargeable weight</b></h2>
+          <p>Enter your cartons. CBM (cubic metres) measures volume for sea freight. Air freight is charged on the higher of the actual weight and the volumetric weight.</p>
+          <div class="rows" id="cbmRows"></div>
+          <button class="add" id="addRow">+ Add another carton size</button>
+          <div class="row"><div class="field"><label for="cbmKg">Total gross weight (kg)</label><input id="cbmKg" inputmode="decimal" value="310"></div></div>
+        </div>
+        <div class="result" aria-live="polite">
+          <span class="mono muted">Total volume</span>
+          <div class="big" id="cbmBig">0<small>m³</small></div>
+          <div class="kv"><div><span>Cartons</span><span id="cbmN">0</span></div><div><span>Actual weight</span><span id="cbmAct">0 kg</span></div><div><span>Volumetric weight (air)</span><span id="cbmVol">0 kg</span></div><div class="tot"><span>Chargeable weight (air)</span><span id="cbmCh">0 kg</span></div></div>
+          <div class="hint"><span aria-hidden="true" style="color:var(--sodium);font-weight:700;font-family:var(--f-mono)">i</span><span id="cbmHint"></span></div>
+          <a class="btn" id="cbmQuote" href="quote.html">Quote this shipment →</a>
+        </div>
+      </div>
+
+      <!-- Landed -->
+      <div class="pane" id="landed" role="tabpanel">
+        <div class="form">
+          <h2>Landed cost <b>estimator</b></h2>
+          <p>Estimate the full cost of your goods once they're in Kenya. Duty rates depend on the goods; enter the rate for your product, or ask us to confirm it.</p>
+          <div class="row">
+            <div class="field"><label for="lv">Value of goods (USD)</label><input id="lv" inputmode="decimal" value="10000"></div>
+            <div class="field"><label for="lf">Freight (USD)</label><input id="lf" inputmode="decimal" value="1200"></div>
+            <div class="field"><label for="li">Insurance (USD)</label><input id="li" inputmode="decimal" value="50"></div>
+          </div>
+          <div class="field"><span class="lbl">Import duty rate</span><div class="seg" id="dutySeg"><button aria-pressed="false" data-v="0">0%</button><button aria-pressed="false" data-v="10">10%</button><button aria-pressed="true" data-v="25">25%</button><button aria-pressed="false" data-v="35">35%</button></div></div>
+          <div class="row">
+            <div class="field"><label for="lx">Excise duty % (if any)</label><input id="lx" inputmode="decimal" value="0"></div>
+            <div class="field"><label for="lidf">IDF %</label><input id="lidf" inputmode="decimal" value="2.5"></div>
+            <div class="field"><label for="lrdl">RDL %</label><input id="lrdl" inputmode="decimal" value="2"></div>
+            <div class="field"><label for="lvat">VAT %</label><input id="lvat" inputmode="decimal" value="16"></div>
+          </div>
+          <p class="note">The levy and VAT fields are pre-filled with the rates published for 2026 and can be edited. KRA sets the final figures at entry.</p>
+        </div>
+        <div class="result" aria-live="polite">
+          <span class="mono muted">Estimated landed cost</span>
+          <div class="big" id="lBig">0<small>USD</small></div>
+          <div class="kv" id="lKv"></div>
+          <a class="btn" href="quote.html?service=customs">Get an exact figure →</a>
+        </div>
+      </div>
+
+      <!-- Container -->
+      <div class="pane" id="container" role="tabpanel">
+        <div class="form">
+          <h2>Container <b>fit</b></h2>
+          <p>See how much of a container your cargo would fill. A container can rarely be packed to 100%, so we plan with usable space.</p>
+          <div class="row"><div class="field"><label for="cv">Your cargo volume (CBM)</label><input id="cv" inputmode="decimal" value="18"></div></div>
+          <p class="note">Don't know your volume? Work it out in the <a class="tlink" href="#cbm" data-go="cbm">CBM calculator</a>.</p>
+        </div>
+        <div class="result" aria-live="polite">
+          <span class="mono muted">Best fit</span>
+          <div class="big" id="cBig" style="font-size:clamp(40px,4.4vw,64px)">—</div>
+          <div class="boxviz" id="cViz"></div>
+          <div class="hint"><span aria-hidden="true" style="color:var(--sodium);font-weight:700;font-family:var(--f-mono)">i</span><span id="cHint"></span></div>
+          <a class="btn" href="quote.html?service=sea">Get a sea freight quote →</a>
+        </div>
+      </div>
+
+      <!-- Vehicle -->
+      <div class="pane" id="vehicle" role="tabpanel">
+        <div class="form">
+          <h2>Vehicle <b>import checker</b></h2>
+          <p>Kenya registers right-hand-drive vehicles within an age limit. Under the 8-year rule, a vehicle imported in 2026 must have been first registered in 2019 or later.</p>
+          <div class="row">
+            <div class="field"><label for="vy">Year of first registration</label><input id="vy" inputmode="numeric" value="2018"></div>
+            <div class="field"><label for="vd">Steering</label><select id="vd"><option value="R">Right-hand drive</option><option value="L">Left-hand drive</option></select></div>
+          </div>
+          <p class="note">This is a quick check, not a final decision. Special cases (for example, returning residents) have their own rules. Confirm with us before you buy.</p>
+        </div>
+        <div class="result" aria-live="polite">
+          <span class="mono muted">Result</span>
+          <div><span class="verdict" id="vv">—</span></div>
+          <p id="vn" style="margin:0;color:#d0d8e3"></p>
+          <a class="btn" href="quote.html?service=sea">Ask about shipping a vehicle →</a>
+        </div>
+      </div>
+
+      <!-- Docs -->
+      <div class="pane" id="docs" role="tabpanel">
+        <div class="form">
+          <h2>Document <b>checklist</b></h2>
+          <p>Choose the type of goods to see the documents you're likely to need. Actual requirements depend on the product.</p>
+          <div class="field"><span class="lbl">Type of goods</span><div class="seg" id="docSeg"><button aria-pressed="true" data-v="general">General goods</button><button aria-pressed="false" data-v="food">Food</button><button aria-pressed="false" data-v="pharma">Medicines &amp; cosmetics</button><button aria-pressed="false" data-v="plants">Plants &amp; seeds</button><button aria-pressed="false" data-v="electrical">Electrical goods</button><button aria-pressed="false" data-v="vehicle">Vehicles</button></div></div>
+        </div>
+        <div class="result" aria-live="polite">
+          <span class="mono muted">You'll likely need</span>
+          <ul class="checks" id="docList"></ul>
+          <a class="btn" href="quote.html">Check my shipment →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script data-page>
+(function(){
+const $=id=>document.getElementById(id),n=v=>parseFloat(v)||0,f=v=>v.toLocaleString('en-US',{maximumFractionDigits:2});
+const tabs=[...document.querySelectorAll('.tlist button')];
+function go(t){tabs.forEach(b=>b.setAttribute('aria-selected',b.dataset.t===t));document.querySelectorAll('.pane').forEach(p=>p.classList.toggle('on',p.id===t));history.replaceState(null,'','#'+t)}
+tabs.forEach(b=>b.addEventListener('click',()=>go(b.dataset.t)));
+document.querySelectorAll('[data-go]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();go(a.dataset.go)}));
+const h=location.hash.slice(1);if(h&&document.getElementById(h)&&tabs.some(b=>b.dataset.t===h))go(h);
+// CBM
+const rows=$('cbmRows');let rid=0;
+function addRow(l=60,w=40,h=45,q=24){rid++;const d=document.createElement('div');d.className='line';d.innerHTML=`<div class="field"><label for="l${rid}">Length cm</label><input id="l${rid}" inputmode="decimal" value="${l}"></div><div class="field"><label for="w${rid}">Width cm</label><input id="w${rid}" inputmode="decimal" value="${w}"></div><div class="field"><label for="h${rid}">Height cm</label><input id="h${rid}" inputmode="decimal" value="${h}"></div><div class="field"><label for="q${rid}">Cartons</label><input id="q${rid}" inputmode="numeric" value="${q}"></div><button class="del" aria-label="Remove this carton size">✕</button>`;rows.appendChild(d);d.querySelector('.del').onclick=()=>{if(rows.children.length>1){d.remove();cbm()}};d.querySelectorAll('input').forEach(i=>i.oninput=cbm)}
+function cbm(){let v=0,c=0;[...rows.children].forEach(r=>{const i=r.querySelectorAll('input');const q=n(i[3].value);v+=n(i[0].value)*n(i[1].value)*n(i[2].value)*q/1e6;c+=q});
+  const kg=n($('cbmKg').value),vol=v*1e6/6000,ch=Math.max(kg,vol);
+  $('cbmBig').innerHTML=`${f(v)}<small>m³</small>`;$('cbmN').textContent=c;$('cbmAct').textContent=f(kg)+' kg';$('cbmVol').textContent=f(Math.round(vol))+' kg';$('cbmCh').textContent=f(Math.round(ch))+' kg';
+  $('cbmHint').textContent=v<1?'Under 1 CBM: air or consolidated air may be the better option.':v<15?'Shared container (LCL) is usually the most economical way to ship this volume by sea.':'Compare a shared container with a full 20-foot container. We can quote both.';
+  $('cbmQuote').href=`quote.html?cbm=${v.toFixed(2)}&kg=${kg}`}
+addRow();$('addRow').onclick=()=>{addRow(50,40,30,10);cbm()};$('cbmKg').oninput=cbm;cbm();
+// Landed
+let duty=25;$('dutySeg').querySelectorAll('button').forEach(b=>b.onclick=()=>{duty=+b.dataset.v;$('dutySeg').querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x===b));landed()});
+function landed(){const cif=n($('lv').value)+n($('lf').value)+n($('li').value),d=cif*duty/100,x=(cif+d)*n($('lx').value)/100,idf=cif*n($('lidf').value)/100,rdl=cif*n($('lrdl').value)/100,vat=(cif+d+x)*n($('lvat').value)/100,t=cif+d+x+idf+rdl+vat;
+  $('lBig').innerHTML=`${f(Math.round(t))}<small>USD</small>`;
+  $('lKv').innerHTML=[['Customs value (CIF)',cif],[`Import duty (${duty}%)`,d],['Excise duty',x],['Import Declaration Fee',idf],['Railway Development Levy',rdl],['VAT',vat]].map(r=>`<div><span>${r[0]}</span><span>${f(Math.round(r[1]))}</span></div>`).join('')+`<div class="tot"><span>Estimated landed cost</span><span>${f(Math.round(t))}</span></div>`}
+['lv','lf','li','lx','lidf','lrdl','lvat'].forEach(i=>$(i).oninput=landed);landed();
+// Container (usable approx: 20' ~ 28 CBM, 40' ~ 58, 40'HC ~ 68)
+const C=[['20-foot',28],['40-foot',58],['40-foot high-cube',68]];
+function cont(){const v=n($('cv').value);$('cViz').innerHTML=C.map(c=>{const p=Math.min(100,v/c[1]*100);return `<div><small><span>${c[0]} · about ${c[1]} CBM usable</span><span>${Math.round(v/c[1]*100)}%</span></small><div class="bar"><i style="width:${p}%"></i></div></div>`}).join('');
+  const best=v<15?'Shared container (LCL)':v<=28?'20-foot container':v<=58?'40-foot container':v<=68?'40-foot high-cube':'More than one container';
+  $('cBig').textContent=best;$('cHint').textContent=v<15?'At this volume you usually pay by CBM in a shared container.':v<=68?'A full container keeps your goods sealed from origin to destination.':'Your cargo needs more than one container. We can plan the split.'}
+$('cv').oninput=cont;cont();
+// Vehicle
+function veh(){const y=n($('vy').value),r=$('vd').value==='R',ok=r&&y>=2019;$('vv').className='verdict '+(ok?'yes':'no');$('vv').textContent=ok?'✓ Likely eligible':'✕ Not eligible';
+  $('vn').textContent=!r?'Kenya does not register left-hand-drive vehicles for general use.':y<2019?`A vehicle first registered in ${y||'—'} is older than the 8-year limit for 2026.`:'Next, we can estimate the duty and taxes based on KRA\'s valuation of the vehicle.'}
+['vy','vd'].forEach(i=>$(i).oninput=veh);veh();
+// Docs
+const BASE=[['Commercial invoice','Goods, quantities and prices'],['Packing list','Packages, weights and dimensions'],['Bill of lading or air waybill','Issued by the carrier'],['Importer\'s KRA PIN','Tax registration number']];
+const EXTRA={general:[['Certificate of Conformity','If the goods are covered by KEBS PVoC']],food:[['Certificate of Conformity','KEBS PVoC, where applicable'],['Health or phytosanitary certificate','From the exporting country, where required'],['Import permit','From the relevant regulator, where required']],pharma:[['Pharmacy and Poisons Board approval','Product registration and import permit'],['Certificate of analysis','From the manufacturer']],plants:[['KEPHIS import permit','For plants, seeds and plant products'],['Phytosanitary certificate','From the exporting country']],electrical:[['Certificate of Conformity','Electrical goods are commonly covered by KEBS PVoC'],['Product specifications','Model numbers and ratings']],vehicle:[['Logbook or export certificate','Proof of ownership and first registration'],['Inspection certificate','Pre-shipment roadworthiness inspection'],['Certificate of Conformity','As required for vehicles']]};
+function docs(k){$('docList').innerHTML=[...BASE,...EXTRA[k]].map(d=>`<li><i>✓</i><span>${d[0]}<small>${d[1]}</small></span></li>`).join('')}
+$('docSeg').querySelectorAll('button').forEach(b=>b.onclick=()=>{$('docSeg').querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x===b));docs(b.dataset.v)});docs('general');
+})();
+</script>

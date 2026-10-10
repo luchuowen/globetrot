@@ -1,0 +1,185 @@
+<!--TITLE:Import Guide · Globetrot Cargolink-->
+<!--DESC:A plain-language guide to importing goods into Kenya: the steps, documents, duties and taxes, standards certificates, importing a vehicle and how to avoid delays.-->
+<style>
+/* Import guide: an editorial long-read. Image-led title page, then a sticky vertical contents rail with reading progress beside numbered chapters. */
+.ig-hero{position:relative;min-height:min(78svh,720px);display:grid;align-items:end;padding:calc(env(safe-area-inset-top,0px) + 120px) var(--gut) clamp(40px,6vw,80px);overflow:hidden;isolation:isolate}
+.ig-hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:60% 30%;z-index:-2}
+.ig-hero::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(6,12,23,.96) 0%,rgba(6,12,23,.75) 50%,rgba(6,12,23,.2)),linear-gradient(0deg,var(--harbour) 2%,transparent 40%)}
+.ig-hero .inner{max-width:1320px;margin-inline:auto;width:100%}
+.meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:24px}
+.read{display:grid;grid-template-columns:270px minmax(0,1fr);gap:clamp(24px,5vw,80px);max-width:1320px;margin-inline:auto;padding:clamp(30px,5vw,60px) var(--gut) clamp(60px,8vw,110px)}
+@media (max-width:960px){.read{grid-template-columns:minmax(0,1fr)}}
+.toc{position:sticky;top:110px;align-self:start}
+@media (max-width:960px){.toc{position:static}}
+.toc .mono{color:var(--fog)}
+.toc ol{list-style:none;margin:14px 0 0;padding:0 0 0 18px;position:relative;display:grid;gap:2px}
+.toc ol::before{content:"";position:absolute;left:4px;top:8px;bottom:8px;width:2px;background:var(--hull);border-radius:2px}
+.toc .bar{position:absolute;left:4px;top:8px;width:2px;height:0;background:var(--sodium);border-radius:2px;transition:height .2s}
+.toc a:not(.btn){display:block;padding:9px 10px;border-radius:10px;text-decoration:none;color:#c9d3df;font-size:14px;position:relative}
+.toc a:not(.btn)::before{content:"";position:absolute;left:-18px;top:15px;width:10px;height:10px;border-radius:50%;background:var(--harbour);border:2px solid var(--steel)}
+.toc a.on{color:var(--flood);background:#12203a}
+.toc a.on::before,.toc a.done::before{border-color:var(--sodium);background:var(--sodium)}
+.article{max-width:780px}
+.article section{padding-bottom:clamp(40px,5vw,70px);margin-bottom:clamp(40px,5vw,70px);border-bottom:1px solid var(--hull);scroll-margin-top:100px}
+.article h2{font-family:var(--f-display);font-weight:200;font-stretch:118%;text-transform:uppercase;letter-spacing:.03em;font-size:clamp(24px,2.8vw,40px);line-height:1.05;margin:8px 0 18px}
+.article h2 b{font-weight:800;color:var(--sodium)}
+.article p{color:#d0d8e3;font-size:17px;line-height:1.75;margin:0 0 16px}
+.article .sn{font-family:var(--f-mono);font-size:12px;letter-spacing:.18em;color:var(--sodium)}
+.flow{list-style:none;margin:24px 0 0;padding:0;counter-reset:s;display:grid;gap:0}
+.flow li{counter-increment:s;display:grid;grid-template-columns:52px minmax(0,1fr);gap:16px;position:relative;padding-bottom:22px}
+.flow li::before{content:counter(s,decimal-leading-zero);width:52px;height:52px;border-radius:50%;display:grid;place-items:center;border:2px solid var(--sodium);font-family:var(--f-mono);font-weight:600;color:var(--sodium);background:var(--harbour);position:relative;z-index:1}
+.flow li::after{content:"";position:absolute;left:25px;top:52px;bottom:0;width:2px;background:radial-gradient(circle,var(--steel) 1.2px,transparent 1.6px) 50% 0/2px 8px repeat-y}
+.flow li:last-child::after{display:none}
+.flow b{display:block;font-size:17px;margin:12px 0 4px}
+.flow span{color:#c9d3df;font-size:15.5px}
+.docs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:20px}
+@media (max-width:620px){.docs{grid-template-columns:minmax(0,1fr)}}
+.doc{display:grid;grid-template-columns:40px minmax(0,1fr);gap:12px;padding:16px;border-radius:16px;background:var(--panel);border:1px solid var(--hull)}
+.doc svg{width:40px;height:40px;color:var(--sodium)}
+.doc b{display:block;font-size:15px}
+.doc span{font-size:13.5px;color:#c9d3df}
+.stack{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px;align-items:end;margin-top:26px;padding:24px;border-radius:20px;background:var(--panel);border:1px solid var(--hull)}
+@media (max-width:620px){.stack{grid-template-columns:minmax(0,1fr)}}
+.blocks{display:flex;flex-direction:column-reverse;gap:6px}
+.blk{height:44px;border-radius:10px;display:flex;align-items:center;padding:0 14px;font-weight:600;font-size:14px;transform-origin:50% 100%;transition:transform .7s var(--ease),opacity .7s}
+.js .blk{transform:scaleY(.2);opacity:.2}
+.stack.in .blk{transform:none;opacity:1}
+.stack.in .blk:nth-child(2){transition-delay:.12s}.stack.in .blk:nth-child(3){transition-delay:.24s}.stack.in .blk:nth-child(4){transition-delay:.36s}.stack.in .blk:nth-child(5){transition-delay:.48s}.stack.in .blk:nth-child(6){transition-delay:.6s}
+.blk.b0{background:#2a3d5c}.blk.b1{background:#5a4320}.blk.b2{background:#7a5521}.blk.b3{background:#9c6a22}.blk.b4{background:#c17f22}.blk.b5{background:#f3a43b;color:#1a1006}
+.legend2{display:grid;gap:10px;font-size:14.5px;color:#d0d8e3}
+.legend2 div{display:grid;grid-template-columns:14px minmax(0,1fr);gap:10px;align-items:start}
+.legend2 i{width:14px;height:14px;border-radius:4px;margin-top:4px}
+.callout{display:grid;grid-template-columns:auto minmax(0,1fr);gap:16px;align-items:start;margin-top:20px;padding:18px 20px;border-radius:16px;border:1px solid rgba(243,164,59,.4);background:rgba(243,164,59,.06)}
+.callout b{color:var(--sodium);font-family:var(--f-mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase}
+.callout p{margin:0!important;font-size:15.5px!important}
+.mistakes{display:grid;gap:10px;margin-top:18px}
+.mistakes div{display:grid;grid-template-columns:28px minmax(0,1fr);gap:12px;padding:14px 0;border-bottom:1px solid var(--hull);font-size:15.5px;color:#d0d8e3}
+.mistakes i{width:28px;height:28px;border-radius:50%;background:rgba(255,122,92,.12);color:var(--red);display:grid;place-items:center;font-style:normal;font-weight:700}
+.mistakes b{color:var(--flood)}
+.films{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:22px}
+.film{position:relative;border-radius:16px;overflow:hidden;aspect-ratio:16/10;display:flex;align-items:flex-end;padding:14px;isolation:isolate;text-decoration:none;border:1px solid var(--hull)}
+.film img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2}
+.film::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(0deg,rgba(6,12,23,.95),rgba(6,12,23,.2))}
+.film b{font-size:15px;color:var(--flood)}
+.film i{position:absolute;top:12px;right:12px;width:34px;height:34px;border-radius:50%;background:var(--sodium);display:grid;place-items:center}
+</style>
+
+<header class="ig-hero" aria-label="Import guide">
+  <img src="media/img/docs.jpg" alt="Logistics officer holding shipping documents at a port">
+  <div class="inner" data-reveal>
+    <h1 class="h1" style="max-width:15ch">How importing into Kenya <b>works.</b></h1>
+    <p class="lead">A plain-language guide for businesses and individuals bringing goods into Kenya: the steps, the documents, the charges and the common causes of delay.</p>
+    <div class="meta"><span class="chip">7 chapters</span><span class="chip">About 10 minutes</span><span class="chip">Updated 2026</span></div>
+  </div>
+</header>
+
+<div class="read">
+  <nav class="toc" aria-label="Contents">
+    <span class="mono">Contents</span>
+    <ol><span class="bar" id="bar"></span>
+      <li><a href="#journey">The import journey</a></li>
+      <li><a href="#documents">Documents you'll need</a></li>
+      <li><a href="#duties">Duties and taxes</a></li>
+      <li><a href="#standards">Standards and certificates</a></li>
+      <li><a href="#vehicles">Importing a vehicle</a></li>
+      <li><a href="#delays">Avoiding delays</a></li>
+      <li><a href="#films">Explainer films</a></li>
+    </ol>
+    <div style="margin-top:26px" class="card" ><div style="padding:18px"><b style="display:block;margin-bottom:6px">Have a shipment in mind?</b><p class="muted" style="margin:0 0 14px;font-size:14px">We'll check what applies to your goods.</p><a class="btn" href="quote.html">Get a quote →</a></div></div>
+  </nav>
+
+  <article class="article">
+    <section id="journey" data-reveal>
+      <span class="sn">01</span><h2>The import <b>journey</b></h2>
+      <p>Most imports into Kenya follow the same broad steps. The details depend on what you're shipping, how it travels and where it's going.</p>
+      <ol class="flow">
+        <li><div><b>Agree terms with your supplier</b><span>Confirm the price, the shipping terms (Incoterms) and when the goods will be ready.</span></div></li>
+        <li><div><b>Check requirements before shipping</b><span>Some goods need a certificate or permit before they leave the origin country. Checking early avoids problems on arrival.</span></div></li>
+        <li><div><b>Book the shipment</b><span>Choose air or sea, and full or shared container. We arrange the booking and shipping documents.</span></div></li>
+        <li><div><b>Cargo arrives in Kenya</b><span>Sea freight usually arrives at Mombasa; air freight at JKIA in Nairobi.</span></div></li>
+        <li><div><b>Customs entry is lodged</b><span>The customs declaration is submitted through KRA's iCMS system, with any permits through KenTrade.</span></div></li>
+        <li><div><b>Duties and taxes are paid</b><span>The applicable charges are calculated and paid, then the goods are released.</span></div></li>
+        <li><div><b>Delivery</b><span>The cargo is transported to your door, warehouse or onward regional destination.</span></div></li>
+      </ol>
+    </section>
+
+    <section id="documents" data-reveal>
+      <span class="sn">02</span><h2>Documents <b>you'll need</b></h2>
+      <p>These are the documents most shipments use. Your goods may need others; we'll tell you what applies.</p>
+      <div class="docs">
+        <div class="doc"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M10 4h14l8 8v24H10z"/><path d="M24 4v8h8M15 20h12M15 25h12M15 30h7"/></svg><div><b>Commercial invoice</b><span>What you bought, the quantity and the price.</span></div></div>
+        <div class="doc"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="7" y="12" width="26" height="20" rx="2"/><path d="M7 18h26M15 12V8h10v4"/></svg><div><b>Packing list</b><span>How the goods are packed, with weights and dimensions.</span></div></div>
+        <div class="doc"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 26h32l-4 7H8z"/><path d="M10 26V16h9v10M19 19h10v7"/></svg><div><b>Bill of lading or air waybill</b><span>The transport document issued by the carrier.</span></div></div>
+        <div class="doc"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="20" cy="17" r="9"/><path d="M15 17l4 4 6-7M14 26l-3 10 9-4 9 4-3-10"/></svg><div><b>Certificate of Conformity</b><span>For goods covered by KEBS standards checks.</span></div></div>
+        <div class="doc"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="6" y="8" width="28" height="24" rx="3"/><path d="M12 16h16M12 22h10"/></svg><div><b>KRA PIN</b><span>The importer's tax registration number.</span></div></div>
+        <div class="doc"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 4l13 6v10c0 8-6 13-13 16C13 33 7 28 7 20V10z"/><path d="M15 20l4 4 7-8"/></svg><div><b>Permits, where required</b><span>For example, for food, plants, medicines or cosmetics.</span></div></div>
+      </div>
+    </section>
+
+    <section id="duties" data-reveal>
+      <span class="sn">03</span><h2>Duties and <b>taxes</b></h2>
+      <p>The total cost of importing is more than the price you paid the supplier. The cost of the goods, insurance and freight together form the starting value, and the charges below are calculated from it.</p>
+      <div class="stack" id="stack">
+        <div class="blocks" aria-hidden="true"><div class="blk b0">Goods + insurance + freight</div><div class="blk b1">Import duty</div><div class="blk b2">Excise duty (some goods)</div><div class="blk b3">Import Declaration Fee</div><div class="blk b4">Railway Development Levy</div><div class="blk b5">VAT</div></div>
+        <div class="legend2">
+          <div><i style="background:#2a3d5c"></i><span><b>Starting value.</b> The cost, insurance and freight (CIF) value of your goods.</span></div>
+          <div><i style="background:#5a4320"></i><span><b>Import duty.</b> Set by the East African Community Common External Tariff, depending on the type of goods.</span></div>
+          <div><i style="background:#7a5521"></i><span><b>Excise duty.</b> Only applies to certain goods.</span></div>
+          <div><i style="background:#9c6a22"></i><span><b>Import Declaration Fee (IDF)</b> and <i style="display:none"></i><b>Railway Development Levy (RDL).</b> Levies charged on the customs value.</span></div>
+          <div><i style="background:#f3a43b"></i><span><b>VAT.</b> Value Added Tax on imports.</span></div>
+        </div>
+      </div>
+      <div class="callout"><b>Note</b><p>Rates are set by law and can change, and some goods are exempt. We confirm the charges that apply to your shipment before you pay. To get a rough idea, use our <a class="tlink" href="tools.html#landed">landed cost estimator</a>.</p></div>
+    </section>
+
+    <section id="standards" data-reveal>
+      <span class="sn">04</span><h2>Standards and <b>certificates</b></h2>
+      <p>The Kenya Bureau of Standards (KEBS) runs the Pre-Export Verification of Conformity (PVoC) programme. Goods covered by the programme are inspected in the origin country and issued a Certificate of Conformity (CoC) before shipping.</p>
+      <p>Goods that need a certificate but arrive without one can face inspection on arrival, extra charges and delays. Other regulators, such as KEPHIS for plants and the Pharmacy and Poisons Board for medicines, have their own requirements.</p>
+      <div class="callout"><b>Tip</b><p>Ask us to check your product before your supplier ships. It's the simplest way to avoid surprises at the port.</p></div>
+    </section>
+
+    <section id="vehicles" data-reveal>
+      <span class="sn">05</span><h2>Importing <b>a vehicle</b></h2>
+      <p>Kenya only registers right-hand-drive vehicles, and there's an age limit. Under the 8-year rule, in 2026 a vehicle must have been first registered in 2019 or later to be cleared.</p>
+      <p>Vehicles usually travel by Roll-on/Roll-off (RoRo) ship or in a container to Mombasa. Duty and taxes are based on the vehicle's value as assessed by KRA.</p>
+      <div class="callout"><b>Check first</b><p>Before you buy a vehicle abroad, use our <a class="tlink" href="tools.html#vehicle">vehicle import checker</a>, and confirm the details with us.</p></div>
+    </section>
+
+    <section id="delays" data-reveal>
+      <span class="sn">06</span><h2>Avoiding <b>delays</b></h2>
+      <p>Most delays come from a handful of avoidable problems.</p>
+      <div class="mistakes">
+        <div><i>!</i><span><b>Invoice and packing list don't match.</b> Quantities, values or descriptions differ between documents.</span></div>
+        <div><i>!</i><span><b>Missing certificate.</b> Goods that need a Certificate of Conformity arrive without one.</span></div>
+        <div><i>!</i><span><b>Vague product descriptions.</b> "Spare parts" or "accessories" makes classification harder.</span></div>
+        <div><i>!</i><span><b>Permits applied for too late.</b> Some permits take time; start before the cargo ships.</span></div>
+        <div><i>!</i><span><b>Wrong consignee details.</b> The importer's name and KRA PIN must be correct on the documents.</span></div>
+      </div>
+    </section>
+
+    <section id="films" data-reveal style="border-bottom:0">
+      <span class="sn">07</span><h2>Explainer <b>films</b></h2>
+      <p>Short narrated videos, with captions and transcripts, walk you through the key topics.</p>
+      <div class="films">
+        <a class="film" href="index.html#import-guides"><img src="media/cus.jpg" alt="" loading="lazy"><i><svg width="14" height="14" viewBox="0 0 24 24"><path d="M7 4l13 8-13 8z" fill="#1a1006"/></svg></i><b>Customs clearance</b></a>
+        <a class="film" href="index.html#import-guides"><img src="media/img/sign.jpg" alt="" loading="lazy"><i><svg width="14" height="14" viewBox="0 0 24 24"><path d="M7 4l13 8-13 8z" fill="#1a1006"/></svg></i><b>Landed cost</b></a>
+        <a class="film" href="index.html#import-guides"><img src="media/j3.jpg" alt="" loading="lazy"><i><svg width="14" height="14" viewBox="0 0 24 24"><path d="M7 4l13 8-13 8z" fill="#1a1006"/></svg></i><b>Full and shared containers</b></a>
+        <a class="film" href="index.html#import-guides"><img src="media/j1.jpg" alt="" loading="lazy"><i><svg width="14" height="14" viewBox="0 0 24 24"><path d="M7 4l13 8-13 8z" fill="#1a1006"/></svg></i><b>KEBS certificates</b></a>
+        <a class="film" href="index.html#import-guides"><img src="media/sea.jpg" alt="" loading="lazy"><i><svg width="14" height="14" viewBox="0 0 24 24"><path d="M7 4l13 8-13 8z" fill="#1a1006"/></svg></i><b>Importing a vehicle</b></a>
+      </div>
+      <div class="ctas" style="margin-top:34px"><a class="btn" href="quote.html">Get a quote →</a><a class="btn g" href="faq.html">Read the FAQ</a></div>
+    </section>
+  </article>
+</div>
+
+<script data-page>
+(function(){
+const secs=[...document.querySelectorAll('.article section')],links=[...document.querySelectorAll('.toc a')],bar=document.getElementById('bar'),ol=bar.parentElement;
+function upd(){let cur=0;secs.forEach((s,i)=>{if(s.getBoundingClientRect().top<innerHeight*.4)cur=i});
+  links.forEach((a,i)=>{a.classList.toggle('on',i===cur);a.classList.toggle('done',i<cur)});
+  const a=links[cur];if(a){bar.style.height=(a.offsetTop+a.offsetHeight/2-8)+'px'}}
+addEventListener('scroll',()=>requestAnimationFrame(upd),{passive:true});upd();
+const st=document.getElementById('stack');new IntersectionObserver(es=>{if(es[0].isIntersecting)st.classList.add('in')},{threshold:.4}).observe(st);
+})();
+</script>

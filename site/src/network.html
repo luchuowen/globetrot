@@ -1,0 +1,156 @@
+<!--TITLE:Shipping Network · Globetrot Cargolink-->
+<!--DESC:Shipping routes from China, Dubai, India, the UK and Europe into Kenya, the Kenyan gateways we use, and regional transit to Uganda, Rwanda, South Sudan and the DRC.-->
+<style>
+/* Network: map-led. A full-width interactive route map with a vertical lane selector, gateway photo strip, and a regional corridor schematic. */
+.nw-hero{padding:calc(env(safe-area-inset-top,0px) + 120px) var(--gut) 0;max-width:1480px;margin-inline:auto}
+.nw-top{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.8fr);gap:24px;align-items:end;margin-bottom:28px}
+@media (max-width:900px){.nw-top{grid-template-columns:minmax(0,1fr)}}
+.mapwrap{display:grid;grid-template-columns:300px minmax(0,1fr);border:1px solid var(--steel);border-radius:24px;overflow:hidden;background:var(--panel);box-shadow:0 40px 90px -50px rgba(0,0,0,.9)}
+@media (max-width:900px){.mapwrap{grid-template-columns:minmax(0,1fr)}}
+.lanes{display:flex;flex-direction:column;border-right:1px solid var(--hull)}
+@media (max-width:900px){.lanes{flex-direction:row;overflow-x:auto;border-right:0;border-bottom:1px solid var(--hull)}}
+.lanes button{all:unset;cursor:pointer;display:grid;gap:3px;padding:18px 20px;border-bottom:1px solid var(--hull);transition:background .3s}
+@media (max-width:900px){.lanes button{min-width:190px;border-bottom:0;border-right:1px solid var(--hull)}}
+.lanes button:hover{background:#12213a}
+.lanes button[aria-selected="true"]{background:#16263f;box-shadow:inset 3px 0 0 var(--sodium)}
+.lanes button:focus-visible{outline:2px solid var(--sodium);outline-offset:-2px}
+.lanes small{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--fog)}
+.lanes b{font-size:16px}
+.lanes span{font-size:13px;color:#c9d3df}
+.map{position:relative;min-height:520px}
+.map canvas{position:absolute;inset:0;width:100%;height:100%}
+.map .legend{position:absolute;left:16px;bottom:14px;display:flex;flex-wrap:wrap;gap:8px 16px;font-size:12px;color:#c9d3df;background:rgba(6,12,23,.75);backdrop-filter:blur(6px);padding:8px 12px;border-radius:12px}
+.map .legend i{display:inline-block;width:14px;height:3px;border-radius:2px;margin-right:6px;vertical-align:middle}
+.map .tagr{position:absolute;right:16px;top:14px;font-family:var(--f-mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--fog)}
+.detail{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:1px solid var(--hull);grid-column:1/-1}
+@media (max-width:900px){.detail{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.detail div{padding:18px 20px;border-right:1px solid var(--hull);min-width:0}
+.detail div:last-child{border-right:0}
+.detail small{display:block;font-family:var(--f-mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--fog);margin-bottom:4px}
+.detail b{font-size:15px;font-weight:600}
+.detail p{margin:4px 0 0;font-size:13px;color:#c9d3df}
+
+.gw{padding:clamp(70px,9vw,120px) var(--gut);max-width:1480px;margin-inline:auto}
+.gwrow{display:grid;grid-template-columns:1.4fr 1fr 1fr 1.2fr;gap:12px;margin-top:34px}
+@media (max-width:1000px){.gwrow{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.gwrow{grid-template-columns:minmax(0,1fr)}}
+.gwc{position:relative;border-radius:22px;overflow:hidden;min-height:400px;isolation:isolate;display:flex;flex-direction:column;justify-content:flex-end;padding:22px;border:1px solid var(--hull)}
+.gwc img,.gwc video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;transition:transform 1.2s var(--ease)}
+.gwc:hover img,.gwc:hover video{transform:scale(1.05)}
+.gwc::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(0deg,rgba(6,12,23,.95) 10%,rgba(6,12,23,.1) 65%)}
+.gwc .n{font-family:var(--f-mono);font-size:11px;letter-spacing:.16em;color:var(--sodium);text-transform:uppercase}
+.gwc h3{font-family:var(--f-display);font-weight:700;font-size:22px;margin:6px 0 6px}
+.gwc p{margin:0;font-size:14px;color:#c9d3df}
+
+.corr{padding:clamp(60px,8vw,110px) var(--gut);max-width:1480px;margin-inline:auto;display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:clamp(24px,4vw,60px);align-items:center;border-top:1px solid var(--hull)}
+@media (max-width:960px){.corr{grid-template-columns:minmax(0,1fr)}}
+.schem{border:1px solid var(--hull);border-radius:24px;background:var(--panel);padding:20px;overflow-x:auto}
+.schem svg{display:block;min-width:620px;width:100%;height:auto}
+.schem text{font-family:var(--f-mono);font-size:11px;fill:#c9d3df;letter-spacing:.08em}
+.schem .city{fill:#060c17;stroke:var(--sodium);stroke-width:2.5}
+.schem .hub{fill:var(--sodium)}
+.schem .flow{stroke-dasharray:2 9;animation:flow 1.2s linear infinite}
+@keyframes flow{to{stroke-dashoffset:-22}}
+.nb{display:grid;gap:10px;margin-top:22px}
+.nb div{display:grid;grid-template-columns:110px minmax(0,1fr);gap:12px;padding:12px 0;border-bottom:1px solid var(--hull);font-size:14.5px}
+.nb span{font-family:var(--f-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--fog);padding-top:2px}
+</style>
+
+<section class="nw-hero" aria-label="Shipping network">
+  <div class="nw-top" data-reveal>
+    <div>
+      <h1 class="h1">Every route <b>leads to Kenya.</b></h1></div>
+    <p class="lead">We coordinate cargo from China, Dubai, India, the UK and Europe into Kenya by air and sea, then onward by rail and road to Nairobi and neighbouring countries. Pick a route to see how it works.</p>
+  </div>
+  <div class="mapwrap" data-reveal>
+    <div class="lanes" role="tablist" aria-label="Choose a route" id="lanes"></div>
+    <div class="map"><canvas id="map" aria-label="Illustrative map of routes into Kenya"></canvas><span class="tagr">Illustrative map · times are estimates</span>
+      <div class="legend"><span><i style="background:#f3a43b"></i>Sea freight</span><span><i style="background:#5fd39a"></i>Air freight</span><span><i style="background:#9fb3cc"></i>Road &amp; rail</span></div></div>
+    <div class="detail" id="detail" aria-live="polite"></div>
+  </div>
+</section>
+
+<section class="gw" aria-label="Kenyan gateways">
+  <div class="kick"><b>02</b><span>Kenyan gateways</span></div>
+  <h2 class="h2">Where your cargo <b>enters Kenya.</b></h2>
+  <p class="lead">Most shipments arrive through one of these points. We coordinate clearance at the gateway and arrange the next leg to your door.</p>
+  <div class="gwrow">
+    <article class="gwc" data-reveal><video src="media/j4.mp4" poster="media/j4.jpg" muted playsinline loop autoplay preload="metadata" aria-hidden="true"></video><span class="n">Sea gateway</span><h3>Port of Mombasa</h3><p>Kenya's main seaport for container, vehicle and bulk cargo arriving by sea.</p></article>
+    <article class="gwc" data-reveal><img src="media/img/coast.jpg" alt="Cargo ship off the Kenyan coast" loading="lazy"><span class="n">Sea gateway</span><h3>Lamu Port</h3><p>A second deep-sea gateway on Kenya's north coast.</p></article>
+    <article class="gwc" data-reveal><img src="media/img/uld.jpg" alt="Kenya Airways Boeing 787 Dreamliner on the runway" loading="lazy" style="object-position:28% 50%"><span class="n">Air gateway</span><h3>JKIA, Nairobi</h3><p>Jomo Kenyatta International Airport handles air cargo into Nairobi.</p></article>
+    <article class="gwc" data-reveal><img src="media/img/rail.jpg" alt="Freight train carrying containers across the savannah" loading="lazy"><span class="n">Inland</span><h3>Nairobi ICD</h3><p>The Nairobi Inland Container Depot, linked to Mombasa by the Standard Gauge Railway (SGR).</p></article>
+  </div>
+</section>
+
+<section class="corr" aria-label="Regional transit">
+  <div data-reveal>
+    <div class="kick"><b>03</b><span>Regional transit</span></div>
+    <h2 class="h2">Beyond Kenya, along the <b>Northern Corridor.</b></h2>
+    <p class="lead">For cargo heading to neighbouring countries, we arrange road transport and transit documents from Mombasa and Nairobi through the Malaba and Busia border crossings.</p>
+    <div class="nb">
+      <div><span>Uganda</span>Kampala and other destinations, via Malaba or Busia.</div>
+      <div><span>Rwanda</span>Kigali, through Uganda.</div>
+      <div><span>South Sudan</span>Juba, via Northern Corridor routes.</div>
+      <div><span>DRC</span>Eastern DRC destinations such as Goma.</div>
+    </div>
+    <div class="ctas" style="margin-top:26px"><a class="btn" href="quote.html?service=road">Request a transit quote →</a></div>
+  </div>
+  <div class="schem" data-reveal>
+    <svg viewBox="0 0 760 420" role="img" aria-label="Schematic of the Northern Corridor from Mombasa to Nairobi, Malaba and Busia, then Kampala, Kigali, Juba and Goma">
+      <g fill="none" stroke-width="3" stroke-linecap="round">
+        <path d="M700 330 L560 260 L420 250 L330 200" stroke="#2a3d5c"/><path class="flow" d="M700 330 L560 260 L420 250 L330 200" stroke="#f3a43b"/>
+        <path d="M330 200 L230 205 L140 260" stroke="#2a3d5c"/><path class="flow" d="M330 200 L230 205 L140 260" stroke="#f3a43b"/>
+        <path d="M330 200 L250 120 L190 60" stroke="#2a3d5c"/><path class="flow" d="M330 200 L250 120 L190 60" stroke="#9fb3cc"/>
+        <path d="M230 205 L150 160 L70 150" stroke="#2a3d5c"/><path class="flow" d="M230 205 L150 160 L70 150" stroke="#9fb3cc"/>
+        <path d="M420 250 L400 205 L330 200" stroke="#2a3d5c" stroke-dasharray="4 6"/>
+      </g>
+      <g><circle class="hub" cx="700" cy="330" r="9"/><text x="680" y="360" text-anchor="end">MOMBASA</text>
+        <circle class="hub" cx="560" cy="260" r="9"/><text x="560" y="290" text-anchor="middle">NAIROBI · ICD</text>
+        <circle class="city" cx="420" cy="250" r="7"/><text x="430" y="278">BUSIA</text>
+        <circle class="city" cx="400" cy="205" r="7"/><text x="410" y="190">MALABA</text>
+        <circle class="city" cx="330" cy="200" r="7"/><text x="340" y="230">KAMPALA</text>
+        <circle class="city" cx="140" cy="260" r="7"/><text x="140" y="290" text-anchor="middle">KIGALI</text>
+        <circle class="city" cx="190" cy="60" r="7"/><text x="205" y="64">JUBA</text>
+        <circle class="city" cx="70" cy="150" r="7"/><text x="70" y="130" text-anchor="middle">GOMA</text></g>
+      <text x="20" y="400" fill="#9aa9bd">Schematic only, not to scale</text>
+    </svg>
+  </div>
+</section>
+
+<script data-page>
+(function(){
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const LANES=[
+ {k:'china',name:'China → Kenya',sub:'Sea and air',org:'Guangzhou, Shenzhen, Ningbo, Shanghai',gw:'Mombasa (sea) · JKIA (air)',modes:'Sea FCL, sea LCL, air express and consolidated',time:'Sea about 22–30 days port to port; air 2–7 days',sea:[[113.5,22.5],[110,16],[105,7],[103.6,1.3],[98,5.5],[88,6],[80,5.5],[70,2],[55,-2],[39.67,-4.05]],air:[[113.3,23.1],[90,15],[60,6],[36.9,-1.3]]},
+ {k:'uae',name:'Dubai → Kenya',sub:'Sea and air',org:'Jebel Ali port, Dubai airports',gw:'Mombasa (sea) · JKIA (air)',modes:'Sea FCL and LCL, air freight',time:'Ask us for current schedules',sea:[[55,25],[57,24.5],[60,22],[58,17],[50,8],[44,0],[39.67,-4.05]],air:[[55.4,25.2],[47,12],[36.9,-1.3]]},
+ {k:'india',name:'India → Kenya',sub:'Sea and air',org:'Nhava Sheva (Mumbai) and other ports',gw:'Mombasa (sea) · JKIA (air)',modes:'Sea FCL and LCL, air freight',time:'Ask us for current schedules',sea:[[72.8,18.9],[68,13],[58,5],[47,-1],[39.67,-4.05]],air:[[72.9,19.1],[55,8],[36.9,-1.3]]},
+ {k:'europe',name:'UK & Europe → Kenya',sub:'Sea and air',org:'UK and European ports and airports',gw:'Mombasa (sea) · JKIA (air)',modes:'Sea FCL and LCL, air freight',time:'Ask us for current schedules',sea:[[32.5,30],[33,27.5],[38,20],[42,14],[43.4,12.6],[47,12],[51,11.5],[52,8],[46,0],[39.67,-4.05]],air:[[30,44],[33,25],[36.9,-1.3]]},
+ {k:'region',name:'Kenya → East Africa',sub:'Road and rail',org:'Mombasa, Nairobi ICD',gw:'Malaba and Busia border crossings',modes:'Road transport, container haulage, rail to Nairobi',time:'Depends on destination and border processing',road:[[39.67,-4.05],[36.82,-1.29],[34.1,0.6],[32.6,0.35],[30.06,-1.95]]}
+];
+const box={lo0:25,lo1:122,la0:-18,la1:46};
+const LAND=[[[25,46],[36,46],[36,36],[32,31],[34,28],[39,22],[43,13],[51,11],[51,12],[44,10],[40,2],[39,-4],[40,-10],[40,-18],[25,-18]],[[36,36],[44,37],[48,30],[50,26],[56,26],[57,24],[60,22],[55,17],[52,16],[45,13],[43,13],[39,22],[34,28],[36,31]],[[48,30],[52,37],[62,37],[62,25],[57,25],[56,26.5],[50,29]],[[62,25],[67,24],[70,21],[73,17],[75,12],[77,8],[80,10],[80,15],[87,21],[91,22],[92,20],[94,16],[98,16],[98,9],[100,6],[103,1],[104,1.5],[103,8],[105,10],[109,12],[108,19],[110,21],[117,23],[121,28],[122,31],[122,46],[62,46]],[[95,5],[98,4],[102,-1],[106,-6],[101,-4],[96,3]],[[110,-7],[114,-8],[110,-8.6],[106,-7]],[[109,1],[118,7],[119,1],[116,-4],[110,-3]],[[79.8,8],[81.8,7.5],[81,6],[80,6.2]],[[44,-12],[50,-15],[49,-18],[44,-18],[43,-15]]];
+const el=document.getElementById('lanes');let sel=0;
+el.innerHTML=LANES.map((l,i)=>`<button role="tab" aria-selected="${i===0}" data-i="${i}"><small>Route ${String(i+1).padStart(2,'0')}</small><b>${l.name}</b><span>${l.sub}</span></button>`).join('');
+function detail(){const l=LANES[sel];document.getElementById('detail').innerHTML=`<div><small>Origin points</small><b>${l.org}</b></div><div><small>Gateway</small><b>${l.gw}</b></div><div><small>Options</small><b>${l.modes}</b></div><div><small>Indicative time</small><b>${l.time}</b><p>Estimates only.</p></div>`}
+el.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;sel=+b.dataset.i;el.querySelectorAll('button').forEach(x=>x.setAttribute('aria-selected',x===b));detail();t0=performance.now()});
+detail();
+const cv=document.getElementById('map'),ctx=cv.getContext('2d');let W=0,H=0,t0=performance.now();
+const px=(lo,la)=>[(lo-box.lo0)/(box.lo1-box.lo0)*W,(box.la1-la)/(box.la1-box.la0)*H];
+function size(){const b=cv.getBoundingClientRect(),d=Math.min(devicePixelRatio||1,2);W=b.width;H=b.height;cv.width=W*d;cv.height=H*d;ctx.setTransform(d,0,0,d,0,0)}
+addEventListener('resize',()=>{W=0});
+function line(pts,col,w,dash,prog){ctx.beginPath();pts.forEach((p,i)=>{const[x,y]=px(p[0],p[1]);i?ctx.lineTo(x,y):ctx.moveTo(x,y)});ctx.strokeStyle=col;ctx.lineWidth=w;ctx.setLineDash(dash||[]);ctx.lineDashOffset=prog||0;ctx.stroke();ctx.setLineDash([])}
+function at(p,t){let L=0;const s=[];for(let i=1;i<p.length;i++){const d=Math.hypot(p[i][0]-p[i-1][0],p[i][1]-p[i-1][1]);s.push(d);L+=d}let x=t*L;for(let i=0;i<s.length;i++){if(x<=s[i]){const k=x/s[i];return[p[i][0]+(p[i+1][0]-p[i][0])*k,p[i][1]+(p[i+1][1]-p[i][1])*k]}x-=s[i]}return p[p.length-1]}
+let vis=true;new IntersectionObserver(es=>{vis=es[0].isIntersecting;if(vis)requestAnimationFrame(draw)}).observe(cv);
+function draw(now){if(!W)size();ctx.clearRect(0,0,W,H);
+  ctx.strokeStyle='rgba(42,61,92,.4)';ctx.lineWidth=1;for(let lo=30;lo<=120;lo+=10){const[x]=px(lo,0);ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,H);ctx.stroke()}for(let la=-10;la<=40;la+=10){const[,y]=px(0,la);ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(W,y);ctx.stroke()}
+  ctx.fillStyle='rgba(147,163,184,.33)';LAND.forEach(poly=>{ctx.beginPath();poly.forEach((p,i)=>{const[x,y]=px(p[0],p[1]);i?ctx.lineTo(x,y):ctx.moveTo(x,y)});ctx.closePath();ctx.save();ctx.clip();const s=Math.max(5,W/140);for(let x=0;x<W;x+=s)for(let y=0;y<H;y+=s)ctx.fillRect(x,y,1.4,1.4);ctx.restore()});
+  LANES.forEach((l,i)=>{if(i===sel)return;if(l.sea)line(l.sea,'rgba(243,164,59,.14)',1.2);if(l.air)line(l.air,'rgba(95,211,154,.12)',1.2,[2,6]);if(l.road)line(l.road,'rgba(159,179,204,.15)',1.2)});
+  const l=LANES[sel],tt=reduce?0:(now-t0)/1000;
+  if(l.sea){line(l.sea,'rgba(243,164,59,.35)',6);line(l.sea,'#f3a43b',2.4,[2,10],-tt*30);const[x,y]=px(...at(l.sea,reduce?1:(tt/8)%1));ctx.fillStyle='#ffd08a';ctx.shadowColor='#f3a43b';ctx.shadowBlur=16;ctx.beginPath();ctx.arc(x,y,4.5,0,7);ctx.fill();ctx.shadowBlur=0}
+  if(l.air){line(l.air,'#5fd39a',2,[3,7],-tt*40);const q=at(l.air,reduce?1:(tt/3.5)%1),q2=at(l.air,Math.min(1,(reduce?1:(tt/3.5)%1)+.01));const[x,y]=px(...q),[x2,y2]=px(...q2);ctx.save();ctx.translate(x,y);ctx.rotate(Math.atan2(y2-y,x2-x));ctx.fillStyle='#fff';ctx.scale(.55,.55);ctx.fill(new Path2D('M22 0C20 -2.4 13 -2.8 -15 -2.6L-20 -1.2V1.2L-15 2.6C13 2.8 20 2.4 22 0Z M5 -2.2L-7 -19H-11.5L-4 -2.2Z M5 2.2L-7 19H-11.5L-4 2.2Z M-13 -2.2L-19 -9H-21.5L-17.5 -2.2Z M-13 2.2L-19 9H-21.5L-17.5 2.2Z'));ctx.restore()}
+  if(l.road){line(l.road,'rgba(159,179,204,.35)',6);line(l.road,'#9fb3cc',2.4,[2,8],-tt*25)}
+  [['MOMBASA',39.67,-4.05,1],['NAIROBI',36.82,-1.29,1],['GUANGZHOU',113.3,23.1],['DUBAI',55.3,25.2],['MUMBAI',72.8,18.9],['TO EUROPE',32.5,30],['KAMPALA',32.6,.35],['KIGALI',30.06,-1.95]].forEach(p=>{const[x,y]=px(p[1],p[2]);ctx.fillStyle=p[3]?'#f3a43b':'#eef2f7';ctx.fillRect(x-2.5,y-2.5,5,5);ctx.font='600 10px "IBM Plex Mono",monospace';ctx.fillStyle=p[3]?'#f3a43b':'rgba(238,242,247,.75)';ctx.fillText(p[0],x+(p[0]==='NAIROBI'?-62:7),y+(p[0]==='NAIROBI'?-6:4))});
+  if(vis&&!reduce)requestAnimationFrame(draw)}
+requestAnimationFrame(draw);
+})();
+</script>

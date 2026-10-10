@@ -1,0 +1,158 @@
+<!--TITLE:Get a Quote · Globetrot Cargolink-->
+<!--DESC:Request an itemised quote for air, sea or road freight and customs clearance into Kenya in four short steps.-->
+<style>
+/* Quote: a guided four-step form. The progress bar is the vapour route: the logo plane flies one stop per step. A live summary card follows alongside. */
+.qt{max-width:1320px;margin-inline:auto;padding:calc(env(safe-area-inset-top,0px) + 120px) var(--gut) clamp(60px,8vw,110px)}
+.qhead{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.8fr);gap:24px;align-items:end}
+@media (max-width:900px){.qhead{grid-template-columns:minmax(0,1fr)}}
+.prog{position:relative;margin:40px 0 30px;padding:0 10px;overflow-x:clip}
+.prog .line{position:absolute;left:10px;right:10px;top:21px;height:2px;background:var(--hull)}
+.prog .fill{position:absolute;left:10px;top:20px;height:4px;width:0;background:radial-gradient(circle,var(--sodium) 1.6px,transparent 2px) 0 50%/10px 4px repeat-x;transition:width .9s var(--ease)}
+.prog .pl{position:absolute;top:2px;width:40px;height:40px;margin-left:-20px;left:10px;transition:left .9s var(--ease);filter:drop-shadow(0 0 8px rgba(255,255,255,.4))}
+.prog ol{position:relative;list-style:none;margin:0;padding:0;display:flex;justify-content:space-between}
+.prog li{display:grid;justify-items:center;gap:10px;width:90px;margin:0 -45px;text-align:center}
+.prog li:first-child{margin-left:-35px}.prog li:last-child{margin-right:-35px}
+.prog li i{width:16px;height:16px;border-radius:50%;background:var(--harbour);border:2px solid var(--steel);margin-top:15px;transition:all .4s}
+.prog li.on i,.prog li.done i{border-color:var(--sodium);background:var(--sodium)}
+.prog li span{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--fog)}
+.prog li.on span{color:var(--flood)}
+.body{display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:clamp(20px,3vw,40px);align-items:start}
+@media (max-width:980px){.body{grid-template-columns:minmax(0,1fr)}}
+.stepc{display:none;border:1px solid var(--steel);border-radius:24px;background:var(--panel);padding:clamp(22px,3vw,40px)}
+.stepc.on{display:block;animation:in .5s var(--ease)}
+@keyframes in{from{transform:translateY(12px);opacity:.4}to{transform:none;opacity:1}}
+.stepc h2{font-family:var(--f-display);font-weight:200;font-stretch:118%;text-transform:uppercase;font-size:clamp(22px,2.4vw,34px);margin:0 0 6px}
+.stepc h2 b{font-weight:800;color:var(--sodium)}
+.stepc > p{margin:0 0 22px;color:#c9d3df}
+.modes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+@media (max-width:700px){.modes{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.mode{all:unset;cursor:pointer;position:relative;border-radius:18px;overflow:hidden;aspect-ratio:4/3;display:flex;align-items:flex-end;padding:14px;isolation:isolate;border:2px solid transparent;transition:border-color .3s,transform .3s var(--ease)}
+.mode img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2}
+.mode::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(0deg,rgba(6,12,23,.95),rgba(6,12,23,.15))}
+.mode b{display:block;font-size:16px}
+.mode small{font-size:12.5px;color:#c9d3df}
+.mode:hover{transform:translateY(-2px)}
+.mode[aria-pressed="true"]{border-color:var(--sodium)}
+.mode[aria-pressed="true"]::before{content:"✓";position:absolute;top:10px;right:10px;width:26px;height:26px;border-radius:50%;background:var(--sodium);color:#1a1006;display:grid;place-items:center;font-weight:700;font-size:13px}
+.mode:focus-visible{outline:2px solid var(--sodium);outline-offset:2px}
+.g2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.g3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+@media (max-width:600px){.g2,.g3{grid-template-columns:minmax(0,1fr)}}
+.stack{display:grid;gap:14px}
+.check{display:flex;gap:10px;align-items:center;font-size:15px;color:#d0d8e3}
+.check input{width:20px;height:20px;accent-color:var(--sodium)}
+.nav2{display:flex;justify-content:space-between;gap:10px;margin-top:26px}
+.err{color:var(--red);font-size:13.5px;min-height:1em;margin:10px 0 0}
+.sum{position:sticky;top:110px;border:1px solid var(--steel);border-radius:24px;background:linear-gradient(160deg,#13243d,#0b1626);padding:24px}
+@media (max-width:980px){.sum{position:static}}
+.sum h3{margin:0 0 4px;font-family:var(--f-display);font-size:18px}
+.sum dl{margin:16px 0 0;display:grid;gap:0;border-top:1px solid var(--hull)}
+.sum dl div{display:flex;justify-content:space-between;gap:12px;padding:11px 0;border-bottom:1px solid var(--hull);font-size:14px}
+.sum dt{color:var(--fog)}
+.sum dd{margin:0;text-align:right;font-weight:500}
+.done-card{display:none;text-align:center;border:1px solid rgba(95,211,154,.4);border-radius:24px;background:rgba(95,211,154,.06);padding:clamp(30px,5vw,60px)}
+.done-card.show{display:block}
+.done-card .refno{font-family:var(--f-mono);font-size:clamp(22px,3vw,32px);color:var(--sodium);margin:14px 0}
+</style>
+
+<section class="qt" aria-label="Get a quote">
+  <div class="qhead" data-reveal>
+    <div>
+      <h1 class="h1">Get a clear, <b>itemised quote.</b></h1></div>
+    <p class="lead">Four short steps. Tell us what you're shipping and where. We'll reply with the options and the costs, shown line by line.</p>
+  </div>
+
+  <div class="prog" aria-hidden="true"><div class="line"></div><div class="fill" id="pf"></div><span class="pl" id="pp"></span>
+    <ol id="pl"><li class="on"><i></i><span>Service</span></li><li><i></i><span>Route</span></li><li><i></i><span>Cargo</span></li><li><i></i><span>Contact</span></li></ol></div>
+
+  <div class="body">
+    <form id="qf" novalidate>
+      <div class="stepc on" data-s="0">
+        <h2>What do you <b>need?</b></h2><p>Choose the main service. You can add customs clearance and delivery on the next steps.</p>
+        <div class="modes" id="modes">
+          <button type="button" class="mode" data-v="air" aria-pressed="false"><img src="media/air.jpg" alt=""><span><b>Air freight</b><small>Urgent or high-value goods</small></span></button>
+          <button type="button" class="mode" data-v="sea" aria-pressed="false"><img src="media/sea.jpg" alt=""><span><b>Sea freight</b><small>FCL or LCL containers</small></span></button>
+          <button type="button" class="mode" data-v="consolidation" aria-pressed="false"><img src="media/j2.jpg" alt=""><span><b>Consolidation</b><small>Several suppliers, one shipment</small></span></button>
+          <button type="button" class="mode" data-v="customs" aria-pressed="false"><img src="media/img/docs.jpg" alt=""><span><b>Customs only</b><small>Clearance and documents</small></span></button>
+          <button type="button" class="mode" data-v="road" aria-pressed="false"><img src="media/road.jpg" alt=""><span><b>Road &amp; transit</b><small>Kenya and the region</small></span></button>
+          <button type="button" class="mode" data-v="warehousing" aria-pressed="false"><img src="media/img/wh.jpg" alt=""><span><b>Warehousing</b><small>Storage in Nairobi</small></span></button>
+        </div>
+      </div>
+
+      <div class="stepc" data-s="1">
+        <h2>Where is it <b>going?</b></h2><p>Tell us where the cargo starts and where it needs to end up.</p>
+        <div class="g2">
+          <div class="field"><label for="from">Shipping from</label><select id="from"><option value="">Choose a country</option><option>China</option><option>United Arab Emirates (Dubai)</option><option>India</option><option>United Kingdom</option><option>Europe (other)</option><option>Kenya (local)</option><option>Other</option></select></div>
+          <div class="field"><label for="city">City or supplier location</label><input id="city" placeholder="e.g. Guangzhou"></div>
+          <div class="field"><label for="to">Deliver to</label><select id="to"><option value="">Choose a destination</option><option>Nairobi</option><option>Mombasa</option><option>Other town in Kenya</option><option>Uganda</option><option>Rwanda</option><option>South Sudan</option><option>DRC</option></select></div>
+          <div class="field"><label for="when">When is the cargo ready?</label><select id="when"><option>Ready now</option><option>Within 2 weeks</option><option>Within a month</option><option>Just planning</option></select></div>
+        </div>
+        <div class="stack" style="margin-top:16px"><label class="check"><input type="checkbox" id="xc" checked> Include customs clearance in Kenya</label><label class="check"><input type="checkbox" id="xd" checked> Include delivery to my address</label><label class="check"><input type="checkbox" id="xp"> I need collection from the supplier</label></div>
+      </div>
+
+      <div class="stepc" data-s="2">
+        <h2>About your <b>cargo</b></h2><p>Approximate figures are fine. Don't know the volume? Use the <a class="tlink" href="tools.html#cbm">CBM calculator</a>.</p>
+        <div class="stack">
+          <div class="field"><label for="desc">What are you shipping?</label><input id="desc" placeholder="e.g. 120 cartons of kitchenware"></div>
+          <div class="g3"><div class="field"><label for="kg">Total weight (kg)</label><input id="kg" inputmode="decimal"></div><div class="field"><label for="cbm">Volume (CBM)</label><input id="cbm" inputmode="decimal"></div><div class="field"><label for="val">Value of goods (USD)</label><input id="val" inputmode="decimal"></div></div>
+          <div class="field"><label for="notes">Anything else? (optional)</label><textarea id="notes" placeholder="e.g. fragile items, batteries, specific delivery times"></textarea></div>
+        </div>
+      </div>
+
+      <div class="stepc" data-s="3">
+        <h2>How do we <b>reach you?</b></h2><p>We'll send your quote by email or WhatsApp.</p>
+        <div class="g2">
+          <div class="field"><label for="nm">Full name</label><input id="nm" autocomplete="name"></div>
+          <div class="field"><label for="co">Company (optional)</label><input id="co" autocomplete="organization"></div>
+          <div class="field"><label for="ph">Phone or WhatsApp</label><input id="ph" inputmode="tel" autocomplete="tel"></div>
+          <div class="field"><label for="em">Email</label><input id="em" type="email" autocomplete="email"></div>
+        </div>
+        <div class="stack" style="margin-top:16px"><label class="check"><input type="checkbox" id="wa" checked> Send updates on WhatsApp</label></div>
+      </div>
+
+      <p class="err" id="err" role="alert"></p>
+      <div class="nav2" id="nav2"><button type="button" class="btn g" id="back">← Back</button><button type="button" class="btn" id="next">Continue →</button></div>
+
+      <div class="done-card" id="done" role="status">
+        <span class="mono amber">Request ready</span>
+        <h2 class="h2" style="margin:10px 0 0">Thank you. <b>We've got the details.</b></h2>
+        <div class="refno" id="refno"></div>
+        <p class="lead" style="margin:0 auto 20px">Keep this reference. Once the website is connected, requests like this go straight to our team and you'll get your itemised quote by email or WhatsApp.</p>
+        <div class="ctas" style="justify-content:center"><a class="btn" href="index.html">Back to home</a><a class="btn g" href="contact.html">Contact us</a></div>
+      </div>
+    </form>
+
+    <aside class="sum" aria-label="Your request">
+      <h3>Your request</h3><p class="muted" style="margin:0;font-size:13.5px">Updates as you fill in the form.</p>
+      <dl id="sum"></dl>
+      <p class="note" style="margin-top:16px">We'll reply with options and an itemised price. Transit times are estimates.</p>
+    </aside>
+  </div>
+</section>
+
+<script data-page>
+(function(){
+const $=id=>document.getElementById(id);let step=0;const steps=[...document.querySelectorAll('.stepc')],marks=[...$('pl').children];
+$('pp').innerHTML=`<svg viewBox="-28 -28 56 56"><g fill="#fff">${window.GCL_PLANE||''}</g></svg>`;
+let svc='';const NAMES={air:'Air freight',sea:'Sea freight',consolidation:'Consolidation',customs:'Customs only',road:'Road & transit',warehousing:'Warehousing'};
+document.querySelectorAll('.mode').forEach(b=>b.onclick=()=>{svc=b.dataset.v;document.querySelectorAll('.mode').forEach(x=>x.setAttribute('aria-pressed',x===b));sum()});
+const qs=new URLSearchParams(location.search);if(qs.get('service')){const b=document.querySelector(`.mode[data-v="${qs.get('service')}"]`);if(b)b.click()}
+if(qs.get('cbm'))$('cbm').value=qs.get('cbm');if(qs.get('kg'))$('kg').value=qs.get('kg');
+function prog(){const p=step/3*100;$('pf').style.width=`calc((100% - 2 * var(--pg,10px)) * ${step/3})`;$('pp').style.left=`calc(var(--pg,10px) + (100% - 2 * var(--pg,10px)) * ${step/3})`;marks.forEach((m,i)=>{m.className=i<step?'done':i===step?'on':''})}
+function show(){steps.forEach((s,i)=>s.classList.toggle('on',i===step));$('back').style.visibility=step?'visible':'hidden';$('next').textContent=step===3?'Send request →':'Continue →';prog();sum();window.scrollTo({top:document.querySelector('.prog').offsetTop-90,behavior:'smooth'})}
+function valid(){const e=$('err');e.textContent='';
+  if(step===0&&!svc){e.textContent='Please choose a service.';return false}
+  if(step===1&&(!$('from').value||!$('to').value)){e.textContent='Please choose where the cargo is coming from and where it is going.';return false}
+  if(step===2&&!$('desc').value.trim()){e.textContent='Please describe what you are shipping.';$('desc').focus();return false}
+  if(step===3){if(!$('nm').value.trim()||!$('ph').value.trim()){e.textContent='Please add your name and phone number.';return false}if($('em').value&&!/^\S+@\S+\.\S+$/.test($('em').value)){e.textContent='Please check your email address.';return false}}
+  return true}
+$('next').onclick=()=>{if(!valid())return;if(step<3){step++;show()}else finish()};
+$('back').onclick=()=>{if(step>0){step--;show()}};
+function sum(){const rows=[['Service',NAMES[svc]||'—'],['From',[$('city').value,$('from').value].filter(Boolean).join(', ')||'—'],['To',$('to').value||'—'],['Extras',[$('xc').checked&&'Customs',$('xd').checked&&'Delivery',$('xp').checked&&'Collection'].filter(Boolean).join(', ')||'—'],['Cargo',$('desc').value||'—'],['Weight',$('kg').value?$('kg').value+' kg':'—'],['Volume',$('cbm').value?$('cbm').value+' CBM':'—']];
+  $('sum').innerHTML=rows.map(r=>`<div><dt>${r[0]}</dt><dd>${r[1].replace(/</g,'&lt;')}</dd></div>`).join('')}
+document.querySelectorAll('#qf input,#qf select,#qf textarea').forEach(i=>i.addEventListener('input',sum));
+function finish(){const d=new Date(),ref=`GCL-${String(d.getFullYear()).slice(2)}${String(d.getMonth()+1).padStart(2,'0')}${String(d.getDate()).padStart(2,'0')}-${Math.floor(1000+Math.random()*9000)}`;
+  steps.forEach(s=>s.classList.remove('on'));$('nav2').style.display='none';$('err').textContent='';$('refno').textContent=ref;$('done').classList.add('show');step=4;$('pf').style.width='calc(100% - 20px)';$('pp').style.left='calc(100% - 10px)';marks.forEach(m=>m.className='done')}
+show();window.scrollTo(0,0);
+})();
+</script>
