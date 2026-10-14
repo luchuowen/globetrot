@@ -55,8 +55,8 @@ mark{background:rgba(243,164,59,.3);color:var(--flood);border-radius:3px}
 
 <section class="fq" aria-label="Questions">
   <nav class="cats" id="cats" aria-label="Topics"></nav>
-  <div><div class="list" id="list"></div><div class="none" id="none">No questions match your search. Try another word, or <a class="tlink" href="contact.html">ask our team</a>.</div>
-    <div class="ask"><div><b style="font-size:18px">Still have a question?</b><p class="muted" style="margin:4px 0 0">Our team will explain your options.</p></div><div class="ctas"><a class="btn" href="contact.html">Contact us →</a><a class="btn g" href="quote.html">Get a quote</a></div></div></div>
+  <div><div class="list" id="list"></div><div class="none" id="none">No questions match your search. Try another word, or <a class="tlink" href="contact">ask our team</a>.</div>
+    <div class="ask"><div><b style="font-size:18px">Still have a question?</b><p class="muted" style="margin:4px 0 0">Our team will explain your options.</p></div><div class="ctas"><a class="btn" href="contact">Contact us →</a><a class="btn g" href="quote">Get a quote</a></div></div></div>
 </section>
 
 
@@ -66,22 +66,22 @@ mark{background:rgba(243,164,59,.3);color:var(--flood);border-radius:3px}
 <script data-page>
 (function(){
 const Q=[
- ['Quotes','What do I need to get a quote?','Tell us what you are shipping, where it is coming from, its approximate weight or volume, and where it needs to be delivered. The <a class="tlink" href="quote.html">quote form</a> takes about two minutes.'],
+ ['Quotes','What do I need to get a quote?','Tell us what you are shipping, where it is coming from, its approximate weight or volume, and where it needs to be delivered. The <a class="tlink" href="quote">quote form</a> takes about two minutes.'],
  ['Quotes','What does an itemised quote include?','Each part is shown separately: freight, customs clearance, delivery and any other services you asked for. Expected duties and taxes are explained before you pay them.'],
- ['Quotes','How is air freight priced?','By chargeable weight: the higher of the actual weight and the volumetric weight (length × width × height in cm, divided by 6,000). Try the <a class="tlink" href="tools.html#cbm">CBM calculator</a>.'],
+ ['Quotes','How is air freight priced?','By chargeable weight: the higher of the actual weight and the volumetric weight (length × width × height in cm, divided by 6,000). Try the <a class="tlink" href="tools#cbm">CBM calculator</a>.'],
  ['Quotes','How is sea freight priced?','A full container (FCL) is priced per container. A shared container (LCL) is usually priced by volume in cubic metres (CBM).'],
  ['Shipping','Should I ship by air or by sea?','Air is faster and suits urgent or high-value goods. Sea is more economical for larger or heavier cargo. We can quote both so you can compare.'],
  ['Shipping','What is the difference between FCL and LCL?','FCL (Full Container Load) means your goods have a container to themselves. LCL (Less-than-Container Load) means your goods share a container with other shipments, and you pay for the space you use.'],
  ['Shipping','How long does shipping take?','As an indication, sea freight from China takes about 22–30 days port to port and express air freight 2–7 days. Total time also depends on schedules, handling, customs and delivery. These are estimates.'],
  ['Shipping','Can you collect from several suppliers?','Yes. We can coordinate collection from several suppliers and consolidate the goods into one shipment where suitable.'],
- ['Customs','What documents do I need to import?','Usually a commercial invoice, packing list, bill of lading or air waybill, and the importer\'s KRA PIN. Some goods also need a Certificate of Conformity or a permit. See the <a class="tlink" href="tools.html#docs">document checklist</a>.'],
+ ['Customs','What documents do I need to import?','Usually a commercial invoice, packing list, bill of lading or air waybill, and the importer\'s KRA PIN. Some goods also need a Certificate of Conformity or a permit. See the <a class="tlink" href="tools#docs">document checklist</a>.'],
  ['Customs','Do I need a Certificate of Conformity?','Goods covered by KEBS\' Pre-Export Verification of Conformity (PVoC) programme need a Certificate of Conformity before shipping. Ask us to check your product before your supplier ships.'],
- ['Customs','What duties and taxes will I pay?','It depends on the goods. Charges can include import duty, excise duty, the Import Declaration Fee, the Railway Development Levy and VAT. We explain the expected amounts before payment. Try the <a class="tlink" href="tools.html#landed">landed cost estimator</a>.'],
+ ['Customs','What duties and taxes will I pay?','It depends on the goods. Charges can include import duty, excise duty, the Import Declaration Fee, the Railway Development Levy and VAT. We explain the expected amounts before payment. Try the <a class="tlink" href="tools#landed">landed cost estimator</a>.'],
  ['Customs','How long does customs clearance take?','It depends on the goods, the documents and any inspections. Complete, accurate documents are the best way to avoid delays.'],
  ['Delivery','Where do you deliver?','In Nairobi, Mombasa and other locations in Kenya, with regional transit to Uganda, Rwanda, South Sudan and the DRC.'],
- ['Delivery','Can I track my shipment?','Yes. Every shipment has a Globetrot reference, and we update each milestone. Account clients can follow shipments in the client portal. See <a class="tlink" href="track.html">tracking</a>.'],
+ ['Delivery','Can I track my shipment?','Yes. Every shipment has a Globetrot reference, and we update each milestone. Account clients can follow shipments in the client portal. See <a class="tlink" href="track">tracking</a>.'],
  ['Delivery','Do you offer storage?','Yes. We arrange warehousing and distribution in Nairobi.'],
- ['Vehicles','Can I import a car into Kenya?','Kenya registers right-hand-drive vehicles within an age limit. In 2026 a vehicle must have been first registered in 2019 or later. Check with the <a class="tlink" href="tools.html#vehicle">vehicle checker</a> and confirm with us before you buy.']
+ ['Vehicles','Can I import a car into Kenya?','Kenya registers right-hand-drive vehicles within an age limit. In 2026 a vehicle must have been first registered in 2019 or later. Check with the <a class="tlink" href="tools#vehicle">vehicle checker</a> and confirm with us before you buy.']
 ];
 const cats=['All',...new Set(Q.map(q=>q[0]))];let cat='All';
 const ce=document.getElementById('cats');ce.innerHTML=cats.map((c,i)=>`<button aria-pressed="${i===0}" data-c="${c}">${c}<span>${c==='All'?Q.length:Q.filter(q=>q[0]===c).length}</span></button>`).join('');

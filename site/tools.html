@@ -99,7 +99,7 @@
           <div class="big" id="cbmBig">0<small>m³</small></div>
           <div class="kv"><div><span>Cartons</span><span id="cbmN">0</span></div><div><span>Actual weight</span><span id="cbmAct">0 kg</span></div><div><span>Volumetric weight (air)</span><span id="cbmVol">0 kg</span></div><div class="tot"><span>Chargeable weight (air)</span><span id="cbmCh">0 kg</span></div></div>
           <div class="hint"><span aria-hidden="true" style="color:var(--sodium);font-weight:700;font-family:var(--f-mono)">i</span><span id="cbmHint"></span></div>
-          <a class="btn" id="cbmQuote" href="quote.html">Quote this shipment →</a>
+          <a class="btn" id="cbmQuote" href="quote">Quote this shipment →</a>
         </div>
       </div>
 
@@ -126,7 +126,7 @@
           <span class="mono muted">Estimated landed cost</span>
           <div class="big" id="lBig">0<small>USD</small></div>
           <div class="kv" id="lKv"></div>
-          <a class="btn" href="quote.html?service=customs">Get an exact figure →</a>
+          <a class="btn" href="quote?service=customs">Get an exact figure →</a>
         </div>
       </div>
 
@@ -143,7 +143,7 @@
           <div class="big" id="cBig" style="font-size:clamp(40px,4.4vw,64px)">—</div>
           <div class="boxviz" id="cViz"></div>
           <div class="hint"><span aria-hidden="true" style="color:var(--sodium);font-weight:700;font-family:var(--f-mono)">i</span><span id="cHint"></span></div>
-          <a class="btn" href="quote.html?service=sea">Get a sea freight quote →</a>
+          <a class="btn" href="quote?service=sea">Get a sea freight quote →</a>
         </div>
       </div>
 
@@ -162,7 +162,7 @@
           <span class="mono muted">Result</span>
           <div><span class="verdict" id="vv">—</span></div>
           <p id="vn" style="margin:0;color:#d0d8e3"></p>
-          <a class="btn" href="quote.html?service=sea">Ask about shipping a vehicle →</a>
+          <a class="btn" href="quote?service=sea">Ask about shipping a vehicle →</a>
         </div>
       </div>
 
@@ -176,7 +176,7 @@
         <div class="result" aria-live="polite">
           <span class="mono muted">You'll likely need</span>
           <ul class="checks" id="docList"></ul>
-          <a class="btn" href="quote.html">Check my shipment →</a>
+          <a class="btn" href="quote">Check my shipment →</a>
         </div>
       </div>
     </div>
@@ -202,7 +202,7 @@ function cbm(){let v=0,c=0;[...rows.children].forEach(r=>{const i=r.querySelecto
   const kg=n($('cbmKg').value),vol=v*1e6/6000,ch=Math.max(kg,vol);
   $('cbmBig').innerHTML=`${f(v)}<small>m³</small>`;$('cbmN').textContent=c;$('cbmAct').textContent=f(kg)+' kg';$('cbmVol').textContent=f(Math.round(vol))+' kg';$('cbmCh').textContent=f(Math.round(ch))+' kg';
   $('cbmHint').textContent=v<1?'Under 1 CBM: air or consolidated air may be the better option.':v<15?'Shared container (LCL) is usually the most economical way to ship this volume by sea.':'Compare a shared container with a full 20-foot container. We can quote both.';
-  $('cbmQuote').href=`quote.html?cbm=${v.toFixed(2)}&kg=${kg}`}
+  $('cbmQuote').href=`quote?cbm=${v.toFixed(2)}&kg=${kg}`}
 addRow();$('addRow').onclick=()=>{addRow(50,40,30,10);cbm()};$('cbmKg').oninput=cbm;cbm();
 // Landed
 let duty=25;$('dutySeg').querySelectorAll('button').forEach(b=>b.onclick=()=>{duty=+b.dataset.v;$('dutySeg').querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x===b));landed()});
