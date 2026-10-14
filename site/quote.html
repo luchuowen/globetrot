@@ -126,10 +126,10 @@
       <div class="nav2" id="nav2"><button type="button" class="btn g" id="back">← Back</button><button type="button" class="btn" id="next">Continue →</button></div>
 
       <div class="done-card" id="done" role="status">
-        <span class="mono amber">Request ready</span>
+        <span class="mono amber">Request received</span>
         <h2 class="h2" style="margin:10px 0 0">Thank you. <b>We've got the details.</b></h2>
         <div class="refno" id="refno"></div>
-        <p class="lead" style="margin:0 auto 20px">Keep this reference. Once the website is connected, requests like this go straight to our team and you'll get your itemised quote by email or WhatsApp.</p>
+        <p class="lead" style="margin:0 auto 20px">Keep this reference. Our team will review your request and send your itemised quote by email or WhatsApp.</p>
         <div class="ctas" style="justify-content:center"><a class="btn" href="/">Back to home</a><a class="btn g" href="contact">Contact us</a></div>
       </div>
     </form>
@@ -160,14 +160,19 @@ function valid(){const e=$('err');e.textContent='';
   if(step===0&&!svc){e.textContent='Please choose a service.';return false}
   if(step===1&&(!$('from').value||!$('to').value)){e.textContent='Please choose where the cargo is coming from and where it is going.';return false}
   if(step===2&&!$('desc').value.trim()){e.textContent='Please describe what you are shipping.';$('desc').focus();return false}
-  if(step===3){if(!$('nm').value.trim()||!$('ph').value.trim()){e.textContent='Please add your name and phone number.';return false}if($('em').value&&!/^\S+@\S+\.\S+$/.test($('em').value)){e.textContent='Please check your email address.';return false}}
+  if(step===3){if(!$('nm').value.trim()||!$('ph').value.trim()){e.textContent='Please add your name and phone number.';return false}if(!/^\S+@\S+\.\S+$/.test($('em').value)){e.textContent='Please add a valid email address so we can send your quote.';return false}}
   return true}
-$('next').onclick=()=>{if(!valid())return;if(step<3){step++;show()}else finish()};
+$('next').onclick=()=>{if(!valid())return;if(step<3){step++;show()}else send()};
+function send(){const b=$('next'),e=$('err');b.disabled=true;b.textContent='Sending…';e.textContent='';
+  const d=new Date(),ref=`GCL-${String(d.getFullYear()).slice(2)}${String(d.getMonth()+1).padStart(2,'0')}${String(d.getDate()).padStart(2,'0')}-${Math.floor(1000+Math.random()*9000)}`;
+  const g=id=>{const x=$(id);return x?(x.type==='checkbox'?x.checked:x.value):''};
+  const data={ref,service:NAMES[svc]||svc||'',fromCountry:g('from'),fromCity:g('city'),to:g('to'),when:g('when'),customs:g('xc'),delivery:g('xd'),collection:g('xp'),cargo:g('desc'),weightKg:g('kg'),volumeCbm:g('cbm'),value:g('val'),notes:g('notes'),name:g('nm'),company:g('co'),phone:g('ph'),email:g('em'),whatsapp:g('wa')};
+  try{window.GCL_SAVE&&window.GCL_SAVE('quote',data).catch(()=>{})}catch(_){}fetch('/api/enquiry.php',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({kind:'quote',submissionId:ref+'-'+Math.random().toString(36).slice(2,10),hp:'',fields:data})}).then(r=>r.ok?r.json():Promise.reject(r)).then(j=>{if(!j||!j.success)throw new Error('send');finish(j.reference||ref)}).catch(()=>{b.disabled=false;b.textContent='Send request →';e.textContent='Sorry, your request could not be sent. Please try again in a moment.'})}
 $('back').onclick=()=>{if(step>0){step--;show()}};
 function sum(){const rows=[['Service',NAMES[svc]||'—'],['From',[$('city').value,$('from').value].filter(Boolean).join(', ')||'—'],['To',$('to').value||'—'],['Extras',[$('xc').checked&&'Customs',$('xd').checked&&'Delivery',$('xp').checked&&'Collection'].filter(Boolean).join(', ')||'—'],['Cargo',$('desc').value||'—'],['Weight',$('kg').value?$('kg').value+' kg':'—'],['Volume',$('cbm').value?$('cbm').value+' CBM':'—']];
   $('sum').innerHTML=rows.map(r=>`<div><dt>${r[0]}</dt><dd>${r[1].replace(/</g,'&lt;')}</dd></div>`).join('')}
 document.querySelectorAll('#qf input,#qf select,#qf textarea').forEach(i=>i.addEventListener('input',sum));
-function finish(){const d=new Date(),ref=`GCL-${String(d.getFullYear()).slice(2)}${String(d.getMonth()+1).padStart(2,'0')}${String(d.getDate()).padStart(2,'0')}-${Math.floor(1000+Math.random()*9000)}`;
+function finish(ref){
   steps.forEach(s=>s.classList.remove('on'));$('nav2').style.display='none';$('err').textContent='';$('refno').textContent=ref;$('done').classList.add('show');step=4;$('pf').style.width='calc(100% - 20px)';$('pp').style.left='calc(100% - 10px)';marks.forEach(m=>m.className='done')}
 show();window.scrollTo(0,0);
 })();

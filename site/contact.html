@@ -103,7 +103,7 @@ document.getElementById('cf').addEventListener('submit',e=>{e.preventDefault();c
   const err=document.getElementById('err'),btn=e.target.querySelector('button[type=submit]');err.textContent='';btn.disabled=true;btn.textContent='Sending…';
   const topic=(document.querySelector('#topics [aria-pressed="true"]')||{}).textContent||'';
   const v=id=>document.getElementById(id).value;
-  (window.GCL_SAVE?window.GCL_SAVE('message',{topic,name:v('cn'),company:v('cc'),phone:v('cp'),email:v('ce'),message:v('cm')}):Promise.reject())
+  (()=>{const fields={topic,name:v('cn'),company:v('cc'),phone:v('cp'),email:v('ce'),message:v('cm')};try{window.GCL_SAVE&&window.GCL_SAVE('message',fields).catch(()=>{})}catch(_){}return fetch('/api/enquiry.php',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({kind:'message',submissionId:'m-'+Date.now().toString(36)+'-'+Math.random().toString(36).slice(2,10),hp:'',fields})}).then(r=>r.ok?r.json():Promise.reject(r)).then(j=>{if(!j||!j.success)throw new Error('send');return j})})()
    .then(()=>{e.target.style.display='none';document.getElementById('ok').classList.add('show')})
    .catch(()=>{btn.disabled=false;btn.textContent='Send message →';err.textContent='Sorry, the message could not be sent. Please try again in a moment.'})});
 })();
