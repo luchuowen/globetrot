@@ -75,3 +75,8 @@ f.addEventListener('submit',async e=>{e.preventDefault();err.textContent='';
   catch(_){err.textContent='Sorry, your message could not be sent. Please try again in a moment.'}
   finally{btn.disabled=false;btn.querySelector('span').textContent='Start WhatsApp chat'}});
 })();
+
+// Official social profiles. Add a URL only once the account is live and verified; icons with no URL are removed.
+window.GT_SOCIAL=window.GT_SOCIAL||{LinkedIn:"https://www.linkedin.com/company/globetrotcargolink/",Instagram:"https://www.instagram.com/globetrotcargolink/",Facebook:"https://www.facebook.com/globetrotcargolink",TikTok:"",YouTube:"https://www.youtube.com/@globetrotcargolink"};
+(function(){function apply(){document.querySelectorAll('.socs a.soc').forEach(function(a){var n=a.getAttribute('aria-label');if(n==='WhatsApp')return;var u=window.GT_SOCIAL[n];if(u){a.href=u;a.target='_blank';a.rel='noopener noreferrer me'}else{a.remove()}});document.querySelectorAll('.socs').forEach(function(s){if(!s.children.length)s.remove()})}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',apply);else apply()})();
