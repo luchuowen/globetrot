@@ -15,11 +15,17 @@ Probabilities of above-baseline (saves/shares/enquiries): skit ~45% (few-thousan
 Realistic wk1: hundreds of views, dozens of saves/shares, 3-10 WhatsApp enquiries. Success metric = enquiries per post.
 
 ## Proposed Week 1 (awaiting Owen sign-off)
-- Mon 2 Nov graphic: simplified 4-square "Importer Bingo" (big Swahili/English text). Centre: "Una Globetrot: track mzigo kwenye portal". CTA "Forward kwa rafiki anayesubiri mzigo" + "Tuulize kwenye WhatsApp". Post WhatsApp Status + Facebook (IG mirror).
+- Mon 2 Nov graphic: simplified 4-square "Importer Bingo" (big Swahili/English text). Centre: "Una Globetrot: track your package on the portal". CTA "Forward kwa rafiki anayesubiri package" + "Tuulize kwenye WhatsApp". Post WhatsApp Status + Facebook (IG mirror).
 - Wed 4 Nov carousel: "5 mistakes before goods ship": confirm documents and terms before paying; check Certificate of Origin (most imports, some exempt, ask us; check KRA for current rules); vague product descriptions on invoice; agree who delivers to Nairobi/port; get duties and charges explained before you pay. Last slide: save/send + WhatsApp. Add slide 6: Singles Day Wed 11 Nov, Black Friday Fri 27 Nov (dates only).
-- Fri 6 Nov video 18-22s "Mzigo Ni Wapi?": open mid-argument "SOON SOON NI LINI?!"; staff reveal ~14s ("Track mzigo wako kwenye portal."); end on "Ukijua mzigo wako uko wapi, unalala."; "Import China kwa uwazi"; WhatsApp keyword on screen only; burned-in subtitles; commercial-library music or voice only. Alt/backup: Myth vs Fact (clearing).
+- Fri 6 Nov video 18-22s "Where is my package?": open mid-argument ""SOON" FROM THE SUPPLIER AGAIN?!"; staff reveal ~14s ("Track your package on the portal."); end on "Ukijua package wako uko wapi, unalala."; "Import China kwa uwazi"; WhatsApp keyword on screen only; burned-in subtitles; commercial-library music or voice only. Alt/backup: Myth vs Fact (clearing).
 - Stories/Status: Mon sea-vs-air poll; Tue CoO 3 frames; Wed myth/fact quiz; Thu 11.11 reminder (no arrival promises); Fri "Import Questions Friday" (answers next Mon; "depends on goods, message us" for prices/duty/days).
 - Seeding (free): staff post to own Status + 3 groups in first hour; opted-in client broadcast; value-first posts in importer Facebook groups.
 
 ## Needs owner/client confirmation
 1 Staff on camera consent + who plays importer/agent. 2 Reply-time promise and WhatsApp staffing. 3 OK to mention Certificate of Origin guidance; check KRA notice before posting. 4 Mock tracking screen OK. 5 TikTok commercial-library music. 6 Holding reply for "how many years/registered?" questions (answer: "Message us on WhatsApp for our company details").
+
+## CORRECTIONS from Owen (31 Oct 2026) - these override anything above
+- LANGUAGE: English. Kenyans say "Where is my package?" - never "mzigo". No Swahili/Sheng in copy unless Owen approves a specific line.
+- NO CLIENT FOOTAGE / NO STAFF ON CAMERA yet (assignment just starting). All TikTok video = motion graphics / animation / text-on-screen only: kinetic type, animated chat mock-ups, animated tracking-screen mock-up, icons, shapes. No real people, plates, or shipment data.
+- TikTok = 3 motion videos/week (Mon, Wed, Fri), 15-30s vertical, hook in 2s, burned-in subtitles, commercial-library music only.
+- Skit idea becomes an animated chat/text story ("Supplier: Shipped already!" ... "Where is my package?") ending on portal tracking. Staff-on-camera options removed from Week 1.

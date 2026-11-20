@@ -83,3 +83,88 @@ Registration email (all): **info@globetrotcargolink.com** (CONFIRMED by Owen). B
 - 2026-10-31: Week 1 research redone for an established, licensed operator (3 idea agents + 2 critics). Removed all 'new company' angles; corrected 01_client_and_positioning.md and 14_week1_research_gate. Revised line-up saved in 14; awaiting Owen sign-off. No content produced; 98% not claimable.
 - 2026-10-31: Owen: start from customer challenges. Saved 15_customer_challenges_to_solutions.md; Week 1 to be rebuilt around it.
 - 2026-10-31: Website Office/Location 'Nairobi, Kenya' now links to Google Maps search for Pacific Crest Mall Nairobi (letterhead address; not the GBP pin share link, which needs verified listing). Edited live cPanel index.html + contact.html and repo site/index.html, contact.html, src/contact.html. Also bumped site.js?v=8 to v=9 on all other live pages (about, contact, faq, import-guide, network, quote, services, tools, track) so footer social icons work site-wide. Repo commit pending (Owen).
+- 2026-10-31: Owen corrections: copy in English ('Where is my package?', not 'mzigo'); no client footage/staff on camera yet, TikTok = motion graphics only, 3/week Mon-Wed-Fri. Updated 14 and 15.
+- 2026-10-31: TikTok motion style options (A chat story, B kinetic type, C route map) + Monday 'Where is my package?' storyboard published as artifact https://claude.ai/artifact/WaGTTgmTLXozFiXK5QRkZL. Awaiting Owen's pick; then build Monday video.
+- 2026-10-31: Owen: no website colours on videos; wants story-led motion with synced sound. Options artifact (same URL) reworked into 3 films with own palettes + synthesized sound (A Sticker pop, B Paper-cut journey, C Expectation vs reality). Awaiting pick; then render Monday MP4 with mixed audio. Only the logo stays constant.
+- 2026-10-31: Owen picked Direction B (paper-cut journey). Rendered Mon 2 Nov TikTok video 18s 1080x1920 H.264+AAC with synthesized foley + light music bed, Globetrot logo top and end card, all text in a clear band above graphics (no text over art). Saved Content/2026-11-02_Mon_tiktok_where-is-my-package.mp4. Awaiting Owen approval before posting; commercial-library music swap optional at upload. Uses 'Inter Display' (Archivo not installable offline).
+- 2026-10-31: Owen: v1 too fast/unclear. Message agreed: 'Stop chasing the package, track it online with Globetrot' (calls + waiting vs client portal). Rebuilt Mon 2 Nov TikTok as v2: 24s, 4 scenes (chase on phone, portal check, route/no more chasing, end card w/ logo + WhatsApp), slower pace, minor-to-major music, ring/ding sounds synced. Saved Content/2026-11-02_Mon_tiktok_track-online-v2.mp4 (v1 file superseded). Portal screen labelled ILLUSTRATION. Awaiting Owen approval.
+- 2026-10-31: Mon 2 Nov TikTok v3 (Owen: keep original paper-cut graphics, open on ringing phone, longer interesting story). 43s: phone ringing chase -> 'Where is my package?' note -> warehouse -> ship at sea -> port/truck -> doorstep ding dong -> portal check (Illustration) -> end card logo + WhatsApp. Saved Content/2026-11-02_Mon_tiktok_track-online-v3.mp4 (supersedes v1, v2). Awaiting Owen approval.
+- 2026-10-31: Owen flagged BLANK first frame (v1/v2 opened on empty sky). RULE: never show blank frames. v3 re-rendered: frame 0 shows logo + title + ringing phone; scene starts show content at once; wipes are now a narrow bar (no full-screen solid); automated check found 0 blank frames. v1/v2 moved to Content/_old_versions. Current: Content/2026-11-02_Mon_tiktok_track-online-v3.mp4.
+- 2026-10-31: Owen: v3 confusing (all problem, solution 1s). v4 restructured: problem ~8s (ringing phone, calls, 'Where is my package?' note) then 'With Globetrot, you just look' and the journey (warehouse, sea, port/truck, door+ding dong) each shown beside a phone portal that ticks Shipped / On the water / On the road / Delivered in sync (portal labelled ILLUSTRATION), end card logo + WhatsApp. 39s. Background back to original sky blue (I had changed it to yellow/mint without being asked: do not change palette unasked). 0 blank frames. Saved Content/2026-11-02_Mon_tiktok_track-online-v4.mp4; v3 moved to _old_versions.
+
+- 2026-10-31: TikTok Mon video v5 delivered. Journey picture now large (864x888); tracker is a slim strip above titles (no phone squeezing). Synced ticks unchanged, blank-frame scan 0. v4 moved to _old_versions.
+
+- 2026-10-31: TikTok Mon video v6: removed all "illustration" wording and the portal header text from the tracker. v5 moved to _old_versions.
+
+- 2026-10-31: TikTok Mon video v7: end card copy now "Ship with Globetrot, / Track your package online." (Owen). v6 moved to _old_versions.
+
+- 2026-10-31: Owen asked to schedule Mon video on all channels. NOT scheduled: Chrome TikTok Studio is signed into NAVAC Global (not @globetrotcargolink); upload discarded, nothing posted. Meta Business Suite page blank/not signed in; LinkedIn company admin URL shows page unavailable; YouTube Studio account unverified. Needs Owen to sign each into Globetrot accounts.
+
+- 2026-10-31: Wed 4 Nov TikTok motion video v1 built (Owen chose topic "What will it cost?"): 36.5s, paper-cut style, original sky blue, problem (great price -> extra charges, ~9s) then Globetrot (message us, costs explained, you agree, we ship) with slim synced strip, English copy, no prices/numbers, synced sound, blank-frame scan 0. End card: "Ship with Globetrot, Know before you pay." File: Content/2026-11-04_Wed_tiktok_know-before-you-pay-v1.mp4. Awaiting Owen approval.
+
+- 2026-10-31: TikTok Mon video v7 SCHEDULED on @globetrotcargolink for Mon 2 Nov 07:00 (Nairobi), public. Done in Chrome "Browser 2" (that browser is signed in to the Globetrot TikTok; "Browser 1" is signed in to NAVAC accounts: do not post there). Caption: "Stop chasing your package. Ship with Globetrot, track your package online. WhatsApp +254 792 330 000 #GlobetrotCargolink #ImportToKenya #FreightForwarding". Declined TikTok automatic content checks prompt; allowed scheduled-saving prompt. Meta/YouTube/LinkedIn not yet scheduled (Owen to sign in).
+
+- 2026-10-31 Wed 4 Nov TikTok: v1 (know-before-you-pay) and v2 (2D) rejected; options A/B/C rated 1/10. Rule: Wed must not repeat Monday's video style. Rebuilt as 3D cinematic.
+- 2026-10-31 Wed TikTok 3d-v1 made (42.5s, "No surprise charges", Content/2026-11-04_Wed_tiktok_no-surprise-charges-3d-v1.mp4). Awaiting Owen approval; not yet scheduled. Wed v1 moved to _old_versions.
+- 2026-10-31 Wed 3D video scheduled on Globetrot TikTok (Browser 2) for Wed 4 Nov 07:00 Nairobi. Upload copy re-encoded to 8.8MB (bridge limit 10MB); caption: "Exact quote first. No surprise charges. Ship with Globetrot. WhatsApp +254 792 330 000". Posts list shows Mon 2 Nov + Wed 4 Nov both scheduled.
+- 2026-10-31 YouTube Shorts (Globetrot channel UCkZZ6FAiM6NHs8-hWzkqZow, Browser 2): scheduled Mon 2 Nov 07:00 ("Where is my package? Track it online with Globetrot", Mon v7) and Wed 4 Nov 07:00 ("No surprise charges. Ship with Globetrot", Wed 3d-v1), GMT+3, not made for kids. Both show Scheduled in Studio > Shorts.
+- 2026-11-02 LinkedIn Mon post drafted (Content/2026-11-02_Mon_linkedin-post.md); dropped brief's 'open for business' opener (implies new). Awaiting Owen OK to publish as company page.
+- 2026-11-02 LinkedIn Mon post: Owen picked Option C, headline changed to 'Importing into Kenya?' (Content/2026-11-02_Mon_linkedin_importing-into-kenya.png + _linkedin-post.md). NOT posted: connected Chrome is signed in as Christine's LinkedIn profile (no admin on page 145396250); Owen's NAVAC Global admin browser is not connected. Needs Owen to sign in / reconnect.
+- 2026-11-02 LinkedIn Mon graphic updated per Owen: dark navy logo band, orange footer with white WhatsApp pill. Still not posted (needs admin browser).
+- 2026-11-02 LinkedIn Mon post PUBLISHED on Globetrot company page (page 145396250) via Browser 1 (Luchu Owen admin profile): Option C, headline 'Importing into Kenya?', caption from Content/2026-11-02_Mon_linkedin-post.md, link preview removed, image attached. Declined 'share on your profile' prompt. Note: Browser 1 = NAVAC admin LinkedIn; Browser 2 = Globetrot TikTok/YouTube/cPanel + Christine LinkedIn (no page admin).
+- 2026-11-02 LinkedIn engagement (as Globetrot page, Browser 1): first comment on own Mon post ("Have a shipment coming to Kenya? Message us on WhatsApp +254 792 330 000 with what you are shipping and where from."). Page now follows 10 pages: KRA, Kenya Ports Authority, Kenya Airways, Kenya Association of Manufacturers, KEPSA, Kenya Airports Authority, KNCCI, A.P. Moller-Maersk, DHL Global Forwarding, KenTrade. Commented as page on KenTrade's importer-guide post (thanks, helpful for importers). Skipped KRA tax-amnesty post (no value to add). Pages can follow pages only, not people; people-follows would need Owen's profile (not done).
+- 2026-11-02: Instagram Story + Facebook Story PUBLISHED (Sea or air? graphic, Content/2026-11-02_Mon_story_sea-or-air.png). WhatsApp Status NOT done: WhatsApp Business not registered.
+- 2026-11-02: Wed 4 Nov carousel "5 mistakes importers make" (8 slides, Content/2026-11-04_Wed_carousel_5-mistakes.pdf) SCHEDULED 08:00 EAT on Facebook, Instagram (caption + hashtags verified) and LinkedIn (PDF document post). TikTok + YouTube Wed videos already scheduled 07:00.
+
+## 2026-11-02 Week 2 (Mon 9 / Wed 11 / Fri 13 Nov) scheduled, all EAT
+- Content approved by Owen. Mon graphic + Wed 8-slide carousel + Mon/Wed/Fri videos + Mon/Wed/Fri Stories (Content in week2 files).
+- Meta (FB+IG): Mon graphic 08:00, Mon/Wed/Fri Reels 08:00, Wed carousel 08:00, Mon/Wed/Fri Stories (Wed/Fri 08:30). Verified in Planner.
+- TikTok 07:00 and YouTube Shorts 07:00 on 9/11/13 Nov, verified. TikTok 9 Nov caption has filename appended (cosmetic).
+- LinkedIn (Browser 1): Mon graphic, Wed carousel (8 images), Fri video, all 08:00; verified in scheduled posts list.
+- WhatsApp Status week-2 files in Content/WhatsApp_Status (Mon, Wed, Fri images + Fri video): manual upload by Owen.
+- Pending: BMS week-2 tasks (Owen must sign in, idle timeout), first comments/pins on post days.
+
+## 2026-11-02 Week 3 (Mon 16 / Wed 18 / Fri 20 Nov) scheduled, all EAT
+- Content: Mon stamp-poster graphic (cargo insurance), Wed 8-slide chat carousel (6 supplier questions), Fri receipt-style video, plus Mon/Wed videos, Stories (Mon/Wed/Fri).
+- Meta (FB+IG): Mon/Wed graphic or carousel 08:00, Mon/Wed/Fri Reels 08:00, Mon/Wed/Fri Stories 08:30. Verified in Planner.
+- TikTok 07:00 Wed/Fri; Mon 16 Nov landed 13:40 (cosmetic slip, uneditable). YouTube Shorts 07:00 Mon/Wed/Fri.
+- LinkedIn (Browser 1): Mon graphic, Wed carousel (8 images), Fri video, all 08:00; verified in scheduled posts list.
+- WhatsApp Status week-3 files in Content/WhatsApp_Status (Mon, Wed, Fri images + Fri video): manual upload by Owen.
+- Done: BMS week-3 tasks updated. Pending: first comments/pins on post days.
+- 2026-11-04 Wed first comments posted as page: LinkedIn, FB, IG (carousel: 'Which of these 5 have you seen happen?...WhatsApp CTA'); YouTube Short + TikTok ('Want every charge listed before you ship?...WhatsApp CTA'). YouTube pin still blocked (selfie/ID). FB/IG Reels not checked.
+- 2026-11-06 Fri: Reels FB+IG, LI video, TikTok, YT Short, Stories FB+IG all LIVE. First comments posted as page on LI, YT, TikTok, IG reel, FB reel (Import Questions CTA). Stats 6 Nov: FB followers 1, IG 21, LI 1 (17 impressions total since 2 Nov), YT 1 sub (Mon Short 36 views, Wed 3, Fri 0), TikTok Fri 61 views, Mon/Wed 0; FB reel Fri 178 views, IG reel 14 views. YT pin still blocked. WA Status files for 6 Nov still need manual upload.
+- 2026-11-06 outbound engagement (as Globetrot identity): TikTok 5 follows + 1 comment (DaisyOdhiambo1 KRA notice); YouTube subscribed KRA, KPA; FB followed KRA, KPA, KEBS + comment on KPA vessel-schedule post; IG comment on kenya_ports CMA CGM reel (follows 5: kenya_ports, kenya_revenue.authority, kebskenya, officialkqcargo, kifwa_ke); Meta inbox DM reply to harlem_logistics; LinkedIn page now follows 12 (added KEBS, Shippers Council of Eastern Africa) + comment on KEBS World Quality Week post. No viewer comments from others yet. Standing duty: check/reply to comments+DMs each post day, 2-3 outbound comments/platform/week, no unverified facts.
+- 2026-11-09 Mon posts live all channels (IG reel+photo, FB reel 304 views, TikTok 86 views, YT Short, LinkedIn). First comments posted as Globetrot on IG/TikTok/YT/FB/LI. YouTube comments PINNED (2, 4, 6, 9 Nov Shorts) - pin works, ID check no longer blocking. IG/TikTok/FB/LinkedIn cannot pin own comment (menus show Edit/Delete only; do NOT click Delete). Outbound: IG comment on kebskenya World Quality Week post; KEBS replied to our LinkedIn comment (28 impressions) - replied as Globetrot. TikTok followed back SAM + Silo. Note: IG kenya_revenue.authority is unofficial/empty (0 posts); prefer kenya_ports/kebskenya. TikTok web: click comment box, then type (typing unfocused triggers shortcuts). FB Business Suite defaults to NAVAC Global asset - switch portfolio to Globetrot before acting. Stories 9 Nov + WA Status 9 Nov still to verify/manual.
+
+## 11 Nov 2026 (Wed) engagement log
+- Wed carousel live on LinkedIn (30m after schedule); first comment posted as Globetrot page (CTA +254 792 330 000).
+- First comments posted earlier on TikTok, IG, YouTube (pinned), FB as Globetrot.
+- TikTok: SAM follow-back showed Following but Following count still 0 after reload; Silo/fm follow-backs also not persisting. Followers 3. Platform limitation; do not retry repeatedly.
+- No outside comments on any post yet; no new DMs. IG followers ~30.
+- LinkedIn: no new page notifications beyond KEBS reply (9 Nov).
+
+## 11 Nov 2026 Week 4 build + schedule log
+- Week 4 (23/25/27 Nov) built final, plain English, no Swahili. Topic: KRA notice 5 Nov 2026 (11 goods outside Ksh2M consolidated framework, not a ban) + Black Friday 5-cost carousel + 'Follow your money' video.
+- Scheduled EAT: TikTok 07:00 x3, YouTube 07:00 x3, FB+IG Reels 08:00 x3, FB+IG Mon graphic 08:00, Wed carousel 08:00, Stories 08:30 x3, LinkedIn 08:00 x3 (verified list).
+- WhatsApp Status files delivered to Owen (manual upload). Files in Content/week4/.
+- Still due: first comments + YouTube pins on 23/25/27 Nov; BMS week-4 update (needs sign-in); 16 Nov TikTok slip (13:40) stands.
+
+## 11 Nov 2026 Engagement round 1 (as Globetrot page, plain English)
+- LinkedIn: liked + commented KRA (session dates), DHL (air freight peak).
+- Instagram: commented kenya_ports (milestone), kebskenya (food standards plan).
+- TikTok: commented JahaziCoaches (importer tip).
+- YouTube: subscribed TradeLink (David Onderi), Customs Trade AI; liked + commented COMESA vs NON-COMESA, Customs Trade AI. Studio inbox: 0 unresponded.
+- Facebook: liked + commented KRA (tax amnesty sessions), KPA (MV Green Future), KEBS (Codex plan). Already following KRA, KPA, KEBS. Inbox: HARLEM_ENT IG DM already answered.
+- Standing rule: run engagement every post day and 2x midweek without reminders. Log each round here.
+
+## 12 Nov 2026 Growth diagnosis + fixes
+- Data 13 Oct-11 Nov: FB 645 views/546 viewers/21 interactions/1 follow/0 link clicks. IG 468 views/122 reach/61 interactions/70 profile visits. IG now 41 followers, 119 following. TikTok 3 followers (was 0 following; followed 6 Kenyan import accounts 12 Nov).
+- Cause: pages started ~2 Nov, no seed audience, organic only, no link clicks, outbound engagement only began 11 Nov.
+- Done 12 Nov: TikTok follows x6; IG bio + globetrotcargolink.com (save unverified, link field is mobile-only); TikTok display name change to 'Globetrot Cargolink' attempted, did not stick (retry). Client follow-us message drafted (Globetrot_follow_us_message.md).
+- Needs Owen/client: ad budget decision (none spent), client network push, WhatsApp Business registration, GBP video verification, IG link on phone.
+- Note: browser in use must be Browser 2 (c5850f3e) for Globetrot accounts; Browser 1 TikTok/IG = navacglobal. Never act there as Globetrot.
+
+## 17 Nov 2026 Audit
+- TikTok: 5 followers, 0 following (12 Nov follows did NOT persist; retried 5 follows, still 0 after reload => web follows blocked/failing). Display name now Globetrot Cargolink (OK). Videos 77-140 views.
+- No engagement logged 13-16 Nov by scheduled runs (KB empty, no 19_daily_metrics.md). Lunch run took 2 min. Prompts rewritten 17 Nov with mandatory verify + log.
+- TikTok search results mostly 2025 posts: only engage posts under 7 days old.
